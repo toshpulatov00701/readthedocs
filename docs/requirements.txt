@@ -1,0 +1,4 @@
+sphinx==7.3.7
+sphinx-rtd-theme==2.0.0
+myst-parser==2.0.0    # Agar Markdown yozsangiz, aks holda olib tashlang
+sphinx-autodoc-typehints==2.2.2
