@@ -20,6 +20,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 html_theme = 'sphinx_rtd_theme'   # Read the Docs rasmi temasi
 
 html_static_path = ['_static']
+html_css_files = ['custom.css']
 
 # Maxsus logo (rasmni docs/_static/ ichiga joylashtiring)
 # html_logo = "_static/mylogo.png"
@@ -30,5 +31,3 @@ html_theme_options = {
     'sticky_navigation': True,
     'navigation_depth': 3,
 }
-def setup(app):
-    app.add_css_file("custom.css")
