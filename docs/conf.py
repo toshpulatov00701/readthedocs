@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'readthedocsai'
+project = 'myAI'
 copyright = '2025, Abduhalil'
 author = 'Abduhalil'
 release = '1.0'
