@@ -1,0 +1,15 @@
+/* Sidebar reklama blokini yashirish (sphinx_rtd_theme) */
+.wy-nav-side .ethical-rtd {
+    display: none !important;
+}
+
+/* Har qanday joydagi EthicalAds konteynerlarini ham yopib qo'yamiz */
+.ethical-rtd,
+.ethical-rtd .ad-container {
+    display: none !important;
+}
+
+/* Versiya tanlash oynasini (main / stable va h.k.) yashirish */
+.rst-versions {
+    display: none !important;
+}
