@@ -1,4 +1,4 @@
-# Machine learning
+# Mashinali o‘rganish
 
    ```{toctree}
    :maxdepth: 2

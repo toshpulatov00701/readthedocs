@@ -1,4 +1,4 @@
-Mashinali o‘rganish (*Machine learning*)
+Mashinali o‘rganish
 ================
 **Mashinali o‘rganish(*Machine learning*)** — bu SIning bir tarmog‘i bo‘lib, mashinalar ma’lumotlar asosida tajriba orttiradi va o‘z faoliyatini yaxshilaydi, ya’ni dasturchi har bir qadamni qo‘lda ko‘rsatmaydi.
 
