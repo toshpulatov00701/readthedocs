@@ -9,3 +9,4 @@ Bo'lim tavsifi va qisqa kirish matni.
 
    install
    usage
+   for-test
