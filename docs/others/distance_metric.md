@@ -8,7 +8,7 @@ Masofa metrikasi $d(x,y)$ quyidagi shartlarni qanoatlantirishi kerak:
    $d(x,y) \geq 0$
 
 2. Identiklik:  
-   $d(x,y) = 0 \;\;\Longleftrightarrow\;\; x = y$
+   $d(x,y) = 0 \;\Longleftrightarrow\; x = y$
 
 3. Simmetriya:  
    $d(x,y) = d(y,x)$

@@ -10,6 +10,7 @@ release = '1.0'
 extensions = [
     # 'sphinx.ext.autodoc',     # Agar docstringlardan API hosil qilmoqchi bo‘lsangiz
     # 'sphinx.ext.napoleon',    # Google/NumPy style docstringlar uchun
+    "sphinx.ext.mathjax",
     'myst_parser',            # Agar Markdown ishlatmoqchi bo‘lsangiz
 ]
 
