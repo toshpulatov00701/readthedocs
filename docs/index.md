@@ -9,4 +9,4 @@ Email: [abduhalil00701@gmail.com]
 
    index
    main
-   machine_learning
+   machine_learning/index
