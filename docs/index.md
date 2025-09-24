@@ -6,7 +6,6 @@ Email: [abduhalil00701@gmail.com]
 
    ```{toctree}
    :maxdepth: 2
-   :caption: Mundarija
 
    index
    main
