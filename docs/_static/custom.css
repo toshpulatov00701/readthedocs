@@ -16,3 +16,6 @@
 readthedocs-flyout { 
     display: none !important;
   }
+#kirish ul.simple li{
+    margin-top: 10px;
+}

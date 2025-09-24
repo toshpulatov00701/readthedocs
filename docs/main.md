@@ -6,18 +6,18 @@ Kirish
 
 Sun'iy intellektning asosiy bo‘limlari:
 
-- Mashinali o‘rganish (*Machine learning*) - Kompyuterlar ma’lumotlardan naqsh (pattern) va qonuniyatlarni o‘rganadi va shu asosida bashorat yoki qaror qabul qiladi.
+- **Mashinali o‘rganish (*Machine learning*)** - Kompyuterlar ma’lumotlardan naqsh (pattern) va qonuniyatlarni o‘rganadi va shu asosida bashorat yoki qaror qabul qiladi.
   
-- Kompyuterli ko‘rish (*Computer vision*) - Kompyuter tasvir yoki videodan obyektlarni ko‘rish va tanish qobiliyatiga ega bo‘ladi. Masalan: yuzni aniqlash, avtoulov raqamini o‘qish.
+- **Kompyuterli ko‘rish (*Computer vision*)** - Kompyuter tasvir yoki videodan obyektlarni ko‘rish va tanish qobiliyatiga ega bo‘ladi. Masalan: yuzni aniqlash, avtoulov raqamini o‘qish.
 
-- Qat'iymas mantiq (*Fuzzy logic*) - Aniq “ha” yoki “yo‘q” qarorlardan tashqari, orasidagi qiymatlar (masalan, “biroz issiq”, “ko‘proq sovuq”) bilan ishlashga imkon beradi. Masalan: konditsioner avtomatik boshqaruvi.
+- **Qat'iymas mantiq (*Fuzzy logic*)** - Aniq “ha” yoki “yo‘q” qarorlardan tashqari, orasidagi qiymatlar (masalan, “biroz issiq”, “ko‘proq sovuq”) bilan ishlashga imkon beradi. Masalan: konditsioner avtomatik boshqaruvi.
 
-- Ekspert tizimlar (*Expert systems*) - Ma’lum bir sohaga oid qoidalar va bilimlar bazasiga tayanib, mutaxassis kabi qaror chiqaradi. Masalan: tibbiy diagnostika dasturi.
+- **Ekspert tizimlar (*Expert systems*)** - Ma’lum bir sohaga oid qoidalar va bilimlar bazasiga tayanib, mutaxassis kabi qaror chiqaradi. Masalan: tibbiy diagnostika dasturi.
   
-- Robototexnika (*Robotics*) - AI yordamida robotlar harakatlanish, idrok qilish va muhit bilan o‘zaro ta’sir qilish imkoniyatiga ega bo‘ladi. Masalan: omborda buyurtmalarni yig‘uvchi robot.
+- **Robototexnika (*Robotics*)** - AI yordamida robotlar harakatlanish, idrok qilish va muhit bilan o‘zaro ta’sir qilish imkoniyatiga ega bo‘ladi. Masalan: omborda buyurtmalarni yig‘uvchi robot.
 
-- Neyron tarmoqlar / Chuqur o‘rganish (*Neural networks/deep learning*) - Inson miyasi ishlashiga o‘xshash model: ko‘p qatlamli tarmoqlar orqali murakkab naqshlarni o‘rganadi.
+- **Neyron tarmoqlar / Chuqur o‘rganish (*Neural networks/deep learning*)** - Inson miyasi ishlashiga o‘xshash model: ko‘p qatlamli tarmoqlar orqali murakkab naqshlarni o‘rganadi.
 
-- Tabiiy tilni qayta ishlash (*Natural language processing*) - Kompyuterning inson tilini tushunishi, qayta ishlashi va yaratishi.
+- **Tabiiy tilni qayta ishlash (*Natural language processing*)** - Kompyuterning inson tilini tushunishi, qayta ishlashi va yaratishi.
 
-- Generativ AI (*Generative AI*) - Yangi kontent — matn, rasm, musiqa yoki video yaratadigan modellar.
+- **Generativ AI (*Generative AI*)** - Yangi kontent — matn, rasm, musiqa yoki video yaratadigan modellar.
