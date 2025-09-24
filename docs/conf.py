@@ -33,3 +33,13 @@ html_theme_options = {
     'sticky_navigation': True,
     'navigation_depth': 3,
 }
+
+myst_enable_extensions = [
+    "dollarmath",  # $inline$ va $$block$$ matematikalar
+    "amsmath",     # \begin{align} ... \end{align} va h.k.
+]
+
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}

@@ -16,6 +16,6 @@
 readthedocs-flyout { 
     display: none !important;
   }
-ul.simple li{
+ul.simple li, ol.simple li{
     margin-top: 10px;
 }

@@ -13,3 +13,9 @@
 .rst-versions {
     display: none !important;
 }
+readthedocs-flyout { 
+    display: none !important;
+  }
+ul.simple li, ol.simple li{
+    margin-top: 10px;
+}
