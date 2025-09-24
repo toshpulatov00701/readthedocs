@@ -13,3 +13,6 @@
 .rst-versions {
     display: none !important;
 }
+readthedocs-flyout .floating{
+    display: none !important;
+}
