@@ -1,5 +1,4 @@
-# Mundarija
-fff ddd sss aaa
+# Machine learning
 
    ```{toctree}
    :maxdepth: 2
