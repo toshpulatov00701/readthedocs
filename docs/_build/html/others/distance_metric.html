@@ -48,6 +48,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../main.html">Kirish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../machine_learning/index.html">Mashinali o‘rganish</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../machine_learning/machine_learning.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../machine_learning/kmeans_alg.html">K-means</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../machine_learning/kmeans_alg.html#asosiy-goya-no-toc">Asosiy g‘oya {: .no-toc }</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machine_learning/kmeans_alg.html#ishlash-bosqichlari-no-toc">Ishlash bosqichlari  {: .no-toc }</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machine_learning/kmeans_alg.html#afzalliklari-no-toc">Afzalliklari {: .no-toc }</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machine_learning/kmeans_alg.html#kamchiliklari-no-toc">Kamchiliklari  {: .no-toc }</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machine_learning/kmeans_alg.html#k-qiymatini-tanlash-usullari-no-toc">K qiymatini tanlash usullari {: .no-toc }</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Boshqa</a><ul class="current">
@@ -90,6 +98,7 @@
 <li><p>Simmetriya: <span class="math notranslate nohighlight">\(d(x,y) = d(y,x)\)</span></p></li>
 <li><p>Uchburchak tengsizlik: <span class="math notranslate nohighlight">\(d(x,z) \leq d(x,y) + d(y,z)\)</span></p></li>
 </ol>
+<hr class="docutils" />
 <p><strong>Metrika turlari:</strong></p>
 <ul class="simple">
 <li><p><strong>Evklid masofasi (<em>Euclidean Distance</em>)</strong> - Ikki nuqta orasidagi “to‘g‘ri chiziqli” masofa. Geometrik masofa sifatida ishlatiladi.</p></li>
@@ -100,6 +109,7 @@ d(x,y) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}
 \]</div>
 <p><span class="math notranslate nohighlight">\(x = (1,2), \quad y = (4,6) \;\implies\;
 d(x,y) = \sqrt{(1-4)^2 + (2-6)^2} = 5\)</span></p>
+<hr class="docutils" />
 <ul class="simple">
 <li><p><strong>Manxetten masofasi (<em>Manhattan / Taxicab Distance</em>) yoki L1 norm</strong> – bu ikki nuqta orasidagi masofani faqat oʻqlar boʻyicha oʻlchaydi. Outlierlarga chidamli.</p></li>
 </ul>
@@ -109,6 +119,7 @@ d(x,y) = \sum_{i=1}^n |x_i - y_i|
 \]</div>
 <p><span class="math notranslate nohighlight">\(x = (1,2), \quad y = (4,6) \;\;\implies\;\;
 d(x,y) = |1-4| + |2-6| = 7\)</span></p>
+<hr class="docutils" />
 <ul class="simple">
 <li><p><strong>Chebyshev masofasi (<em>Chebyshev Distance</em>) yoki  L∞ normasi</strong> - Ikkita nuqta orasidagi eng katta koordinata farqi. Shaxmatdagi shoh (king) harakatlanishi aynan Chebyshev masofasi bilan aniqlanadi.</p></li>
 </ul>
@@ -118,6 +129,7 @@ d(x,y) = \max_i |x_i - y_i|
 \]</div>
 <p><span class="math notranslate nohighlight">\(x = (1,2), \quad y = (4,6) \;\;\implies\;\;
 d(x,y) = \max\{\,|1-4|,\,|2-6|\,\} = \max\{3,4\} = 4\)</span></p>
+<hr class="docutils" />
 <ul class="simple">
 <li><p><strong>Minkowski masofasi (<em>Minkowski Distance</em>)</strong> - bu Evklid, Manxetten va Chebyshev masofalarini yagona formulaga birlashtirgan umumiy masofa formulasi.</p></li>
 </ul>
@@ -135,6 +147,7 @@ d(x,y) = \left( \sum_{i=1}^n |x_i - y_i|^p \right)^{\tfrac{1}{p}}
 \left( \sum_{i=1}^n |x_i - y_i|^p \right)^{\tfrac{1}{p}}
 = \max_i |x_i - y_i|
 \]</div>
+<hr class="docutils" />
 <ul class="simple">
 <li><p><strong>Kosinus masofa (<em>Cosine Similarity / Cosine Distance</em>)</strong> - ikkita vektor orasidagi burchak asosida ularning o‘xshashlik darajasini o‘lchaydigan usuldir. Ya’ni bu metrika ikkita vektor bir-biriga qanday yo‘nalganini o‘lchaydi, ularning uzunligi emas, faqat yo‘nalishi muhim.</p></li>
 </ul>
@@ -172,6 +185,7 @@ A \cdot B = 3 \cdot 7 + 5 \cdot 9 = 21 + 45 = 66
 \[
 d(A,B) = 1 - \cos(A,B) \approx 1 - 0.994 = 0.006
 \]</div>
+<hr class="docutils" />
 <ul class="simple">
 <li><p><strong>Jaccard masofasi (<em>Jaccard Distance</em>)</strong> - bu ikki to‘plam orasidagi umumiylik va farq asosida ularning o‘xshashlik darajasini o‘lchaydigan metrika.</p></li>
 </ul>
@@ -200,6 +214,56 @@ A \cup B = \{1,2,3,4,5,6\}, \quad |A \cup B| = 6
 d(A,B) = 1 - \frac{|A \cap B|}{|A \cup B|}
        = 1 - \frac{2}{6}
        = \tfrac{2}{3} \approx 0.667
+\]</div>
+<hr class="docutils" />
+<ul class="simple">
+<li><p><strong>Hamming masofasi (<em>Hamming distance</em>)</strong> – bu ikkita bir xil uzunlikdagi belgilar ketma-ketligida nechta pozitsiya farq qiladi — shuni o‘lchaydigan metrika. Ya’ni: “Nechta belgisi bir-biridan farq qiladi?”</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+d(x,y) = \sum_{i=1}^n [\,x_i \neq y_i\,]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+x = (1,0,1,1), \quad y = (1,1,0,1)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+d(x,y) = [1=1] + [0\neq1] + [1\neq0] + [1=1] = 0+1+1+0 = 2
+\]</div>
+<hr class="docutils" />
+<ul class="simple">
+<li><p><strong>Juravlev masofa (<em>Juravlev Distance</em>)</strong> – turli alomatlar(nominal va miqdoriy) fazosi uchun.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\rho(x,y) = \sum_{j \in I} |x_j - y_j|
++ \sum_{j \in J}
+\begin{cases}
+1, &amp; x_j \neq y_j, \\
+0, &amp; x_j = y_j
+\end{cases}
+\end{split}\]</div>
+<p>Misol:</p>
+<div class="math notranslate nohighlight">
+\[
+A1 = [3, 5, 1]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+A2 = [7, 8, 1]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+A3 = [9, 4, 0]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D(A1, A2) = |3-7| + |5-8| + 0{1=1 \text{bo’lgani uchun}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D(A1, A3) = |3-9| + |5-9| + 1{1!=0 \text{bo’lgani uchun}}
 \]</div>
 </section>
 

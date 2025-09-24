@@ -1,5 +1,4 @@
-Masofa metrikalari
-================
+# Masofa metrikalari
 
 **Masofa metrikalari (*Distance metrics*)** — obyektlar o‘rtasidagi o‘xshashlik yoki farqni o‘lchash uchun qo‘llaniladi.  
 
@@ -13,7 +12,9 @@ Masofa metrikasi $d(x,y)$ quyidagi shartlarni qanoatlantirishi kerak:
 
 4. Uchburchak tengsizlik: $d(x,z) \leq d(x,y) + d(y,z)$
 
-**Metrika turlari:**
+---
+
+ **Metrika turlari:**
 
 - **Evklid masofasi (*Euclidean Distance*)** - Ikki nuqta orasidagi "to‘g‘ri chiziqli" masofa. Geometrik masofa sifatida ishlatiladi.
 
@@ -24,6 +25,8 @@ $$
 $x = (1,2), \quad y = (4,6) \;\implies\;
 d(x,y) = \sqrt{(1-4)^2 + (2-6)^2} = 5$
 
+---
+
 - **Manxetten masofasi (*Manhattan / Taxicab Distance*) yoki L1 norm** – bu ikki nuqta orasidagi masofani faqat oʻqlar boʻyicha oʻlchaydi. Outlierlarga chidamli.
 
 $$
@@ -33,6 +36,8 @@ $$
 $x = (1,2), \quad y = (4,6) \;\;\implies\;\;
 d(x,y) = |1-4| + |2-6| = 7$
 
+---
+
 - **Chebyshev masofasi (*Chebyshev Distance*) yoki  L∞ normasi** - Ikkita nuqta orasidagi eng katta koordinata farqi. Shaxmatdagi shoh (king) harakatlanishi aynan Chebyshev masofasi bilan aniqlanadi.
 
 $$
@@ -41,6 +46,8 @@ $$
 
 $x = (1,2), \quad y = (4,6) \;\;\implies\;\;
 d(x,y) = \max\{\,|1-4|,\,|2-6|\,\} = \max\{3,4\} = 4$
+
+---
 
 - **Minkowski masofasi (*Minkowski Distance*)** - bu Evklid, Manxetten va Chebyshev masofalarini yagona formulaga birlashtirgan umumiy masofa formulasi.
 
@@ -60,6 +67,8 @@ $$
 \left( \sum_{i=1}^n |x_i - y_i|^p \right)^{\tfrac{1}{p}}
 = \max_i |x_i - y_i|
 $$
+
+---
 
 - **Kosinus masofa (*Cosine Similarity / Cosine Distance*)** - ikkita vektor orasidagi burchak asosida ularning o‘xshashlik darajasini o‘lchaydigan usuldir. Ya’ni bu metrika ikkita vektor bir-biriga qanday yo‘nalganini o‘lchaydi, ularning uzunligi emas, faqat yo‘nalishi muhim.
 
@@ -102,6 +111,8 @@ $$
 d(A,B) = 1 - \cos(A,B) \approx 1 - 0.994 = 0.006
 $$
 
+---
+
 - **Jaccard masofasi (*Jaccard Distance*)** - bu ikki to‘plam orasidagi umumiylik va farq asosida ularning o‘xshashlik darajasini o‘lchaydigan metrika.
 
 $$
@@ -132,4 +143,55 @@ $$
 d(A,B) = 1 - \frac{|A \cap B|}{|A \cup B|}
        = 1 - \frac{2}{6}
        = \tfrac{2}{3} \approx 0.667
+$$
+
+---
+
+- **Hamming masofasi (*Hamming distance*)** – bu ikkita bir xil uzunlikdagi belgilar ketma-ketligida nechta pozitsiya farq qiladi — shuni o‘lchaydigan metrika. Ya’ni: "Nechta belgisi bir-biridan farq qiladi?"
+
+$$
+d(x,y) = \sum_{i=1}^n [\,x_i \neq y_i\,]
+$$
+
+$$
+x = (1,0,1,1), \quad y = (1,1,0,1)
+$$
+
+$$
+d(x,y) = [1=1] + [0\neq1] + [1\neq0] + [1=1] = 0+1+1+0 = 2
+$$
+
+---
+
+- **Juravlev masofa (*Juravlev Distance*)** – turli alomatlar(nominal va miqdoriy) fazosi uchun.
+
+$$
+\rho(x,y) = \sum_{j \in I} |x_j - y_j|
++ \sum_{j \in J}
+\begin{cases}
+1, & x_j \neq y_j, \\
+0, & x_j = y_j
+\end{cases}
+$$
+
+Misol:
+
+$$
+A1 = [3, 5, 1]
+$$
+
+$$
+A2 = [7, 8, 1]
+$$
+
+$$
+A3 = [9, 4, 0]
+$$
+
+$$
+D(A1, A2) = |3-7| + |5-8| + 0{1=1 \text{bo’lgani uchun}}
+$$
+
+$$
+D(A1, A3) = |3-9| + |5-9| + 1{1!=0 \text{bo’lgani uchun}}
 $$
