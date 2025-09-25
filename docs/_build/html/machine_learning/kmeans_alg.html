@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Boshqa" href="../others/index.html" />
-    <link rel="prev" title="Mashinali o‘rganish" href="machine_learning.html" /> 
+    <link rel="next" title="Matematika" href="../mathematics/index.html" />
+    <link rel="prev" title="Baholash metrikalari" href="evaluation_metrics.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,12 +48,18 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../main.html">Kirish</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Mashinali o‘rganish</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="machine_learning.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html">Baholash metrikalari</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">K-means</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mathematics/index.html">Matematika</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/density_distributions.html">Zichlik taqsimotlari</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../others/index.html">Boshqa</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../others/distance_metric.html">Masofa metrikalari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/glossary.html">Glosary</a></li>
 </ul>
 </li>
 </ul>
@@ -88,7 +94,8 @@
 <p><strong>K-means</strong> – bu klasterlash (clustering) algoritmi. U <strong>nazoratsiz(o‘qituvchisiz) o‘rganish (<em>unsupervised learning</em>)</strong> guruhiga kiradi. Ya’ni, bizda oldindan tayyor <strong>yorliqlar (labels)</strong> yo‘q, faqat berilganlar bor. Algoritmning vazifasi – o‘xshash obyektlarni guruhlash.<br />
 Masalan: mijozlarni xarid qilish odatlariga qarab guruhlash, hujjatlarni mavzulariga qarab ajratish va hokazo.</p>
 <hr class="docutils" />
-<h2>Asosiy g‘oya</h2>
+<section id="asosiy-goya">
+<h2>Asosiy g‘oya<a class="headerlink" href="#asosiy-goya" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Klasterlar sonini tanlaymiz (K)</p></li>
 <li><p>Algoritm ma’lumotlarni shunday bo‘lishga harakat qiladiki:</p>
@@ -99,7 +106,8 @@ Masalan: mijozlarni xarid qilish odatlariga qarab guruhlash, hujjatlarni mavzula
 </li>
 </ol>
 <hr class="docutils" />
-<h2>Ishlash bosqichlari</h2>
+<section id="ishlash-bosqichlari">
+<h3>Ishlash bosqichlari<a class="headerlink" href="#ishlash-bosqichlari" title="Link to this heading"></a></h3>
 <p>K-means iterativ ishlaydi:</p>
 <ol class="arabic">
 <li><p>Boshlang‘ich markazlarni tanlash</p>
@@ -135,35 +143,43 @@ Masalan: mijozlarni xarid qilish odatlariga qarab guruhlash, hujjatlarni mavzula
 </ul>
 </li>
 </ol>
+</section>
 <hr class="docutils" />
-<h2>Afzalliklari</h2>
+<section id="afzalliklari">
+<h3>Afzalliklari<a class="headerlink" href="#afzalliklari" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Oddiy va tez ishlaydi.</p></li>
 <li><p>Katta ma’lumotlarda samarali.</p></li>
 <li><p>Natija tushunarli – har bir obyekt qaysi klasterga tegishli ekanligi ko‘rinadi.</p></li>
 </ul>
+</section>
 <hr class="docutils" />
-<h2>Kamchiliklari</h2>
+<section id="kamchiliklari">
+<h3>Kamchiliklari<a class="headerlink" href="#kamchiliklari" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>K qiymatini oldindan berish kerak.</p></li>
 <li><p>Klasterlar sferik shaklda bo‘lishini taxmin qiladi.</p></li>
 <li><p>Agar klasterlar har xil kattalikda yoki zichlikda bo‘lsa – yaxshi ishlamaydi.</p></li>
 <li><p>Boshlang‘ich markazlar noto‘g‘ri tanlansa, yomon natija chiqishi mumkin.</p></li>
 </ul>
+</section>
 <hr class="docutils" />
-<h2>K qiymatini tanlash usullari</h2>
+<section id="k-qiymatini-tanlash-usullari">
+<h3>K qiymatini tanlash usullari<a class="headerlink" href="#k-qiymatini-tanlash-usullari" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Elbow method (tirsak usuli) – turli K qiymatlar uchun xatolikni hisoblab grafik chiziladi. Grafik “tirsak” bo‘lib sinib tushgan joy optimal K sifatida olinadi.</p></li>
 <li><p>Silhouette coefficient – obyektning o‘z klasteriga qanchalik mos kelishi va boshqa klasterlardan qanchalik uzoqligini o‘lchaydi.</p></li>
 </ul>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="machine_learning.html" class="btn btn-neutral float-left" title="Mashinali o‘rganish" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../others/index.html" class="btn btn-neutral float-right" title="Boshqa" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="evaluation_metrics.html" class="btn btn-neutral float-left" title="Baholash metrikalari" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../mathematics/index.html" class="btn btn-neutral float-right" title="Matematika" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

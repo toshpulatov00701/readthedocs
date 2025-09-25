@@ -11,8 +11,8 @@ Confusion Matrix (chalg‘ituvchi matritsa):
 
 ---
 
-<h3>Accuracy (aniqlik darajasi)</h3>
-To‘g‘ri klassifikatsiya qilingan obyektlar sonining jami obyektlar soniga nisbati.
+## Accuracy (aniqlik darajasi)
+to‘g‘ri klassifikatsiya qilingan obyektlar sonining jami obyektlar soniga nisbati.
 
 $$
 \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
@@ -22,7 +22,7 @@ Model “kasal” deganlarning 87% haqiqatda kasal bo‘lgan.
 
 ---
 
-<h3>Precision (aniqlik, ishonchlilik)</h3>
+## Precision (aniqlik, ishonchlilik)
 model musbat (masalan, anomal) deb aytganlarning nechta qismi aslida ham musbat?
 
 $$
@@ -33,7 +33,7 @@ Savolga javob beradi: “Model anomal dedi, haqiqatda ham anomal bo‘lish ehtim
 
 ---
 
-<h3>Recall (Qamrov)</h3>
+## Recall (Qamrov)
 Haqiqiy musbatlardan nechtasini model topa oldi?
 
 $$
@@ -44,7 +44,7 @@ Haqiqiy kasallarning 55% ini model topgan.
 
 ---
 
-<h3>F1-score</h3>
+## F1-score
 Precision va Recall orasidagi balansni o‘lchaydi (ularning harmonik o‘rtachasi).
 
 $$
@@ -59,7 +59,7 @@ Nega alohida ko‘rsatkich yetarli emas?
 
 ---
 
-<h3>Misol</h3>
+## Misol
 Aytaylik, sizda 100 ta test namunasi bor:
 
 - TP = 40  

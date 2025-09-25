@@ -17,9 +17,13 @@
       <script src="../_static/documentation_options.js?v=f2a433a1"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boshqa" href="../others/index.html" />
+    <link rel="prev" title="Matematika" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,7 +45,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../main.html">Kirish</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../machine_learning/index.html">Mashinali o‘rganish</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../machine_learning/overview.html">Mashinali o‘rganish</a></li>
@@ -49,7 +53,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../machine_learning/kmeans_alg.html">K-means</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Matematika</a><ul class="simple">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Matematika</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Zichlik taqsimotlari</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../others/index.html">Boshqa</a><ul>
@@ -73,6 +78,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Matematika</a></li>
       <li class="breadcrumb-item active">Zichlik taqsimotlari</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -86,43 +92,278 @@
 <h1>Zichlik taqsimotlari<a class="headerlink" href="#zichlik-taqsimotlari" title="Link to this heading"></a></h1>
 <p><strong>Zichlik taqsimotlari (<em>probability density distributions</em>)</strong> — ehtimollik nazariyasida va statistikada muhim tushuncha bo‘lib, tasodifiy miqdorlarning qanday qiymatlar atrofida ko‘proq to‘planishini ifodalaydi.</p>
 <hr class="docutils" />
-<h2>Zichlik taqsimot turlari:</h2>
-<h3>Diskret taqsimotlar</h3>  
-Tasodifiy miqdor faqat *cheklangan yoki sanaladigan* qiymatlarni oladi.  
-Misollar:
-- Bernulli  
-- Binomial  
-- Geometrik  
-- Poisson  
-- Negativ binomial (Pascal)  
-<h3>Uzluksiz taqsimotlar</h3>  
-Tasodifiy miqdor *istalgan haqiqiy qiymat*ni olishi mumkin.  
-Misollar:
-- Normal (Gauss)  
-- Eksponensial  
-- Birlashgan (Uniform)  
-- Gamma  
-- Beta  
-- Kauchy  
-- Log-normal  
-<h3>Maxsus/statistik taqsimotlar</h3>
-Asosan *statistika va testlarda* qo‘llaniladi.  
-Misollar:
-- $\chi^2$ (chi-kvadrat)  
-- Student t-taqsimoti  
-- Fisher F-taqsimoti  
-<h3>Ko‘p o‘lchamli (multivariate) taqsimotlar</h3>
-Bir nechta tasodifiy miqdorlarni birgalikda ifodalaydi.  
-Misollar:
-- Ko‘p o‘lchovli normal taqsimot  
-- Multinomial taqsimot  
-- Dirichlet taqsimoti  
+<section id="zichlik-taqsimot-turlari">
+<h2>Zichlik taqsimot turlari<a class="headerlink" href="#zichlik-taqsimot-turlari" title="Link to this heading"></a></h2>
+<section id="diskret-taqsimotlar">
+<h3>Diskret taqsimotlar<a class="headerlink" href="#diskret-taqsimotlar" title="Link to this heading"></a></h3>
+<p>Tasodifiy miqdor faqat <em>cheklangan yoki sanaladigan</em> qiymatlarni oladi.<br />
+Misollar:</p>
+<ul class="simple">
+<li><p>Bernulli</p></li>
+<li><p>Binomial</p></li>
+<li><p>Geometrik</p></li>
+<li><p>Poisson</p></li>
+<li><p>Negativ binomial (Pascal)</p></li>
+</ul>
+</section>
+<section id="uzluksiz-taqsimotlar">
+<h3>Uzluksiz taqsimotlar<a class="headerlink" href="#uzluksiz-taqsimotlar" title="Link to this heading"></a></h3>
+<p>Tasodifiy miqdor <em>istalgan haqiqiy qiymat</em>ni olishi mumkin.<br />
+Misollar:</p>
+<ul class="simple">
+<li><p>Normal (Gauss)</p></li>
+<li><p>Eksponensial</p></li>
+<li><p>Birlashgan (Uniform)</p></li>
+<li><p>Gamma</p></li>
+<li><p>Beta</p></li>
+<li><p>Kauchy</p></li>
+<li><p>Log-normal</p></li>
+</ul>
+</section>
+<section id="maxsus-statistik-taqsimotlar">
+<h3>Maxsus/statistik taqsimotlar<a class="headerlink" href="#maxsus-statistik-taqsimotlar" title="Link to this heading"></a></h3>
+<p>Asosan statistika va testlarda qo‘llaniladi.<br />
+Misollar:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\chi^2\)</span> (chi-kvadrat)</p></li>
+<li><p>Student t-taqsimoti</p></li>
+<li><p>Fisher F-taqsimoti</p></li>
+</ul>
+</section>
+<section id="kop-olchamli-multivariate-taqsimotlar">
+<h3>Ko‘p o‘lchamli (multivariate) taqsimotlar<a class="headerlink" href="#kop-olchamli-multivariate-taqsimotlar" title="Link to this heading"></a></h3>
+<p>Bir nechta tasodifiy miqdorlarni birgalikda ifodalaydi.<br />
+Misollar:</p>
+<ul class="simple">
+<li><p>Ko‘p o‘lchovli normal taqsimot</p></li>
+<li><p>Multinomial taqsimot</p></li>
+<li><p>Dirichlet taqsimoti</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="zichlik-funksiyalari-density-functions">
+<h3>Zichlik funksiyalari(Density Functions)<a class="headerlink" href="#zichlik-funksiyalari-density-functions" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>PMF (Probability Mass Function – ehtimollik massasi funksiyasi) - diskret taqsimotlar (sanoq bo‘yicha qiymatlar).</p></li>
+<li><p>PDF (Probability Density Function - ehtimollik zichlik funksiyasi) - uzluksiz taqsimotlar (cheksiz qiymatlar).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ehtimollik-zichlik-funksiyasi-pdf">
+<h3>Ehtimollik zichlik funksiyasi (PDF)<a class="headerlink" href="#ehtimollik-zichlik-funksiyasi-pdf" title="Link to this heading"></a></h3>
+<p><strong>Ehtimollik zichlik funksiyasi (PDF, <em>Probability Density Function</em>)</strong> — bu uzluksiz tasodifiy miqdorning ehtimollik taqsimotini ifodalovchi matematik funksiya.</p>
+<p>Agar <span class="math notranslate nohighlight">\(X\)</span> – uzluksiz tasodifiy miqdor bo‘lsa, uning zichlik funksiyasi <span class="math notranslate nohighlight">\(f(x)\)</span> quyidagi xossalarga ega:</p>
+<ol class="arabic">
+<li><p>Manfiy emaslik sharti:</p>
+<div class="math notranslate nohighlight">
+\[
+   f(x) \geq 0, \quad \forall x
+   \]</div>
+</li>
+<li><p>Umumiy ehtimollik 1 ga teng:</p>
+<div class="math notranslate nohighlight">
+\[
+   \int_{-\infty}^{\infty} f(x)\, dx = 1
+   \]</div>
+</li>
+<li><p>Oraliq ehtimolligi:
+Tasodifiy miqdor <span class="math notranslate nohighlight">\(X\)</span> oraliq <span class="math notranslate nohighlight">\((a, b)\)</span> ga tushish ehtimoli:</p>
+<div class="math notranslate nohighlight">
+\[
+   P(a \leq X \leq b) = \int_{a}^{b} f(x)\, dx
+   \]</div>
+</li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="gauss-normal-taqsimot-zichligi">
+<h2>Gauss (Normal) taqsimot zichligi<a class="headerlink" href="#gauss-normal-taqsimot-zichligi" title="Link to this heading"></a></h2>
+<p><strong>Gaus (normal) taqsimot zichligi</strong> — bu <span class="math notranslate nohighlight">\(\mu\)</span> o‘rtacha atrofida eng ko‘p to‘plangan va undan uzoqlashgan sari eksponensial tezlikda kamayadigan qo‘ng‘iroqsimon (bell-shaped) ehtimollik zichlik funksiyasi bo‘lib, statistikada eng ko‘p qo‘llaniladigan taqsimotdir.</p>
+<p>Zichlik funksiyasi (PDF formulasi):</p>
+<p>Agar <span class="math notranslate nohighlight">\(X \sim N(\mu, \sigma^2)\)</span> normal taqsimotga ega bo‘lsa, uning zichlik funksiyasi quyidagicha:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp\!\left( -\frac{(x-\mu)^2}{2\sigma^2} \right), \quad -\infty &lt; x &lt; \infty
+\]</div>
+<p>Bu yerda:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu\)</span> — matematik kutilma (o‘rtacha qiymat)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> — standart og‘ish - ayni tarqoqlikni asl birlikda ifodalaydi. Amaliy tahlil, grafiklar, odatiy talqin uchun – standart og‘ish qulay.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\mu = \frac{1}{n} \sum_{i=1}^n x_i
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\sigma^2\)</span> — dispersiya - qiymatlarning o‘rtachadan kvadrat og‘ishi. tarqoqlikni kvadrat birlikda o‘lchaydi. Matematik nazariya, formulalar, ML algoritmlar – dispersiya majburiy, chunki u algebraik jihatdan ancha oddiy va qulay.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2}
+\]</div>
+<p>Asosiy xossalari:</p>
+<ol class="arabic">
+<li><p>Musbatlik</p>
+<div class="math notranslate nohighlight">
+\[
+   f(x) \geq 0 \quad \text{barcha } x \text{ lar uchun}
+   \]</div>
+</li>
+<li><p>Normallashganlik.
+Butun chiziq bo‘ylab integral 1 ga teng:</p>
+<div class="math notranslate nohighlight">
+\[
+   \int_{-\infty}^{\infty} f(x)\, dx = 1
+   \]</div>
+</li>
+<li><p>Simmetriklik. Zichlik grafigi <span class="math notranslate nohighlight">\(\mu\)</span> nuqtaga nisbatan simmetrik.</p></li>
+<li><p>Maksimal qiymat. Zichlikning eng yuqori nuqtasi markazda <span class="math notranslate nohighlight">\(x = \mu\)</span> bo‘lib, qiymati:</p>
+<div class="math notranslate nohighlight">
+\[
+   f(\mu) = \frac{1}{\sqrt{2\pi}\,\sigma}
+   \]</div>
+</li>
+<li><p>Chegaralar:</p>
+<ul class="simple">
+<li><p>Pastki chegara: <span class="math notranslate nohighlight">\(0\)</span> (cheksiz uzoqda nolga intiladi).</p></li>
+<li><p>Yuqori chegara: <span class="math notranslate nohighlight">\(\dfrac{1}{\sqrt{2\pi}\,\sigma}\)</span> (bu qiymat <span class="math notranslate nohighlight">\(\sigma\)</span> ga bog‘liq).</p></li>
+</ul>
+<p>Standart normal taqsimot</p>
+<p>Agar <span class="math notranslate nohighlight">\(\mu = 0\)</span>, <span class="math notranslate nohighlight">\(\sigma = 1\)</span> bo‘lsa:</p>
+<div class="math notranslate nohighlight">
+\[
+    f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}}
+    \]</div>
+<p>Bu taqsimot <strong>standart normal taqsimot</strong> yoki <strong>Z-taqsimot</strong> deb ataladi.</p>
+</li>
+<li><p>Normal (Gaus) taqsimotning klassik xossasi ma’lumotlarning uchrash extimolligi:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\([\mu - \sigma, \mu + \sigma] \;\; \approx 68.27\%\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\([\mu - 2\sigma, \mu + 2\sigma] \;\; \approx 95.45\%\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\([\mu - 3\sigma, \mu + 3\sigma] \;\; \approx 99.73\%\)</span></p></li>
+</ul>
+ <img src="../_static/gaus_distribution.png" alt="Rasm tavsifi" width="100%"/>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="dirichlet-taqsimoti">
+<h2>Dirichlet taqsimoti<a class="headerlink" href="#dirichlet-taqsimoti" title="Link to this heading"></a></h2>
+<p>Bu ko‘p o‘lchamli ehtimollik taqsimoti bo‘lib, odatda ko‘p nomli (categorical yoki multinomial) ehtimolliklarni modellashtirish uchun ishlatiladi. U Beta taqsimotining ko‘p o‘lchovli umumlashmasi hisoblanadi. Agar bizda bir nechta kategoriya bo‘lsa (masalan, 3 xil rang: qizil, ko‘k, yashil) va ularning ehtimollari qanday taqsimlanganini modellashtirmoqchi bo‘lsak, Dirichlet taqsimoti shu ehtimollarning tasodifiy taqsimlanishini beradi.</p>
+<p>Agar <span class="math notranslate nohighlight">\(K\)</span> o‘lchamli ehtimollik vektori</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x} = (x_1, x_2, \dots, x_K)
+\]</div>
+<p>bo‘lib,</p>
+<div class="math notranslate nohighlight">
+\[
+x_i \geq 0, \quad \sum_{i=1}^K x_i = 1
+\]</div>
+<p>bo‘lsa, <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> <strong>Dirichlet taqsimoti</strong>ga ega deyiladi:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x_1, \dots, x_K; \alpha_1, \dots, \alpha_K) =
+\frac{1}{B(\alpha)} \prod_{i=1}^K x_i^{\alpha_i - 1}
+\]</div>
+<p>Bu yerda:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\alpha = (\alpha_1, \alpha_2, \dots, \alpha_K)\)</span> — <strong>parametrlar vektori</strong>, <span class="math notranslate nohighlight">\(\alpha_i &gt; 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(B(\alpha)\)</span> — <strong>Beta funksiyasining umumlashgan ko‘rinishi</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+B(\alpha) = \frac{\prod_{i=1}^K \Gamma(\alpha_i)}{\Gamma\!\left(\sum_{i=1}^K \alpha_j\right)}
+\]</div>
+<section id="asosiy-xossalari">
+<h3>Asosiy xossalari<a class="headerlink" href="#asosiy-xossalari" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Parametrlar ta’siri</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\alpha_i\)</span> katta bo‘lsa, <span class="math notranslate nohighlight">\(x_i\)</span> kattaroq qiymatlarni olishga moyil bo‘ladi.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha_i &lt; 1\)</span> bo‘lsa, taqsimot burchaklarga yaqinlashadi.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha_i = 1\)</span> bo‘lsa, taqsimot bir tekis (uniform).</p></li>
+</ul>
+</li>
+<li><p>Matematik kutilma</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[X_i] = \frac{\alpha_i}{\sum_{j=1}^K \alpha_j}
+\]</div>
+<ol class="arabic simple">
+<li><p>Beta taqsimot bilan aloqasi</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(K=2\)</span> holatda Dirichlet taqsimoti oddiy <strong>Beta taqsimoti</strong>ga teng.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="misol">
+<h3>Misol<a class="headerlink" href="#misol" title="Link to this heading"></a></h3>
+<p>data = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3]
+Dirichlet: data = {1×10, 2×3, 3×2},  α = [10, 3, 2]</p>
+<p>Bu yerda uchta kategoriya bor (1, 2, 3). Berilgan ro‘yxatdagi sanash natijasida:  <span class="math notranslate nohighlight">\(n_1 = 10\)</span>, <span class="math notranslate nohighlight">\(n_2 = 3\)</span>, <span class="math notranslate nohighlight">\(n_3 = 2\)</span> (jami <span class="math notranslate nohighlight">\(N=15\)</span>).
+Dirichlet parametrlari: <span class="math notranslate nohighlight">\(\alpha = (\alpha_1, \alpha_2, \alpha_3) = (10, 3, 2)\)</span>,<br />
+va <span class="math notranslate nohighlight">\(\alpha_0 = \sum_i \alpha_i = 15\)</span>.</p>
+</section>
+</section>
+<section id="alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish">
+<h2><span class="math notranslate nohighlight">\(\alpha\)</span> ni taqsimotning o‘zi sifatida talqin qilish<a class="headerlink" href="#alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish" title="Link to this heading"></a></h2>
+<p>Agar <span class="math notranslate nohighlight">\(\mathbf{p} = (p_1, p_2, p_3) \sim \mathrm{Dir}(\alpha)\)</span> bo‘lsa:</p>
+<ul>
+<li><p><strong>Kutilma (mean)</strong></p>
+<div class="math notranslate nohighlight">
+\[
+  \mathbb{E}[p_i] = \frac{\alpha_i}{\alpha_0}
+  = \left(\tfrac{10}{15}, \tfrac{3}{15}, \tfrac{2}{15}\right)
+  = (0.6667, 0.2000, 0.1333).
+  \]</div>
+</li>
+<li><p><strong>MAP</strong> (agar <span class="math notranslate nohighlight">\(\alpha_i &gt; 1\)</span>)</p>
+<div class="math notranslate nohighlight">
+\[
+  p_i^{\text{MAP}} = \frac{\alpha_i-1}{\alpha_0-K}
+  = \left(\tfrac{9}{12}, \tfrac{2}{12}, \tfrac{1}{12}\right)
+  = (0.75, 0.1667, 0.0833).
+  \]</div>
+</li>
+<li><p><strong>Dispersiya</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  
+  \mathrm{Var}(p_i) = \frac{\alpha_i(\alpha_0-\alpha_i)}{\alpha_0^2(\alpha_0+1)}
+  \Rightarrow
+  \begin{cases}
+  \mathrm{Var}(p_1)\approx 0.01389 \\
+  \mathrm{Var}(p_2)\approx 0.01000 \\
+  \mathrm{Var}(p_3)\approx 0.00722
+  \end{cases}
+  \end{split}\]</div>
+<p>(Kovariatsiyalar manfiy:
+<span class="math notranslate nohighlight">\(\mathrm{Cov}(p_i,p_j)=-\frac{\alpha_i\alpha_j}{\alpha_0^2(\alpha_0+1)}\)</span>.)</p>
+</li>
+</ul>
+<p>Intuitiv ma’no: <span class="math notranslate nohighlight">\(\alpha\)</span> — “psevdo-hisoblar” (pseudo-counts). <span class="math notranslate nohighlight">\(\alpha_0=15\)</span> katta bo‘lgani sari <span class="math notranslate nohighlight">\(\mathbf{p}\)</span> o‘rtacha atrofida (0.667, 0.2, 0.133) kuchliroq jamlanadi.</p>
+<p>Grafik ko‘rinishi</p>
+<p>Dirichlet(10, 3, 2) dan olingan 3000 ta namunalar 2-simpleksda (uchburchak) quyidagicha tarqaladi:</p>
+<img src="../_static/dirichlet_simplex_alpha.png" alt="Rasm tavsifi"/>
+<ul class="simple">
+<li><p>⭐ belgisi — kutilma <span class="math notranslate nohighlight">\((0.6667, 0.2000, 0.1333)\)</span></p></li>
+<li><p>✖️ belgisi — MAP <span class="math notranslate nohighlight">\((0.75, 0.1667, 0.0833)\)</span></p></li>
+<li><p>Nuqtalar — tasodifiy namunalar</p></li>
+</ul>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Matematika" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../others/index.html" class="btn btn-neutral float-right" title="Boshqa" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

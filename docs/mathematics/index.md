@@ -1,6 +1,7 @@
 # Matematika
 
-   ```{toctree}
-   :maxdepth: 2
+```{toctree}
+:titlesonly:
+:maxdepth: 1
 
-    density_distributions
+density_distributions

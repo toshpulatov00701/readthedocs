@@ -7,7 +7,7 @@ Masalan: mijozlarni xarid qilish odatlariga qarab guruhlash, hujjatlarni mavzula
 
 ---
 
-<h2>Asosiy g‘oya</h2>
+## Asosiy g‘oya
 
 1. Klasterlar sonini tanlaymiz (K)
 2. Algoritm ma’lumotlarni shunday bo‘lishga harakat qiladiki:  
@@ -16,7 +16,7 @@ Masalan: mijozlarni xarid qilish odatlariga qarab guruhlash, hujjatlarni mavzula
 
 ---
 
-<h2>Ishlash bosqichlari</h2>
+### Ishlash bosqichlari
 
 K-means iterativ ishlaydi:  
 
@@ -44,7 +44,7 @@ K-means iterativ ishlaydi:
 
 ---
 
-<h2>Afzalliklari</h2>
+### Afzalliklari
 
 - Oddiy va tez ishlaydi.
 - Katta ma’lumotlarda samarali.
@@ -52,7 +52,7 @@ K-means iterativ ishlaydi:
 
 ---
 
-<h2>Kamchiliklari</h2>
+### Kamchiliklari
 
 - K qiymatini oldindan berish kerak.  
 - Klasterlar sferik shaklda bo‘lishini taxmin qiladi.  
@@ -61,7 +61,7 @@ K-means iterativ ishlaydi:
 
 ---
 
-<h2>K qiymatini tanlash usullari</h2>
+### K qiymatini tanlash usullari
 
 - Elbow method (tirsak usuli) – turli K qiymatlar uchun xatolikni hisoblab grafik chiziladi. Grafik “tirsak” bo‘lib sinib tushgan joy optimal K sifatida olinadi.  
 - Silhouette coefficient – obyektning o‘z klasteriga qanchalik mos kelishi va boshqa klasterlardan qanchalik uzoqligini o‘lchaydi.  

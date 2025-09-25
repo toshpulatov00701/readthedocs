@@ -29,10 +29,12 @@ html_show_sourcelink = False
 
 # Ixtiyoriy sozlamalar (navigatsiya uchun qulaylik)
 html_theme_options = {
-    'collapse_navigation': False,
-    'sticky_navigation': True,
-    'navigation_depth': 3,
+    "navigation_depth": 2,      # faqat sahifa nomlari
+    "collapse_navigation": False,
+    "includehidden": True,      # yashirin toctree'lar ham bo‘lsin (kerak bo‘lsa)
+    "sticky_navigation": True,
 }
+
 
 myst_enable_extensions = [
     "dollarmath",  # $inline$ va $$block$$ matematikalar

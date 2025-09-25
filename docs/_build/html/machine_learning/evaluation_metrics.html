@@ -53,6 +53,10 @@
 <li class="toctree-l2"><a class="reference internal" href="kmeans_alg.html">K-means</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../mathematics/index.html">Matematika</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/density_distributions.html">Zichlik taqsimotlari</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../others/index.html">Boshqa</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../others/distance_metric.html">Masofa metrikalari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../others/glossary.html">Glosary</a></li>
@@ -107,32 +111,39 @@
 </tbody>
 </table>
 <hr class="docutils" />
-<h3>Accuracy (aniqlik darajasi)</h3>
-To‘g‘ri klassifikatsiya qilingan obyektlar sonining jami obyektlar soniga nisbati.
+<section id="accuracy-aniqlik-darajasi">
+<h2>Accuracy (aniqlik darajasi)<a class="headerlink" href="#accuracy-aniqlik-darajasi" title="Link to this heading"></a></h2>
+<p>to‘g‘ri klassifikatsiya qilingan obyektlar sonining jami obyektlar soniga nisbati.</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
 \]</div>
 <p>Model “kasal” deganlarning 87% haqiqatda kasal bo‘lgan.</p>
+</section>
 <hr class="docutils" />
-<h3>Precision (aniqlik, ishonchlilik)</h3>
-model musbat (masalan, anomal) deb aytganlarning nechta qismi aslida ham musbat?
+<section id="precision-aniqlik-ishonchlilik">
+<h2>Precision (aniqlik, ishonchlilik)<a class="headerlink" href="#precision-aniqlik-ishonchlilik" title="Link to this heading"></a></h2>
+<p>model musbat (masalan, anomal) deb aytganlarning nechta qismi aslida ham musbat?</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Precision} = \frac{TP}{TP + FP}
 \]</div>
 <p>Savolga javob beradi: “Model anomal dedi, haqiqatda ham anomal bo‘lish ehtimoli nechcha %?”</p>
+</section>
 <hr class="docutils" />
-<h3>Recall (Qamrov)</h3>
-Haqiqiy musbatlardan nechtasini model topa oldi?
+<section id="recall-qamrov">
+<h2>Recall (Qamrov)<a class="headerlink" href="#recall-qamrov" title="Link to this heading"></a></h2>
+<p>Haqiqiy musbatlardan nechtasini model topa oldi?</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Recall} = \frac{TP}{TP + FN}
 \]</div>
 <p>Haqiqiy kasallarning 55% ini model topgan.</p>
+</section>
 <hr class="docutils" />
-<h3>F1-score</h3>
-Precision va Recall orasidagi balansni o‘lchaydi (ularning harmonik o‘rtachasi).
+<section id="f1-score">
+<h2>F1-score<a class="headerlink" href="#f1-score" title="Link to this heading"></a></h2>
+<p>Precision va Recall orasidagi balansni o‘lchaydi (ularning harmonik o‘rtachasi).</p>
 <div class="math notranslate nohighlight">
 \[
 \text{F1} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
@@ -143,9 +154,11 @@ Precision va Recall orasidagi balansni o‘lchaydi (ularning harmonik o‘rtacha
 <li><p>Agar faqat recall yuqori bo‘lsa, precision past bo‘lishi mumkin (ko‘p noto‘g‘ri pozitivlar chiqadi).</p></li>
 <li><p>F1-score ikkalasini harmonik o‘rtacha qilib baholaydi, shuning uchun bir tomonga og‘ib ketishni oldini oladi.</p></li>
 </ul>
+</section>
 <hr class="docutils" />
-<h3>Misol</h3>
-Aytaylik, sizda 100 ta test namunasi bor:
+<section id="misol">
+<h2>Misol<a class="headerlink" href="#misol" title="Link to this heading"></a></h2>
+<p>Aytaylik, sizda 100 ta test namunasi bor:</p>
 <ul class="simple">
 <li><p>TP = 40</p></li>
 <li><p>FP = 10</p></li>
@@ -159,6 +172,7 @@ Aytaylik, sizda 100 ta test namunasi bor:
 <li><p>Recall = 40 / (40+20) = <code class="docutils literal notranslate"><span class="pre">0.67</span> <span class="pre">(67%)</span></code></p></li>
 <li><p>F1-score ≈ <code class="docutils literal notranslate"><span class="pre">0.73</span> <span class="pre">(73%)</span></code></p></li>
 </ul>
+</section>
 </section>
 
 
