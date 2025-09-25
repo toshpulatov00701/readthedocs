@@ -3,5 +3,5 @@
    ```{toctree}
    :maxdepth: 2
 
-   machine_learning
+   overview
    kmeans_alg

@@ -1,4 +1,7 @@
 # K-means
+
+<img src="../_static/kmeans.gif" alt="Rasm tavsifi" width="100%"/>
+
 **K-means** – bu klasterlash (clustering) algoritmi. U **nazoratsiz(o‘qituvchisiz) o‘rganish (*unsupervised learning*)** guruhiga kiradi. Ya’ni, bizda oldindan tayyor **yorliqlar (labels)** yo‘q, faqat berilganlar bor. Algoritmning vazifasi – o‘xshash obyektlarni guruhlash.  
 Masalan: mijozlarni xarid qilish odatlariga qarab guruhlash, hujjatlarni mavzulariga qarab ajratish va hokazo.  
 
