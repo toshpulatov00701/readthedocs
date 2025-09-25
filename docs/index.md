@@ -10,4 +10,5 @@ Email: [abduhalil00701@gmail.com]
    index
    main
    machine_learning/index
+   mathematics/index
    others/index

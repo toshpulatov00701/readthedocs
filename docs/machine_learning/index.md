@@ -4,4 +4,5 @@
    :maxdepth: 2
 
    overview
+   evaluation_metrics
    kmeans_alg
