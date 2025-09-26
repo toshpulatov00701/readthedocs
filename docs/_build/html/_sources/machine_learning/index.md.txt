@@ -6,3 +6,4 @@
    overview
    evaluation_metrics
    kmeans_alg
+   dbscan_alg

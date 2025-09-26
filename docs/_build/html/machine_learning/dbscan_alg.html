@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mashinali o‘rganish &mdash; myAI 1.0 documentation</title>
+  <title>DBSCAN &mdash; myAI 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=dd794df2" />
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Mashinali o‘rganish" href="overview.html" />
-    <link rel="prev" title="Kirish" href="../main.html" /> 
+    <link rel="next" title="Matematika" href="../mathematics/index.html" />
+    <link rel="prev" title="K-means" href="kmeans_alg.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,11 +45,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../main.html">Kirish</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Mashinali o‘rganish</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Mashinali o‘rganish</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">Mashinali o‘rganish</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html">Baholash metrikalari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kmeans_alg.html">K-means</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html">DBSCAN</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DBSCAN</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mathematics/index.html">Matematika</a><ul>
@@ -77,7 +77,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Mashinali o‘rganish</li>
+          <li class="breadcrumb-item"><a href="index.html">Mashinali o‘rganish</a></li>
+      <li class="breadcrumb-item active">DBSCAN</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -86,41 +87,60 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="mashinali-organish">
-<h1>Mashinali o‘rganish<a class="headerlink" href="#mashinali-organish" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Mashinali o‘rganish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Baholash metrikalari</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html#recall-qamrov">Recall (Qamrov)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html#f1-score">F1-score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html#misol">Misol</a></li>
+  <section class="tex2jax_ignore mathjax_ignore" id="dbscan">
+<h1>DBSCAN<a class="headerlink" href="#dbscan" title="Link to this heading"></a></h1>
+<img src="../_static/dbscan.gif" alt="Rasm tavsifi" width="50%"/>
+<p><strong>DBSCAN (<em>Density-Based Spatial Clustering of Applications with Noise</em>)</strong> — bu <strong>zichlikka asoslangan klasterlash algoritmi</strong>. U 1996-yilda Ester va hamkorlari tomonidan taklif qilingan va ayniqsa <strong>shakli murakkab bo‘lgan klasterlarni aniqlashda</strong> hamda <strong>shovqin (noise) nuqtalarni ajratishda</strong> samarali hisoblanadi.</p>
+<section id="parametrlari">
+<h2>Parametrlari<a class="headerlink" href="#parametrlari" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>ε (eps)</strong> – radius (qo‘shnilik masofasi). Bir nuqtaning atrofidagi hududni belgilaydi.</p></li>
+<li><p><strong>minPts</strong> – minimal qo‘shnilar soni. Klaster hosil qilish uchun kerakli nuqtalar soni.</p></li>
+</ol>
+</section>
+<section id="nuqtalar-turlari">
+<h2>Nuqtalar turlari<a class="headerlink" href="#nuqtalar-turlari" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Yadro nuqta (Core point)</strong> – agar ε-radius ichida kamida <code class="docutils literal notranslate"><span class="pre">minPts</span></code> qo‘shnisi bo‘lsa.</p></li>
+<li><p><strong>Chekka nuqta (Border point)</strong> – ε ichida yadro nuqtaga bog‘langan, lekin qo‘shnilari yetarli bo‘lmagan.</p></li>
+<li><p><strong>Shovqin (Noise/Outlier)</strong> – hech qaysi klasterga kirmagan nuqta.</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="kmeans_alg.html">K-means</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kmeans_alg.html#asosiy-goya">Asosiy g‘oya</a></li>
+</section>
+<section id="ishlash-jarayoni">
+<h2>Ishlash jarayoni<a class="headerlink" href="#ishlash-jarayoni" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Bitta tasodifiy nuqta tanlanadi.</p></li>
+<li><p>Uning ε-radiusidagi qo‘shnilari hisoblanadi.</p></li>
+<li><p>Agar qo‘shnilar soni ≥ minPts → yangi klaster boshlanadi.</p></li>
+<li><p>Yadro nuqta orqali klaster qo‘shnilarga kengaytiriladi.</p></li>
+<li><p>Shunday qilib barcha nuqtalar ko‘rib chiqiladi.</p></li>
+</ol>
+</section>
+<section id="afzalliklari">
+<h2>Afzalliklari<a class="headerlink" href="#afzalliklari" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Oldindan klaster sonini (K) belgilash shart emas.</p></li>
+<li><p>Murakkab shaklli klasterlarni topa oladi (masalan, egri yoki yoy shaklidagi).</p></li>
+<li><p>Shovqinlarni alohida ajratib beradi.</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="dbscan_alg.html">DBSCAN</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#parametrlari">Parametrlari</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#nuqtalar-turlari">Nuqtalar turlari</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#ishlash-jarayoni">Ishlash jarayoni</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#afzalliklari">Afzalliklari</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#kamchiliklari">Kamchiliklari</a></li>
+</section>
+<section id="kamchiliklari">
+<h2>Kamchiliklari<a class="headerlink" href="#kamchiliklari" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>ε va minPts tanlash qiyin.</p></li>
+<li><p>Zichlik juda o‘zgaruvchan datasetlarda yaxshi ishlamasligi mumkin.</p></li>
+<li><p>Juda katta datasetlarda hisoblash og‘ir.</p></li>
 </ul>
-</li>
-</ul>
-</div>
+<p>Python kod: <a class="reference external" href="https://github.com/toshpulatov00701/ai_tasks/blob/main/DBSCAN/myDBSCAN.py">github.com</a></p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../main.html" class="btn btn-neutral float-left" title="Kirish" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="overview.html" class="btn btn-neutral float-right" title="Mashinali o‘rganish" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="kmeans_alg.html" class="btn btn-neutral float-left" title="K-means" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../mathematics/index.html" class="btn btn-neutral float-right" title="Matematika" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -255,7 +255,7 @@ Grafik ko‘rinishi
 
 Dirichlet(10, 3, 2) dan olingan 3000 ta namunalar 2-simpleksda (uchburchak) quyidagicha tarqaladi:
 
-<img src="../_static/dirichlet_simplex_alpha.png" alt="Rasm tavsifi"/>
+<img src="../_static/dirichlet_simplex_alpha.png" alt="Rasm tavsifi" width="50%"/>
 
 - ⭐ belgisi — kutilma $(0.6667, 0.2000, 0.1333)$  
 - ✖️ belgisi — MAP $(0.75, 0.1667, 0.0833)$  

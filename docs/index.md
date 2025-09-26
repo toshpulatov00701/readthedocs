@@ -12,3 +12,4 @@ Email: [abduhalil00701@gmail.com]
    machine_learning/index
    mathematics/index
    others/index
+   task_solution/index
