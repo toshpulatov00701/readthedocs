@@ -1,0 +1,155 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1.18. LOF (Local Outlier Factor) &mdash; myAI 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=dd794df2" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Masalalar yechimlari" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            myAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Kirish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning/index.html">Mashinali o‘rganish</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../machine_learning/overview.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../machine_learning/evaluation_metrics.html">Baholash metrikalari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../machine_learning/kmeans_alg.html">K-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../machine_learning/dbscan_alg.html">DBSCAN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mathematics/index.html">Matematika</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/density_distributions.html">Zichlik taqsimotlari</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../others/index.html">Boshqa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../others/distance_metric.html">Masofa metrikalari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/glossary.html">Glosary</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Masalalar yechimlari</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1.18. LOF (Local Outlier Factor)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Masalalar yechimlari</a></li>
+      <li class="breadcrumb-item active">1.18. LOF (Local Outlier Factor)</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="lof-local-outlier-factor">
+<h1>1.18. LOF (Local Outlier Factor)<a class="headerlink" href="#lof-local-outlier-factor" title="Link to this heading"></a></h1>
+<section id="lof-local-outlier-factor-asosida-anomal-obektlarni-aniqlash">
+<h2>LOF (Local Outlier Factor) asosida anomal ob’ektlarni aniqlash<a class="headerlink" href="#lof-local-outlier-factor-asosida-anomal-obektlarni-aniqlash" title="Link to this heading"></a></h2>
+<p>Berilgan <span class="math notranslate nohighlight">\(A=\{a_{ij}\}_{mn}\)</span> jadvalda <span class="math notranslate nohighlight">\(E_{0} = (S_{1}, \ldots, S_{m})\)</span> ob’ektlarning <span class="math notranslate nohighlight">\(n\)</span> miqdoriy alomatlar bo‘yicha tavsifi keltirilgan. Ikkita <span class="math notranslate nohighlight">\(S_{u}, S_{v} \in E_{0}\)</span> ob’ektlar o‘rtasidagi masofa <span class="math notranslate nohighlight">\(\rho(x,y)\)</span> e’vklid metrikasi bilan hisoblanadi. Tanlanmaning <span class="math notranslate nohighlight">\(S\)</span> ob’ektining <span class="math notranslate nohighlight">\(k\)</span> ta eng yaqin qo‘shnilarini <span class="math notranslate nohighlight">\(N_{k}(S)\)</span> bilan,<br />
+<span class="math notranslate nohighlight">\(k\text{–}dis(S)\)</span> orqali <span class="math notranslate nohighlight">\(S\)</span> ob’ektidan <span class="math notranslate nohighlight">\(k\)</span>–yaqin qo‘shnigacha bo‘lgan masofani belgilaylik.</p>
+<p><span class="math notranslate nohighlight">\(S_{v}\)</span> ob’ektidan <span class="math notranslate nohighlight">\(S_{u}\)</span> ob’ektgacha erishiluvchi masofa quyidagicha aniqlanadi:</p>
+<div class="math notranslate nohighlight">
+\[
+RD_{k}(S_{u}, S_{v}) = \max\{\,k\text{–}dis(S_{v}), \; \rho(S_{u}, S_{v})\}
+\]</div>
+<p>(1.a-rasmga qarang).
+<span class="math notranslate nohighlight">\(S_{u}\)</span> ob’ektga erishuvchanlikning lokal zichligi quyidagicha aniqlanadi:</p>
+<div class="math notranslate nohighlight">
+\[
+lrd_{k}(S_{u}) = \left( \frac{\sum_{S_{v} \in N_{k}(S_{u})} RD_{k}(S_{u}, S_{v})}{|N_{k}(S_{u})|} \right)^{-1}
+\]</div>
+<p>ya’ni <span class="math notranslate nohighlight">\(S_{u}\)</span> ob’ektga uning qo‘shnilaridan erishish masofalarining o‘rta arifmetikiga nisbatan teskari hisoblanadi.</p>
+<p>Erishishning lokal zichligi qo‘shnilarning erishish lokal zichligi bilan quyidagicha taqqoslanadi:</p>
+<div class="math notranslate nohighlight">
+\[
+LOF_{k}(S_{u}) = \frac{\sum_{S_{v} \in N_{k}(S_{u})} \dfrac{lrd_{k}(S_{v})}{lrd_{k}(S_{u})}}{|N_{k}(S_{u})|}
+\]</div>
+<p>ya’ni qo‘shnilarga erishishning o‘rtacha lokal zichligini ob’ektning o‘zining erishish lokal zichligiga bo‘lish orqali.</p>
+<p>Agar <span class="math notranslate nohighlight">\(LOF_{k}(S_{u})\)</span>, 1 yaqin yaqin qiymat teng bo‘lsa, Su ob’ektni qo‘shnilar bilan qiyoslash mumkin bo‘ladi (u holda bu ob’ekt anomal emas (sachratqi)). Birdan kichik qiymatlar zich sohani anglatadi (u ichki soha bo‘lishi mumkin), birdan еtarlicha katta bo‘lgan qiymatlar ob’ektning anomalligidan guvoh beradi.</p>
+<p>Berilgan E0 tanlanmaning <span class="math notranslate nohighlight">\(k=3,5,7\)</span> holatlar uchun barcha anomal ob’ektlari aniqlansin.</p>
+<img src="../_static/lof.png" alt="Rasm tavsifi"/>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Masalalar yechimlari" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Abduhalil.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
