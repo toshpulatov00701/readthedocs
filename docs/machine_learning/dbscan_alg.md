@@ -11,7 +11,7 @@
 
 ## Nuqtalar turlari
 
-- **Yadro nuqta (Core point)** – agar ε-radius ichida kamida `minPts` (shu obyektning o‘zi ham qo‘shib hisoblaganda) qo‘shnisi bo‘lsa.  
+- **Yadro nuqta (Core point)** – agar ε-radius ichida kamida `minPts` (shu obyektning o‘zini ham qo‘shib hisoblaganda) qo‘shnisi bo‘lsa.  
 - **Chekka nuqta (Border point)** – ε ichida yadro nuqtaga bog‘langan, lekin qo‘shnilari yetarli bo‘lmagan.  
 - **Shovqin (Noise/Outlier)** – hech qaysi klasterga kirmagan nuqta.
 
