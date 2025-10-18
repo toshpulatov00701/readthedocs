@@ -6,8 +6,10 @@
 
 ## Parametrlari
 
-1. **ε (eps)** – radius (qo‘shnilik masofasi). Bir nuqtaning atrofidagi hududni belgilaydi.  
+1. **ε (eps)** – radius. Bir nuqtaning atrofidagi hududni belgilaydi.  
 2. **minPts** – minimal qo‘shnilar soni. Klaster hosil qilish uchun kerakli nuqtalar soni.
+
+*! Agar biron obyekt berilgan ridiusga teng masofada bo'lsa, shu obyekt minPtsga qo'shiladi.*
 
 ## Nuqtalar turlari
 
