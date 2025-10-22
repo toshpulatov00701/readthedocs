@@ -11,11 +11,17 @@
 
 *! Agar biron obyekt berilgan ridiusga teng masofada bo'lsa, shu obyekt minPtsga qo'shiladi.*
 
-## Nuqtalar turlari
+## Obyektlar turlari
 
-- **Yadro nuqta (Core point)** – agar ε-radius ichida kamida `minPts` (shu obyektning o‘zini ham qo‘shib hisoblaganda) qo‘shnisi bo‘lsa.  
-- **Chekka nuqta (Border point)** – ε ichida yadro nuqtaga bog‘langan, lekin qo‘shnilari yetarli bo‘lmagan.  
-- **Shovqin (Noise/Outlier)** – hech qaysi klasterga kirmagan nuqta.
+- **Yadroviy (Core point)** – agar ε-radius ichida kamida `minPts` (shu obyektning o‘zini ham qo‘shib hisoblaganda) qo‘shnisi bo‘lsa.  
+- **Chegaraviy (Border point)** – ε ichida yadro obyektga bog‘langan, lekin qo‘shnilari yetarli bo‘lmagan.
+- **Anomal/Shovqin (Noise/Outlier)** – hech qaysi klasterga kirmagan nuqta.
+
+*! 2 ta klaster va ular o'rtasida bitta obyekt bor. O'rtaga turgan obyekt ikki klaster uchun ham chegaraviy. Oxirida o'rtada turgan obyekt qaysi klasterga tegishli bo'ladi? - DBSCAN algoritmi bunday holatlarni hal qilishda deterministik emas (noaniq) hisoblanadi, chunki bu amalga oshirishga bog'liq. Agar obyekt ikkala klasterning yadro nuqtasining radiusida bo'lsa, u qaysi klaster birinchi bo'lib tekshirilishiga/kengaytirilishiga bog'liq holda klasterga biriktiriladi. scikit-learn ning implementatsiyasida, birinchi bo'lib uni o'z ichiga olgan klasterga biriktirilib, boshqa klasterga qarash to'xtatiladi.*
+
+*! Agar eps radius ichida minPts dan kam obyekt bo'lsa, bu obyekt anomal yoki chegaraviyga nomzod hisoblanadi. Chunki uni oldindan anomal yoki chegaraviy deb aytib bo'lmaydi.*
+
+*!!! Klasterlar o'rtasida ham, klaster va chegaraviy obyekt o'rtasida ham bo'g'lovchi sifatida chegaraviy obyekt bo'lishi kerak emas. Klaster kengayishi faqat yadroviy bo'yicha bo'lishi shart.*
 
 ## Ishlash jarayoni
 
