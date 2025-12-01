@@ -42,5 +42,6 @@
 - ε va minPts tanlash qiyin.  
 - Zichlik juda o‘zgaruvchan datasetlarda yaxshi ishlamasligi mumkin.  
 - Juda katta datasetlarda hisoblash og‘ir.  
+- ...
 
 Python kod: [github.com](https://github.com/toshpulatov00701/ai_tasks/blob/main/DBSCAN/myDBSCAN.py)
