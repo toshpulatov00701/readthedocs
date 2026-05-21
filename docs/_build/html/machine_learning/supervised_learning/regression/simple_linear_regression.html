@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Linear Regression &mdash; myAI 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=dd794df2" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Multiple Linear Regression" href="multiple_linear_regression.html" />
+    <link rel="prev" title="Regression" href="../regression.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">Kirish</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Machine Learning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../supervised_learning.html">Supervised Learning</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../regression.html">Regression</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Simple Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="multiple_linear_regression.html">Multiple Linear Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../classification.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../knn.html">k-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../random_forest.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../svm.html">SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../logistic_regression.html">Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gradient_boosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../supervised_learning.html#algoritmlarning-qo-llanish-sohasi">Algoritmlarning qo’llanish sohasi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../evaluation_metrics.html">Baholash metrikalari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#recall-qamrov">Recall (Qamrov)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#f1-score">F1-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../kmeans_alg.html">K-means</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../kmeans_alg.html#asosiy-goya">Asosiy g‘oya</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#ishlash-bosqichlari">Ishlash bosqichlari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#kamchiliklari">Kamchiliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#k-qiymatini-tanlash-usullari">K qiymatini tanlash usullari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dbscan_alg.html">DBSCAN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#parametrlari">Parametrlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#obyektlar-turlari">Obyektlar turlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#ishlash-jarayoni">Ishlash jarayoni</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#kamchiliklari">Kamchiliklari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mathematics/index.html">Matematika</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../mathematics/density_distributions.html">Zichlik taqsimotlari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#zichlik-taqsimot-turlari">Zichlik taqsimot turlari</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#diskret-taqsimotlar">Diskret taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#uzluksiz-taqsimotlar">Uzluksiz taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#maxsus-statistik-taqsimotlar">Maxsus/statistik taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#kop-olchamli-multivariate-taqsimotlar">Ko‘p o‘lchamli (multivariate) taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#zichlik-funksiyalari-density-functions">Zichlik funksiyalari(Density Functions)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#ehtimollik-zichlik-funksiyasi-pdf">Ehtimollik zichlik funksiyasi (PDF)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#gauss-normal-taqsimot-zichligi">Gauss (Normal) taqsimot zichligi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#dirichlet-taqsimoti">Dirichlet taqsimoti</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#asosiy-xossalari">Asosiy xossalari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish"><span class="math notranslate nohighlight">\(\alpha\)</span> ni taqsimotning o‘zi sifatida talqin qilish</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/index.html">Boshqa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../others/distance_metric.html">Masofa metrikalari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../others/glossary.html">Glosary</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Machine Learning</a></li>
+          <li class="breadcrumb-item"><a href="../../supervised_learning.html">Supervised Learning</a></li>
+          <li class="breadcrumb-item"><a href="../regression.html">Regression</a></li>
+      <li class="breadcrumb-item active">Simple Linear Regression</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="simple-linear-regression">
+<h1>Simple Linear Regression<a class="headerlink" href="#simple-linear-regression" title="Link to this heading"></a></h1>
+<p><strong>Simple Linear Regression</strong> — bu bitta kiruvchi belgi <code class="docutils literal notranslate"><span class="pre">x</span></code> orqali
+bitta chiqish qiymati <code class="docutils literal notranslate"><span class="pre">y</span></code> ni bashorat qilish usuli.</p>
+<p>Masalan:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">x</span></code> — talabaning o‘qish soati</p>
+<p><code class="docutils literal notranslate"><span class="pre">y</span></code> — testdan olgan bali</p>
+</div></blockquote>
+<p>Maqsad: o‘qish soati oshsa, test bali qanday o‘zgarishini chiziqli model orqali
+topish.</p>
+<hr class="docutils" />
+<section id="asosiy-formula">
+<h2>1. Asosiy formula<a class="headerlink" href="#asosiy-formula" title="Link to this heading"></a></h2>
+<div class="math notranslate nohighlight">
+\[
+y = b_0 + b_1x
+\]</div>
+<p>Bu yerda:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> — haqiqiy qiymat yoki bashorat qilinadigan natija</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> — kiruvchi alomat</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b0</span></code> — intercept, ya’ni chiziqning boshlang‘ich nuqtasi</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b1</span></code> — slope, ya’ni <code class="docutils literal notranslate"><span class="pre">x</span></code> 1 birlikka oshganda <code class="docutils literal notranslate"><span class="pre">y</span></code> qancha o‘zgarishi</p></li>
+</ul>
+<p>Amalda model quyidagicha yoziladi:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = b_0 + b_1x
+\]</div>
+<p>Bu yerda <span class="math notranslate nohighlight">\(\hat{y}\)</span> — model bashorati.</p>
+</section>
+<hr class="docutils" />
+<section id="kichik-test-dataset">
+<h2>2. Kichik test dataset<a class="headerlink" href="#kichik-test-dataset" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Talaba</p></th>
+<th class="head text-right"><p>O‘qish soati <code class="docutils literal notranslate"><span class="pre">x</span></code></p></th>
+<th class="head text-right"><p>Test bali <code class="docutils literal notranslate"><span class="pre">y</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>50</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>55</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>65</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>70</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>75</p></td>
+</tr>
+</tbody>
+</table>
+<p>Biz shu dataset orqali model quramiz.</p>
+</section>
+<hr class="docutils" />
+<section id="ortacha-qiymatlarni-topamiz">
+<h2>3. O‘rtacha qiymatlarni topamiz<a class="headerlink" href="#ortacha-qiymatlarni-topamiz" title="Link to this heading"></a></h2>
+<div class="math notranslate nohighlight">
+\[
+\bar{x} = \frac{1+2+3+4+5}{5} = 3
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\bar{y} = \frac{50+55+65+70+75}{5} = 63
+\]</div>
+<p>Demak:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{x}=3,\qquad \bar{y}=63
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="b1-koeffitsiyentini-topamiz">
+<h2>4. <code class="docutils literal notranslate"><span class="pre">b1</span></code> koeffitsiyentini topamiz<a class="headerlink" href="#b1-koeffitsiyentini-topamiz" title="Link to this heading"></a></h2>
+<p>Formula:</p>
+<div class="math notranslate nohighlight">
+\[
+b_1 = \frac{\sum (x_i-\bar{x})(y_i-\bar{y})}{\sum (x_i-\bar{x})^2}
+\]</div>
+<p>Hisoblaymiz:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></th>
+<th class="head text-right"><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\((x_i-\bar{x})\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\((y_i-\bar{y})\)</span></p></th>
+<th class="head text-right"><p>Ko‘paytma</p></th>
+<th class="head text-right"><p>Kvadrat</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>50</p></td>
+<td class="text-right"><p>-2</p></td>
+<td class="text-right"><p>-13</p></td>
+<td class="text-right"><p>26</p></td>
+<td class="text-right"><p>4</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>55</p></td>
+<td class="text-right"><p>-1</p></td>
+<td class="text-right"><p>-8</p></td>
+<td class="text-right"><p>8</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>65</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>70</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>7</p></td>
+<td class="text-right"><p>7</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>75</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>12</p></td>
+<td class="text-right"><p>24</p></td>
+<td class="text-right"><p>4</p></td>
+</tr>
+</tbody>
+</table>
+<div class="math notranslate nohighlight">
+\[
+\sum (x_i-\bar{x})(y_i-\bar{y}) = 65
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum (x_i-\bar{x})^2 = 10
+\]</div>
+<p>Shuning uchun:</p>
+<div class="math notranslate nohighlight">
+\[
+b_1 = \frac{65}{10} = 6.5
+\]</div>
+<p>Demak, <strong>o‘qish soati 1 soatga oshsa, test bali o‘rtacha 6.5 ballga oshadi</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="b0-ni-topamiz">
+<h2>5. <code class="docutils literal notranslate"><span class="pre">b0</span></code> ni topamiz<a class="headerlink" href="#b0-ni-topamiz" title="Link to this heading"></a></h2>
+<p>Formula:</p>
+<div class="math notranslate nohighlight">
+\[
+b_0 = \bar{y} - b_1\bar{x}
+\]</div>
+<p>Qiymatlarni qo‘yamiz:</p>
+<div class="math notranslate nohighlight">
+\[
+b_0 = 63 - 6.5 \cdot 3
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+b_0 = 63 - 19.5 = 43.5
+\]</div>
+<p>Demak:</p>
+<div class="math notranslate nohighlight">
+\[
+b_0 = 43.5
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="yakuniy-regression-modeli">
+<h2>6. Yakuniy regression modeli<a class="headerlink" href="#yakuniy-regression-modeli" title="Link to this heading"></a></h2>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = 43.5 + 6.5x
+\]</div>
+<p>Bu model shuni anglatadi:</p>
+<blockquote>
+<div><p>Talaba 0 soat o‘qisa, model taxminan 43.5 ball beradi.</p>
+<p>Har bir qo‘shimcha 1 soat o‘qish test balini taxminan 6.5 ballga oshiradi.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="bashorat-qilish">
+<h2>7. Bashorat qilish<a class="headerlink" href="#bashorat-qilish" title="Link to this heading"></a></h2>
+<p>Masalan, talaba <strong>6 soat</strong> o‘qisa:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = 43.5 + 6.5 \cdot 6
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = 43.5 + 39 = 82.5
+\]</div>
+<p>Demak, model bashorati:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = 82.5
+\]</div>
+<p>Ya’ni 6 soat o‘qigan talaba taxminan <strong>82.5 ball</strong> olishi mumkin.</p>
+</section>
+<hr class="docutils" />
+<section id="model-xatoligini-korish">
+<h2>8. Model xatoligini ko‘rish<a class="headerlink" href="#model-xatoligini-korish" title="Link to this heading"></a></h2>
+<p>Endi har bir <code class="docutils literal notranslate"><span class="pre">x</span></code> uchun model bashoratini hisoblaymiz:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></th>
+<th class="head text-right"><p>Haqiqiy <code class="docutils literal notranslate"><span class="pre">y</span></code></p></th>
+<th class="head text-right"><p>Bashorat <span class="math notranslate nohighlight">\(\hat{y}\)</span></p></th>
+<th class="head text-right"><p>Xato <span class="math notranslate nohighlight">\((y-\hat{y})\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>50</p></td>
+<td class="text-right"><p>50</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>55</p></td>
+<td class="text-right"><p>56.5</p></td>
+<td class="text-right"><p>-1.5</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>65</p></td>
+<td class="text-right"><p>63</p></td>
+<td class="text-right"><p>2</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>70</p></td>
+<td class="text-right"><p>69.5</p></td>
+<td class="text-right"><p>0.5</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>75</p></td>
+<td class="text-right"><p>76</p></td>
+<td class="text-right"><p>-1</p></td>
+</tr>
+</tbody>
+</table>
+<p>Model xatolari juda katta emas. Demak, bu kichik datasetda chiziqli regressiya
+yaxshi ishlayapti.</p>
+</section>
+<hr class="docutils" />
+<section id="r2-orqali-sifatni-baholash">
+<h2>9. <code class="docutils literal notranslate"><span class="pre">R²</span></code> orqali sifatni baholash<a class="headerlink" href="#r2-orqali-sifatni-baholash" title="Link to this heading"></a></h2>
+<p>Regressionda ko‘p ishlatiladigan baholash metrikasi:</p>
+<div class="math notranslate nohighlight">
+\[
+R^2 = 1 - \frac{SSE}{SST}
+\]</div>
+<p>Bu yerda:</p>
+<div class="math notranslate nohighlight">
+\[
+SSE = \sum (y_i-\hat{y}_i)^2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+SST = \sum (y_i-\bar{y})^2
+\]</div>
+<p>Bizning misolda:</p>
+<div class="math notranslate nohighlight">
+\[
+SSE = 7.5
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+SST = 430
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+R^2 = 1 - \frac{7.5}{430}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+R^2 \approx 0.9826
+\]</div>
+<p>Demak, model ma’lumotlardagi o‘zgarishning taxminan <strong>98.26%</strong> qismini
+tushuntiryapti. Bu juda yaxshi natija.</p>
+</section>
+<hr class="docutils" />
+<section id="simple-linear-regression-qachon-ishlatiladi">
+<h2>10. Simple Linear Regression qachon ishlatiladi?<a class="headerlink" href="#simple-linear-regression-qachon-ishlatiladi" title="Link to this heading"></a></h2>
+<p>Simple Linear Regression quyidagi holatlarda ishlatiladi:</p>
+<ol class="arabic simple">
+<li><p>Kiruvchi belgi faqat bitta bo‘lsa.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> va <code class="docutils literal notranslate"><span class="pre">y</span></code> orasida chiziqli bog‘liqlik bo‘lsa.</p></li>
+<li><p>Natija sonli qiymat bo‘lsa.</p></li>
+<li><p>Maqsad bashorat qilish yoki bog‘liqlikni tushuntirish bo‘lsa.</p></li>
+</ol>
+<p>Masalan:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>O‘qish soati</p></td>
+<td><p>Test bali</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reklama xarajati</p></td>
+<td><p>Sotuv hajmi</p></td>
+</tr>
+<tr class="row-even"><td><p>Uy maydoni</p></td>
+<td><p>Uy narxi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tajriba yili</p></td>
+<td><p>Ish haqi</p></td>
+</tr>
+<tr class="row-even"><td><p>Harorat</p></td>
+<td><p>Elektr sarfi</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="muhim-xulosa">
+<h2>11. Muhim xulosa<a class="headerlink" href="#muhim-xulosa" title="Link to this heading"></a></h2>
+<p>Simple Linear Regressionning asosiy g‘oyasi juda oddiy:</p>
+<blockquote>
+<div><p>Berilgan nuqtalarga eng yaqin o‘tuvchi to‘g‘ri chiziq topiladi va shu chiziq
+orqali yangi qiymatlar bashorat qilinadi.</p>
+</div></blockquote>
+<p>Bizning misolda model:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = 43.5 + 6.5x
+\]</div>
+<p>Bu modelga ko‘ra, o‘qish soati qancha oshsa, test bali ham shuncha oshadi.
+Lekin real hayotda bog‘liqlik har doim bunday ideal bo‘lmaydi. Shuning uchun
+regressiondan oldin datasetni grafikda ko‘rish, xatoliklarni tekshirish va
+model sifati metrikalarini hisoblash kerak.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../regression.html" class="btn btn-neutral float-left" title="Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="multiple_linear_regression.html" class="btn btn-neutral float-right" title="Multiple Linear Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Abduhalil.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

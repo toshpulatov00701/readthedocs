@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -8,19 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kirish &mdash; myAI 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=dd794df2" />
 
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=f2a433a1"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Mashinali o‘rganish" href="machine_learning/index.html" />
+    <link rel="next" title="Machine Learning" href="machine_learning/index.html" />
     <link rel="prev" title="Mundarija" href="index.html" /> 
 </head>
 
@@ -45,14 +47,71 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Kirish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="machine_learning/index.html">Mashinali o‘rganish</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="machine_learning/index.html">Machine Learning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="machine_learning/overview.html">Mashinali o‘rganish</a></li>
-<li class="toctree-l2"><a class="reference internal" href="machine_learning/evaluation_metrics.html">Baholash metrikalari</a></li>
-<li class="toctree-l2"><a class="reference internal" href="machine_learning/kmeans_alg.html">K-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="machine_learning/supervised_learning.html">Supervised Learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/supervised_learning/regression.html">Regression</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="machine_learning/supervised_learning/regression/simple_linear_regression.html">Simple Linear Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/supervised_learning/classification.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/supervised_learning/knn.html">k-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/supervised_learning/decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/supervised_learning/random_forest.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/supervised_learning/svm.html">SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/supervised_learning/logistic_regression.html">Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/supervised_learning/gradient_boosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/supervised_learning.html#algoritmlarning-qo-llanish-sohasi">Algoritmlarning qo’llanish sohasi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="machine_learning/evaluation_metrics.html">Baholash metrikalari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/evaluation_metrics.html#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/evaluation_metrics.html#recall-qamrov">Recall (Qamrov)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/evaluation_metrics.html#f1-score">F1-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/evaluation_metrics.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="machine_learning/kmeans_alg.html">K-means</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/kmeans_alg.html#asosiy-goya">Asosiy g‘oya</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="machine_learning/kmeans_alg.html#ishlash-bosqichlari">Ishlash bosqichlari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="machine_learning/kmeans_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="machine_learning/kmeans_alg.html#kamchiliklari">Kamchiliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="machine_learning/kmeans_alg.html#k-qiymatini-tanlash-usullari">K qiymatini tanlash usullari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="machine_learning/dbscan_alg.html">DBSCAN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/dbscan_alg.html#parametrlari">Parametrlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/dbscan_alg.html#obyektlar-turlari">Obyektlar turlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/dbscan_alg.html#ishlash-jarayoni">Ishlash jarayoni</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/dbscan_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine_learning/dbscan_alg.html#kamchiliklari">Kamchiliklari</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mathematics/index.html">Matematika</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="mathematics/density_distributions.html">Zichlik taqsimotlari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathematics/density_distributions.html">Zichlik taqsimotlari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mathematics/density_distributions.html#zichlik-taqsimot-turlari">Zichlik taqsimot turlari</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mathematics/density_distributions.html#diskret-taqsimotlar">Diskret taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mathematics/density_distributions.html#uzluksiz-taqsimotlar">Uzluksiz taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mathematics/density_distributions.html#maxsus-statistik-taqsimotlar">Maxsus/statistik taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mathematics/density_distributions.html#kop-olchamli-multivariate-taqsimotlar">Ko‘p o‘lchamli (multivariate) taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mathematics/density_distributions.html#zichlik-funksiyalari-density-functions">Zichlik funksiyalari(Density Functions)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mathematics/density_distributions.html#ehtimollik-zichlik-funksiyasi-pdf">Ehtimollik zichlik funksiyasi (PDF)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mathematics/density_distributions.html#gauss-normal-taqsimot-zichligi">Gauss (Normal) taqsimot zichligi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mathematics/density_distributions.html#dirichlet-taqsimoti">Dirichlet taqsimoti</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mathematics/density_distributions.html#asosiy-xossalari">Asosiy xossalari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mathematics/density_distributions.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mathematics/density_distributions.html#alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish"><span class="math notranslate nohighlight">\(\alpha\)</span> ni taqsimotning o‘zi sifatida talqin qilish</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="others/index.html">Boshqa</a><ul>
@@ -100,6 +159,140 @@
 <li><p><strong>Tabiiy tilni qayta ishlash (<em>Natural language processing</em>)</strong> - Kompyuterning inson tilini tushunishi, qayta ishlashi va yaratishi.</p></li>
 <li><p><strong>Generativ AI (<em>Generative AI</em>)</strong> - Yangi kontent — matn, rasm, musiqa yoki video yaratadigan modellar.</p></li>
 </ul>
+<hr class="docutils" />
+<p><strong>🧠 SUN’IY INTELLEKT / ARTIFICIAL INTELLIGENCE Roadmap</strong></p>
+<p>Sun’iy intellekt sohasini o’rganish bo’yicha mukammal yo’l xaritasi.</p>
+<hr class="docutils" />
+<p><strong>🟢 0. Asosiy tayyorgarlik</strong>
+<em>Dasturlash va matematik poydevor</em></p>
+<ul class="simple">
+<li><p><strong>Dasturlash:</strong> Python</p></li>
+<li><p><strong>Kutubxonalar:</strong> NumPy, Pandas, Matplotlib</p></li>
+<li><p><strong>Matematika:</strong></p>
+<ul>
+<li><p>Chiziqli algebra</p></li>
+<li><p>Ehtimollik va statistika</p></li>
+<li><p>Optimallashtirish asoslari</p></li>
+</ul>
+</li>
+<li><p><strong>Ma’lumotlar bilan ishlash (Data Analysis)</strong></p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>🏛️ 1. Klassik AI / Symbolic AI</strong>
+<em>An’anaviy algoritmlar va mantiq</em></p>
+<ul class="simple">
+<li><p><strong>Qidiruv algoritmlari:</strong></p>
+<ul>
+<li><p>BFS (Breadth-First Search)</p></li>
+<li><p>DFS (Depth-First Search)</p></li>
+<li><p>A* (A-star)</p></li>
+<li><p>Minimax algoritmi</p></li>
+</ul>
+</li>
+<li><p><strong>Ekspert tizimlar</strong></p></li>
+<li><p><strong>Qoidalar asosida xulosa chiqarish</strong></p></li>
+<li><p><strong>Mantiqiy modellar</strong></p></li>
+<li><p><strong>Knowledge representation (Bilimlarni tasvirlash)</strong></p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>🤖 2. Machine Learning (Mashinali o’rganish)</strong>
+<em>Berilganlardan o’rganuvchi algoritmlar</em></p>
+<p><strong>Supervised Learning (Nazorat ostidagi o’rganish)</strong></p>
+<ul class="simple">
+<li><p>Regression &amp; Classification</p></li>
+<li><p>k-NN (k-Nearest Neighbors)</p></li>
+<li><p>Decision Tree &amp; Random Forest</p></li>
+<li><p>SVM (Support Vector Machines)</p></li>
+<li><p>Logistic Regression</p></li>
+<li><p>Gradient Boosting (XGBoost, LightGBM, CatBoost)</p></li>
+</ul>
+<p><strong>Unsupervised Learning (Nazorat qilinmagan o’rganish)</strong></p>
+<ul class="simple">
+<li><p><strong>Clustering:</strong> K-Means, DBSCAN, HDBSCAN, Hierarchical Clustering</p></li>
+<li><p><strong>Dimensionality Reduction:</strong> PCA, t-SNE, UMAP</p></li>
+<li><p><strong>Anomaly Detection</strong> (Anomaliyalarni aniqlash)</p></li>
+</ul>
+<p><strong>Qo’shimcha tushunchalar</strong></p>
+<ul class="simple">
+<li><p>Semi-supervised &amp; Self-supervised Learning</p></li>
+<li><p><strong>Feature Engineering</strong> &amp; Feature Selection</p></li>
+<li><p><strong>Model Evaluation (Baholash):</strong></p>
+<ul>
+<li><p>Train/Test split, Cross-validation</p></li>
+<li><p>Metrics: Accuracy, Precision, Recall, F1-score, ROC-AUC</p></li>
+<li><p>Confusion Matrix</p></li>
+</ul>
+</li>
+<li><p><strong>Overfitting / Underfitting</strong> tushunchalari</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>🕸️ 3. Deep Learning (Chuqur o’rganish)</strong>
+<em>Neyron tarmoqlari davri</em></p>
+<ul class="simple">
+<li><p><strong>Neural Network asoslari:</strong> Perceptron, Activation functions, Loss functions, Backpropagation, Gradient Descent</p></li>
+<li><p><strong>CNN (Convolutional Neural Networks):</strong> Tasvirlarni klassifikatsiya qilish, obyektlarni aniqlash.</p></li>
+<li><p><strong>RNN / LSTM / GRU:</strong> Ketma-ket ma’lumotlar va Time series (vaqtli qatorlar).</p></li>
+<li><p><strong>Transformer:</strong> Attention mechanism, Encoder, Decoder, BERT, GPT, Vision Transformer.</p></li>
+<li><p><strong>Autoencoder:</strong> Ma’lumotlarni siqish, shovqinni tozalash (Denoising).</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>👁️ 4. Computer Vision (Kompyuter ko’rishi)</strong></p>
+<ul class="simple">
+<li><p>Image preprocessing (Tasvirlarga ishlov berish)</p></li>
+<li><p><strong>CNN Architectures:</strong> LeNet, AlexNet, VGG, ResNet, EfficientNet</p></li>
+<li><p><strong>Object Detection:</strong> R-CNN, Fast R-CNN, Faster R-CNN, YOLO, SSD</p></li>
+<li><p><strong>Segmentation:</strong> U-Net, Mask R-CNN, DeepLab</p></li>
+<li><p><strong>Medical Imaging</strong> (Tibbiy tasvirlar tahlili)</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>💬 5. Natural Language Processing (NLP)</strong>
+<em>Tabiiy tilga ishlov berish</em></p>
+<ul class="simple">
+<li><p>Text preprocessing &amp; Tokenization</p></li>
+<li><p><strong>Modellar:</strong> Bag of Words, TF-IDF, Word2Vec, FastText, BERT embeddings</p></li>
+<li><p><strong>Vazifalar:</strong> Text classification, NER (Named Entity Recognition), Machine Translation, Text summarization</p></li>
+<li><p><strong>LLM (Large Language Models)</strong> asoslari</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>🎨 6. Generative AI</strong>
+<em>Yangi kontent yaratish</em></p>
+<ul class="simple">
+<li><p><strong>LLM:</strong> GPT, Claude, Gemini, Llama</p></li>
+<li><p><strong>Prompt Engineering</strong></p></li>
+<li><p><strong>RAG (Retrieval-Augmented Generation):</strong> Embedding, Vector Database, Retrieval, Generation</p></li>
+<li><p><strong>Fine-tuning:</strong> LoRA / QLoRA</p></li>
+<li><p><strong>Diffusion Models:</strong> Image generation, Stable Diffusion</p></li>
+<li><p><strong>Multimodal AI:</strong> Matn, tasvir, audio va video bilan birga ishlash.</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>🎮 7. Reinforcement Learning</strong>
+<em>Rag’batlantirish orqali o’rgatish</em></p>
+<ul class="simple">
+<li><p>Komponentlar: Agent, Environment, State, Action, Reward</p></li>
+<li><p>Policy &amp; Value function</p></li>
+<li><p>Q-Learning &amp; Deep Q-Network (DQN)</p></li>
+<li><p>Policy Gradient &amp; Actor-Critic</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>🚀 8. MLOps / AI Engineering</strong>
+<em>Modellarni amaliyotga joriy etish</em></p>
+<ul class="simple">
+<li><p>Model deployment &amp; API qilish (FastAPI / Django)</p></li>
+<li><p><strong>Docker</strong> va konteynerizatsiya</p></li>
+<li><p>Model monitoring &amp; Experiment tracking</p></li>
+<li><p>Data versioning (DVC)</p></li>
+<li><p>Cloud deployment (AWS, Google Cloud, Azure)</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>⚖️ 9. AI Ethics and Safety</strong>
+<em>Etika va xavfsizlik</em></p>
+<ul class="simple">
+<li><p>Bias (Yon bosish) va Fairness (Adolat)</p></li>
+<li><p>Explainability (Tushuntirib bera olish)</p></li>
+<li><p>Privacy (Maxfiylik) va Security (Xavfsizlik)</p></li>
+<li><p>Responsible AI &amp; Legal issues (Huquqiy masalalar)</p></li>
+</ul>
+<hr class="docutils" />
 </section>
 
 
@@ -107,7 +300,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Mundarija" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="machine_learning/index.html" class="btn btn-neutral float-right" title="Mashinali o‘rganish" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="machine_learning/index.html" class="btn btn-neutral float-right" title="Machine Learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

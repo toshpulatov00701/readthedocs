@@ -29,7 +29,7 @@ html_show_sourcelink = False
 
 # Ixtiyoriy sozlamalar (navigatsiya uchun qulaylik)
 html_theme_options = {
-    "navigation_depth": 2,      # faqat sahifa nomlari
+    "navigation_depth": 4,      # menyuda ichki bo'limlar ham ko'rinsin
     "collapse_navigation": False,
     "includehidden": True,      # yashirin toctree'lar ham bo‘lsin (kerak bo‘lsa)
     "sticky_navigation": True,

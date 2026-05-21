@@ -1,0 +1,4 @@
+# Regression
+
+Regression uzluksiz qiymatlarni bashorat qilish uchun ishlatiladi. Masalan,
+uy narxi, harorat yoki talab miqdorini oldindan aytish.

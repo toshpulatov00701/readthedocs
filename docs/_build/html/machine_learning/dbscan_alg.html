@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
@@ -8,15 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DBSCAN &mdash; myAI 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=dd794df2" />
 
   
-      <script src="../_static/jquery.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
-      <script src="../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -45,15 +47,71 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../main.html">Kirish</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Mashinali o‘rganish</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Machine Learning</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">Mashinali o‘rganish</a></li>
-<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html">Baholash metrikalari</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kmeans_alg.html">K-means</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">DBSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning.html">Supervised Learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/regression.html">Regression</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="supervised_learning/regression/simple_linear_regression.html">Simple Linear Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/classification.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/knn.html">k-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/random_forest.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/svm.html">SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/logistic_regression.html">Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/gradient_boosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning.html#algoritmlarning-qo-llanish-sohasi">Algoritmlarning qo’llanish sohasi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html">Baholash metrikalari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#recall-qamrov">Recall (Qamrov)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#f1-score">F1-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans_alg.html">K-means</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kmeans_alg.html#asosiy-goya">Asosiy g‘oya</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#ishlash-bosqichlari">Ishlash bosqichlari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#kamchiliklari">Kamchiliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#k-qiymatini-tanlash-usullari">K qiymatini tanlash usullari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DBSCAN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parametrlari">Parametrlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obyektlar-turlari">Obyektlar turlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ishlash-jarayoni">Ishlash jarayoni</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kamchiliklari">Kamchiliklari</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mathematics/index.html">Matematika</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../mathematics/density_distributions.html">Zichlik taqsimotlari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/density_distributions.html">Zichlik taqsimotlari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#zichlik-taqsimot-turlari">Zichlik taqsimot turlari</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#diskret-taqsimotlar">Diskret taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#uzluksiz-taqsimotlar">Uzluksiz taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#maxsus-statistik-taqsimotlar">Maxsus/statistik taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#kop-olchamli-multivariate-taqsimotlar">Ko‘p o‘lchamli (multivariate) taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#zichlik-funksiyalari-density-functions">Zichlik funksiyalari(Density Functions)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#ehtimollik-zichlik-funksiyasi-pdf">Ehtimollik zichlik funksiyasi (PDF)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#gauss-normal-taqsimot-zichligi">Gauss (Normal) taqsimot zichligi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#dirichlet-taqsimoti">Dirichlet taqsimoti</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#asosiy-xossalari">Asosiy xossalari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish"><span class="math notranslate nohighlight">\(\alpha\)</span> ni taqsimotning o‘zi sifatida talqin qilish</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../others/index.html">Boshqa</a><ul>
@@ -77,7 +135,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Mashinali o‘rganish</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Machine Learning</a></li>
       <li class="breadcrumb-item active">DBSCAN</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -94,17 +152,21 @@
 <section id="parametrlari">
 <h2>Parametrlari<a class="headerlink" href="#parametrlari" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
-<li><p><strong>ε (eps)</strong> – radius (qo‘shnilik masofasi). Bir nuqtaning atrofidagi hududni belgilaydi.</p></li>
+<li><p><strong>ε (eps)</strong> – radius. Bir nuqtaning atrofidagi hududni belgilaydi.</p></li>
 <li><p><strong>minPts</strong> – minimal qo‘shnilar soni. Klaster hosil qilish uchun kerakli nuqtalar soni.</p></li>
 </ol>
+<p><em>! Agar biron obyekt berilgan ridiusga teng masofada bo’lsa, shu obyekt minPtsga qo’shiladi.</em></p>
 </section>
-<section id="nuqtalar-turlari">
-<h2>Nuqtalar turlari<a class="headerlink" href="#nuqtalar-turlari" title="Link to this heading"></a></h2>
+<section id="obyektlar-turlari">
+<h2>Obyektlar turlari<a class="headerlink" href="#obyektlar-turlari" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><strong>Yadro nuqta (Core point)</strong> – agar ε-radius ichida kamida <code class="docutils literal notranslate"><span class="pre">minPts</span></code> qo‘shnisi bo‘lsa.</p></li>
-<li><p><strong>Chekka nuqta (Border point)</strong> – ε ichida yadro nuqtaga bog‘langan, lekin qo‘shnilari yetarli bo‘lmagan.</p></li>
-<li><p><strong>Shovqin (Noise/Outlier)</strong> – hech qaysi klasterga kirmagan nuqta.</p></li>
+<li><p><strong>Yadroviy (Core point)</strong> – agar ε-radius ichida kamida <code class="docutils literal notranslate"><span class="pre">minPts</span></code> (shu obyektning o‘zini ham qo‘shib hisoblaganda) qo‘shnisi bo‘lsa.</p></li>
+<li><p><strong>Chegaraviy (Border point)</strong> – ε ichida yadro obyektga bog‘langan, lekin qo‘shnilari yetarli bo‘lmagan.</p></li>
+<li><p><strong>Anomal/Shovqin (Noise/Outlier)</strong> – hech qaysi klasterga kirmagan nuqta.</p></li>
 </ul>
+<p><em>! 2 ta klaster va ular o’rtasida bitta obyekt bor. O’rtaga turgan obyekt ikki klaster uchun ham chegaraviy. Oxirida o’rtada turgan obyekt qaysi klasterga tegishli bo’ladi? - DBSCAN algoritmi bunday holatlarni hal qilishda deterministik emas (noaniq) hisoblanadi, chunki bu amalga oshirishga bog’liq. Agar obyekt ikkala klasterning yadro nuqtasining radiusida bo’lsa, u qaysi klaster birinchi bo’lib tekshirilishiga/kengaytirilishiga bog’liq holda klasterga biriktiriladi. scikit-learn ning implementatsiyasida, birinchi bo’lib uni o’z ichiga olgan klasterga biriktirilib, boshqa klasterga qarash to’xtatiladi.</em></p>
+<p><em>! Agar eps radius ichida minPts dan kam obyekt bo’lsa, bu obyekt anomal yoki chegaraviyga nomzod hisoblanadi. Chunki uni oldindan anomal yoki chegaraviy deb aytib bo’lmaydi.</em></p>
+<p><em>!!! Klasterlar o’rtasida ham, klaster va chegaraviy obyekt o’rtasida ham bo’g’lovchi sifatida chegaraviy obyekt bo’lishi kerak emas. Klaster kengayishi faqat yadroviy bo’yicha bo’lishi shart.</em></p>
 </section>
 <section id="ishlash-jarayoni">
 <h2>Ishlash jarayoni<a class="headerlink" href="#ishlash-jarayoni" title="Link to this heading"></a></h2>
@@ -130,6 +192,7 @@
 <li><p>ε va minPts tanlash qiyin.</p></li>
 <li><p>Zichlik juda o‘zgaruvchan datasetlarda yaxshi ishlamasligi mumkin.</p></li>
 <li><p>Juda katta datasetlarda hisoblash og‘ir.</p></li>
+<li><p>…</p></li>
 </ul>
 <p>Python kod: <a class="reference external" href="https://github.com/toshpulatov00701/ai_tasks/blob/main/DBSCAN/myDBSCAN.py">github.com</a></p>
 </section>

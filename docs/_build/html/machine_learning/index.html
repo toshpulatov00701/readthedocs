@@ -1,22 +1,26 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mashinali o‘rganish &mdash; myAI 1.0 documentation</title>
+  <title>Machine Learning &mdash; myAI 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=dd794df2" />
 
   
-      <script src="../_static/jquery.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
-      <script src="../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -45,15 +49,71 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../main.html">Kirish</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Mashinali o‘rganish</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Machine Learning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="overview.html">Mashinali o‘rganish</a></li>
-<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html">Baholash metrikalari</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kmeans_alg.html">K-means</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html">DBSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning.html">Supervised Learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/regression.html">Regression</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="supervised_learning/regression/simple_linear_regression.html">Simple Linear Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/classification.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/knn.html">k-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/random_forest.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/svm.html">SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/logistic_regression.html">Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/gradient_boosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning.html#algoritmlarning-qo-llanish-sohasi">Algoritmlarning qo’llanish sohasi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html">Baholash metrikalari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#recall-qamrov">Recall (Qamrov)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#f1-score">F1-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans_alg.html">K-means</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kmeans_alg.html#asosiy-goya">Asosiy g‘oya</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#ishlash-bosqichlari">Ishlash bosqichlari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#kamchiliklari">Kamchiliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#k-qiymatini-tanlash-usullari">K qiymatini tanlash usullari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html">DBSCAN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#parametrlari">Parametrlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#obyektlar-turlari">Obyektlar turlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#ishlash-jarayoni">Ishlash jarayoni</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#kamchiliklari">Kamchiliklari</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mathematics/index.html">Matematika</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../mathematics/density_distributions.html">Zichlik taqsimotlari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/density_distributions.html">Zichlik taqsimotlari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#zichlik-taqsimot-turlari">Zichlik taqsimot turlari</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#diskret-taqsimotlar">Diskret taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#uzluksiz-taqsimotlar">Uzluksiz taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#maxsus-statistik-taqsimotlar">Maxsus/statistik taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#kop-olchamli-multivariate-taqsimotlar">Ko‘p o‘lchamli (multivariate) taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#zichlik-funksiyalari-density-functions">Zichlik funksiyalari(Density Functions)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#ehtimollik-zichlik-funksiyasi-pdf">Ehtimollik zichlik funksiyasi (PDF)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#gauss-normal-taqsimot-zichligi">Gauss (Normal) taqsimot zichligi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#dirichlet-taqsimoti">Dirichlet taqsimoti</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#asosiy-xossalari">Asosiy xossalari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish"><span class="math notranslate nohighlight">\(\alpha\)</span> ni taqsimotning o‘zi sifatida talqin qilish</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../others/index.html">Boshqa</a><ul>
@@ -77,7 +137,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Mashinali o‘rganish</li>
+      <li class="breadcrumb-item active">Machine Learning</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -86,11 +146,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="mashinali-organish">
-<h1>Mashinali o‘rganish<a class="headerlink" href="#mashinali-organish" title="Link to this heading"></a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning">
+<h1>Machine Learning<a class="headerlink" href="#machine-learning" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supervised_learning.html">Supervised Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning/regression.html">Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning/classification.html">Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning/knn.html">k-NN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning/decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning/random_forest.html">Random Forest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning/svm.html">SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning/logistic_regression.html">Logistic Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning/gradient_boosting.html">Gradient Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning.html#algoritmlarning-qo-llanish-sohasi">Algoritmlarning qo’llanish sohasi</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_metrics.html">Baholash metrikalari</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
@@ -105,7 +177,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dbscan_alg.html">DBSCAN</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#parametrlari">Parametrlari</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#nuqtalar-turlari">Nuqtalar turlari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#obyektlar-turlari">Obyektlar turlari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#ishlash-jarayoni">Ishlash jarayoni</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#afzalliklari">Afzalliklari</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html#kamchiliklari">Kamchiliklari</a></li>
