@@ -1,0 +1,818 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polynomial Regression &mdash; myAI 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=dd794df2" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Logistic Regression" href="logistic_regression.html" />
+    <link rel="prev" title="Multiple Linear Regression" href="multiple_linear_regression.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">Kirish</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Machine Learning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../supervised_learning.html">Supervised Learning</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../regression.html">Regression</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="simple_linear_regression.html">Simple Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="multiple_linear_regression.html">Multiple Linear Regression</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Polynomial Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="logistic_regression.html">Logistic Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decision_tree_regression.html">Decision Tree Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="random_forest_regression.html">Random Forest Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../classification.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../knn.html">k-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../random_forest.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../svm.html">SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gradient_boosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../supervised_learning.html#algoritmlarning-qo-llanish-sohasi">Algoritmlarning qo’llanish sohasi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../evaluation_metrics.html">Baholash metrikalari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#recall-qamrov">Recall (Qamrov)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#f1-score">F1-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../kmeans_alg.html">K-means</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../kmeans_alg.html#asosiy-goya">Asosiy g‘oya</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#ishlash-bosqichlari">Ishlash bosqichlari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#kamchiliklari">Kamchiliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#k-qiymatini-tanlash-usullari">K qiymatini tanlash usullari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dbscan_alg.html">DBSCAN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#parametrlari">Parametrlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#obyektlar-turlari">Obyektlar turlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#ishlash-jarayoni">Ishlash jarayoni</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#kamchiliklari">Kamchiliklari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mathematics/index.html">Matematika</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../mathematics/density_distributions.html">Zichlik taqsimotlari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#zichlik-taqsimot-turlari">Zichlik taqsimot turlari</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#diskret-taqsimotlar">Diskret taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#uzluksiz-taqsimotlar">Uzluksiz taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#maxsus-statistik-taqsimotlar">Maxsus/statistik taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#kop-olchamli-multivariate-taqsimotlar">Ko‘p o‘lchamli (multivariate) taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#zichlik-funksiyalari-density-functions">Zichlik funksiyalari(Density Functions)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#ehtimollik-zichlik-funksiyasi-pdf">Ehtimollik zichlik funksiyasi (PDF)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#gauss-normal-taqsimot-zichligi">Gauss (Normal) taqsimot zichligi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#dirichlet-taqsimoti">Dirichlet taqsimoti</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#asosiy-xossalari">Asosiy xossalari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish"><span class="math notranslate nohighlight">\(\alpha\)</span> ni taqsimotning o‘zi sifatida talqin qilish</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/index.html">Boshqa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../others/distance_metric.html">Masofa metrikalari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../others/glossary.html">Glosary</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Machine Learning</a></li>
+          <li class="breadcrumb-item"><a href="../../supervised_learning.html">Supervised Learning</a></li>
+          <li class="breadcrumb-item"><a href="../regression.html">Regression</a></li>
+      <li class="breadcrumb-item active">Polynomial Regression</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="polynomial-regression">
+<h1>Polynomial Regression<a class="headerlink" href="#polynomial-regression" title="Link to this heading"></a></h1>
+<p><strong>Polynomial Regression</strong> — kiruvchi alomatlar va sonli natija orasidagi
+chiziqli bo‘lmagan bog‘liqlikni darajali hadlar yordamida ifodalovchi
+regressiya usuli.</p>
+<p>Oddiy chiziqli regressiya to‘g‘ri chiziq quradi:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=b_0+b_1x
+\]</div>
+<p>Polynomial Regression esa modelga <span class="math notranslate nohighlight">\(x^2\)</span>, <span class="math notranslate nohighlight">\(x^3\)</span> kabi yangi alomatlarni
+qo‘shadi:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=b_0+b_1x+b_2x^2+\cdots+b_dx^d
+\]</div>
+<p>Bu yerda:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\hat{y}\)</span> — model bashorati;</p></li>
+<li><p><span class="math notranslate nohighlight">\(x\)</span> — kiruvchi alomat;</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span> — polynomial daraja;</p></li>
+<li><p><span class="math notranslate nohighlight">\(b_0,b_1,\ldots,b_d\)</span> — o‘rganiladigan koeffitsiyentlar.</p></li>
+</ul>
+<p>Polynomial Regression egri chiziq hosil qilsa ham, koeffitsiyentlarga nisbatan
+chiziqli bo‘lgani uchun Linear Regression oilasiga kiradi.</p>
+<hr class="docutils" />
+<section id="nega-polynomial-regression-kerak">
+<h2>1. Nega Polynomial Regression kerak?<a class="headerlink" href="#nega-polynomial-regression-kerak" title="Link to this heading"></a></h2>
+<p>Ba’zi ma’lumotlarda <span class="math notranslate nohighlight">\(x\)</span> o‘zgarganda <span class="math notranslate nohighlight">\(y\)</span> bir xil tezlikda o‘zgarmaydi.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(y\)</span></p></th>
+<th class="head text-right"><p>Oldingi qiymatdan farqi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>0</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>6</p></td>
+<td class="text-right"><p>4</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>12</p></td>
+<td class="text-right"><p>6</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>20</p></td>
+<td class="text-right"><p>8</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>30</p></td>
+<td class="text-right"><p>10</p></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math notranslate nohighlight">\(y\)</span> qiymatlari orasidagi farq <code class="docutils literal notranslate"><span class="pre">4,</span> <span class="pre">6,</span> <span class="pre">8,</span> <span class="pre">10</span></code> ko‘rinishida oshmoqda. Demak,
+bog‘liqlik to‘g‘ri chiziq emas. Bunday holatda ikkinchi darajali model mos
+kelishi mumkin:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=b_0+b_1x+b_2x^2
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="polynomial-alomatlar-qanday-hosil-qilinadi">
+<h2>2. Polynomial alomatlar qanday hosil qilinadi?<a class="headerlink" href="#polynomial-alomatlar-qanday-hosil-qilinadi" title="Link to this heading"></a></h2>
+<p>Bitta <span class="math notranslate nohighlight">\(x\)</span> alomatidan ikkinchi daraja uchun ikkita alomat olinadi:</p>
+<div class="math notranslate nohighlight">
+\[
+x,\qquad x^2
+\]</div>
+<p>Yuqoridagi dataset quyidagi ko‘rinishga keladi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(x^2\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(y\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>0</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>2</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>6</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>12</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>9</p></td>
+<td class="text-right"><p>20</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>16</p></td>
+<td class="text-right"><p>30</p></td>
+</tr>
+</tbody>
+</table>
+<p>Shunday qilib, Polynomial Regression ikki bosqichda ishlaydi:</p>
+<ol class="arabic simple">
+<li><p>Asl alomatlardan polynomial alomatlar yaratiladi.</p></li>
+<li><p>Hosil bo‘lgan alomatlarga Linear Regression qo‘llanadi.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="koeffitsiyentlarni-topish">
+<h2>3. Koeffitsiyentlarni topish<a class="headerlink" href="#koeffitsiyentlarni-topish" title="Link to this heading"></a></h2>
+<p>Ikkinchi darajali model uchun design matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X=
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 \\
+1 &amp; 1 &amp; 1 \\
+1 &amp; 2 &amp; 4 \\
+1 &amp; 3 &amp; 9 \\
+1 &amp; 4 &amp; 16
+\end{bmatrix},
+\qquad
+y=
+\begin{bmatrix}
+2 \\
+6 \\
+12 \\
+20 \\
+30
+\end{bmatrix}
+\end{split}\]</div>
+<p>Birinchi ustundagi <code class="docutils literal notranslate"><span class="pre">1</span></code> qiymatlari <span class="math notranslate nohighlight">\(b_0\)</span> uchun, qolgan ustunlar esa <span class="math notranslate nohighlight">\(x\)</span> va
+<span class="math notranslate nohighlight">\(x^2\)</span> uchun kerak.</p>
+<p>Koeffitsiyentlar eng kichik kvadratlar usuli bilan topiladi. <span class="math notranslate nohighlight">\(X^TX\)</span> teskari
+matritsaga ega bo‘lsa, normal tenglama quyidagicha yoziladi:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\beta=(X^TX)^{-1}X^Ty,
+\qquad
+\beta=
+\begin{bmatrix}
+b_0 \\
+b_1 \\
+b_2
+\end{bmatrix}
+\end{split}\]</div>
+<p>Ushbu dataset uchun:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X^TX=
+\begin{bmatrix}
+5 &amp; 10 &amp; 30 \\
+10 &amp; 30 &amp; 100 \\
+30 &amp; 100 &amp; 354
+\end{bmatrix},
+\qquad
+X^Ty=
+\begin{bmatrix}
+70 \\
+210 \\
+714
+\end{bmatrix}
+\end{split}\]</div>
+<p>Hosil bo‘lgan tenglamalar sistemasi:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+5b_0+10b_1+30b_2 &amp;= 70, \\
+10b_0+30b_1+100b_2 &amp;= 210, \\
+30b_0+100b_1+354b_2 &amp;= 714.
+\end{aligned}
+\end{split}\]</div>
+<p>Yechim:</p>
+<div class="math notranslate nohighlight">
+\[
+b_0=2,\qquad b_1=3,\qquad b_2=1
+\]</div>
+<p>Yakuniy model:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{\hat{y}=2+3x+x^2}
+\]</div>
+<p>Amaliy kutubxonalar koeffitsiyentlarni topishda teskari matritsani bevosita
+hisoblash o‘rniga barqarorroq sonli usullardan foydalanadi.</p>
+</section>
+<hr class="docutils" />
+<section id="modelni-tekshirish-va-bashorat-qilish">
+<h2>4. Modelni tekshirish va bashorat qilish<a class="headerlink" href="#modelni-tekshirish-va-bashorat-qilish" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head text-right"><p>Haqiqiy <span class="math notranslate nohighlight">\(y\)</span></p></th>
+<th class="head text-right"><p>Bashorat <span class="math notranslate nohighlight">\(\hat{y}=2+3x+x^2\)</span></p></th>
+<th class="head text-right"><p>Xato <span class="math notranslate nohighlight">\(y-\hat{y}\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>0</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>6</p></td>
+<td class="text-right"><p>6</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>12</p></td>
+<td class="text-right"><p>12</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>20</p></td>
+<td class="text-right"><p>20</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>30</p></td>
+<td class="text-right"><p>30</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<p>Masalan, <span class="math notranslate nohighlight">\(x=5\)</span> uchun:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=2+3\cdot5+5^2=42
+\]</div>
+<p>Model <span class="math notranslate nohighlight">\(42\)</span> qiymatini bashorat qiladi. Jadvaldagi xatolarning nolga tengligi
+faqat ushbu sun’iy dataset modelga aynan mos kelganini bildiradi. Yangi
+ma’lumotlarda ham shunday natija chiqishi kafolatlanmaydi.</p>
+</section>
+<hr class="docutils" />
+<section id="bir-nechta-alomatli-polynomial-regression">
+<h2>5. Bir nechta alomatli Polynomial Regression<a class="headerlink" href="#bir-nechta-alomatli-polynomial-regression" title="Link to this heading"></a></h2>
+<p>Polynomial Regression faqat bitta alomat bilan cheklanmaydi. Ikki alomat
+<span class="math notranslate nohighlight">\(x_1\)</span> va <span class="math notranslate nohighlight">\(x_2\)</span> bo‘lsa, ikkinchi darajali o‘zgartirish quyidagi alomatlarni
+hosil qiladi:</p>
+<div class="math notranslate nohighlight">
+\[
+x_1,\quad x_2,\quad x_1^2,\quad x_1x_2,\quad x_2^2
+\]</div>
+<p>Model ko‘rinishi:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=
+b_0+b_1x_1+b_2x_2+b_3x_1^2+b_4x_1x_2+b_5x_2^2
+\]</div>
+<p>Masalan:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_1\)</span> — o‘qish soati;</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_2\)</span> — yechilgan testlar soni;</p></li>
+<li><p><span class="math notranslate nohighlight">\(y\)</span> — test bali.</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><span class="math notranslate nohighlight">\(x_1\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(x_2\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(x_1^2\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(x_1x_2\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(x_2^2\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>4</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>9</p></td>
+<td class="text-right"><p>6</p></td>
+<td class="text-right"><p>4</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>16</p></td>
+<td class="text-right"><p>12</p></td>
+<td class="text-right"><p>9</p></td>
+</tr>
+</tbody>
+</table>
+<p>Ikki asl alomat polynomial o‘zgartirishdan keyin beshta alomatga aylanadi.
+Intercept qo‘shilganda design matrix oltita ustundan iborat bo‘ladi:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X=
+\begin{bmatrix}
+1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\
+1 &amp; 2 &amp; 1 &amp; 4 &amp; 2 &amp; 1 \\
+1 &amp; 2 &amp; 2 &amp; 4 &amp; 4 &amp; 4 \\
+1 &amp; 3 &amp; 2 &amp; 9 &amp; 6 &amp; 4 \\
+1 &amp; 4 &amp; 3 &amp; 16 &amp; 12 &amp; 9
+\end{bmatrix}
+\end{split}\]</div>
+</section>
+<hr class="docutils" />
+<section id="interaction-term-nima">
+<h2>6. Interaction term nima?<a class="headerlink" href="#interaction-term-nima" title="Link to this heading"></a></h2>
+<p><span class="math notranslate nohighlight">\(x_1x_2\)</span> — <strong>interaction term</strong>, ya’ni ikki alomatning birgalikdagi ta’siri.</p>
+<p>Masalan, o‘qish soati va test yechish soni alohida ta’sir ko‘rsatishi mumkin.
+Ikkala faoliyat birga bajarilganda qo‘shimcha ta’sir paydo bo‘lsa, <span class="math notranslate nohighlight">\(x_1x_2\)</span>
+hadi shu bog‘liqlikni ifodalaydi.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_1^2\)</span> — birinchi alomatdagi egri chiziqli ta’sir;</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_2^2\)</span> — ikkinchi alomatdagi egri chiziqli ta’sir;</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_1x_2\)</span> — ikki alomatning birgalikdagi ta’siri.</p></li>
+</ul>
+<p>Interaction term mavjudligi sabab-natija bog‘lanishini avtomatik ravishda
+isbotlamaydi. U faqat ma’lumotdagi birgalikdagi statistik ta’sirni ifodalaydi.</p>
+</section>
+<hr class="docutils" />
+<section id="uchta-alomat-va-undan-yuqori-darajalar">
+<h2>7. Uchta alomat va undan yuqori darajalar<a class="headerlink" href="#uchta-alomat-va-undan-yuqori-darajalar" title="Link to this heading"></a></h2>
+<p>Uchta alomat va ikkinchi daraja uchun interceptsiz polynomial alomatlar:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;x_1,\ x_2,\ x_3,\\
+&amp;x_1^2,\ x_2^2,\ x_3^2,\\
+&amp;x_1x_2,\ x_1x_3,\ x_2x_3.
+\end{aligned}
+\end{split}\]</div>
+<p>Uchta asl alomat to‘qqizta polynomial alomatga aylanadi.</p>
+<p>Ikki alomat va uchinchi daraja uchun esa quyidagi alomatlar hosil bo‘ladi:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;x_1,\ x_2,\\
+&amp;x_1^2,\ x_1x_2,\ x_2^2,\\
+&amp;x_1^3,\ x_1^2x_2,\ x_1x_2^2,\ x_2^3.
+\end{aligned}
+\end{split}\]</div>
+<p>Daraja oshgani sari alomatlar soni tez ko‘payadi.</p>
+</section>
+<hr class="docutils" />
+<section id="polynomial-alomatlar-soni">
+<h2>8. Polynomial alomatlar soni<a class="headerlink" href="#polynomial-alomatlar-soni" title="Link to this heading"></a></h2>
+<p><span class="math notranslate nohighlight">\(m\)</span> ta asl alomat va <span class="math notranslate nohighlight">\(d\)</span> daraja uchun intercept bilan birga ustunlar soni:</p>
+<div class="math notranslate nohighlight">
+\[
+\binom{m+d}{d}
+\]</div>
+<p>Interceptsiz polynomial alomatlar soni:</p>
+<div class="math notranslate nohighlight">
+\[
+\binom{m+d}{d}-1
+\]</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Asl alomatlar soni <span class="math notranslate nohighlight">\(m\)</span></p></th>
+<th class="head text-right"><p>Daraja <span class="math notranslate nohighlight">\(d\)</span></p></th>
+<th class="head text-right"><p>Interceptsiz alomatlar</p></th>
+<th class="head text-right"><p>Intercept bilan ustunlar</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>3</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>6</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>9</p></td>
+<td class="text-right"><p>10</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>20</p></td>
+<td class="text-right"><p>21</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>9</p></td>
+<td class="text-right"><p>10</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>19</p></td>
+<td class="text-right"><p>20</p></td>
+</tr>
+</tbody>
+</table>
+<p>Alomatlar sonining tez o‘sishi hisoblash xarajatini va overfitting xavfini
+oshiradi.</p>
+</section>
+<hr class="docutils" />
+<section id="darajani-tanlash">
+<h2>9. Darajani tanlash<a class="headerlink" href="#darajani-tanlash" title="Link to this heading"></a></h2>
+<p>Polynomial daraja modelning egiluvchanligini belgilaydi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Daraja</p></th>
+<th class="head"><p>Model ko‘rinishi</p></th>
+<th class="head"><p>Geometrik ma’nosi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0+b_1x\)</span></p></td>
+<td><p>To‘g‘ri chiziq</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0+b_1x+b_2x^2\)</span></p></td>
+<td><p>Parabola</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0+b_1x+b_2x^2+b_3x^3\)</span></p></td>
+<td><p>Murakkabroq egri chiziq</p></td>
+</tr>
+</tbody>
+</table>
+<p>Juda kichik daraja murakkab bog‘liqlikni ifodalay olmaydi. Bu holat
+<strong>underfitting</strong> deyiladi.</p>
+<p>Juda katta daraja esa trening ma’lumotidagi tasodifiy shovqinni ham o‘rganib
+olishi mumkin. Bu holat <strong>overfitting</strong> deyiladi. Overfitting kuzatilganda
+trening natijasi yaxshi, test natijasi esa yomon bo‘ladi.</p>
+<p>Daraja quyidagicha tanlanadi:</p>
+<ol class="arabic simple">
+<li><p>Ma’lumot train va test qismlariga ajratiladi yoki cross-validation
+qo‘llanadi.</p></li>
+<li><p>Bir nechta daraja, masalan <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code> va <code class="docutils literal notranslate"><span class="pre">3</span></code>, sinab ko‘riladi.</p></li>
+<li><p>Har bir model MAE, RMSE yoki <span class="math notranslate nohighlight">\(R^2\)</span> orqali baholanadi.</p></li>
+<li><p>Test ma’lumotida yaxshi ishlaydigan eng sodda daraja tanlanadi.</p></li>
+</ol>
+<p>Alomat qiymatlari katta darajaga oshirilganda sonlar juda kattalashishi
+mumkin. Shu sababli ko‘p alomatli yoki yuqori darajali modellarda
+standartlashtirish hamda Ridge yoki Lasso regularizatsiyasi foydali bo‘ladi.</p>
+</section>
+<hr class="docutils" />
+<section id="python-orqali-bitta-alomatli-misol">
+<h2>10. Python orqali bitta alomatli misol<a class="headerlink" href="#python-orqali-bitta-alomatli-misol" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+
+<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">include_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">X_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_poly</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_poly</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">([</span><span class="s2">"x"</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"b0:"</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"b1, b2:"</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"MAE:"</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"R2:"</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="n">x_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">]])</span>
+<span class="n">x_new_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_new</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Prediction:"</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_new_poly</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Natija:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>['x' 'x^2']
+b0: 2.0
+b1, b2: [3. 1.]
+MAE: 0.0
+R2: 1.0
+Prediction: [42.]
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">include_bias=False</span></code> ishlatilgan, chunki <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> interceptni
+alohida hisoblaydi.</p>
+</section>
+<hr class="docutils" />
+<section id="python-orqali-bir-nechta-alomatli-misol">
+<h2>11. Python orqali bir nechta alomatli misol<a class="headerlink" href="#python-orqali-bir-nechta-alomatli-misol" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+<span class="p">])</span>
+
+<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">include_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">X_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">([</span><span class="s2">"x1"</span><span class="p">,</span> <span class="s2">"x2"</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_poly</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Feature nomlari:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>['x1' 'x2' 'x1^2' 'x1 x2' 'x2^2']
+</pre></div>
+</div>
+<p>Hosil bo‘lgan matritsa:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[[ 1.  1.  1.  1.  1.]
+ [ 2.  1.  4.  2.  1.]
+ [ 2.  2.  4.  4.  4.]
+ [ 3.  2.  9.  6.  4.]
+ [ 4.  3. 16. 12.  9.]]
+</pre></div>
+</div>
+<p>Ushbu <code class="docutils literal notranslate"><span class="pre">X_poly</span></code> matritsasi keyin <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> modeliga beriladi.
+Yangi obyektlar uchun doim <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> emas, avval o‘rgatilgan <code class="docutils literal notranslate"><span class="pre">poly</span></code>
+obyektining <code class="docutils literal notranslate"><span class="pre">transform</span></code> metodi ishlatiladi.</p>
+</section>
+<hr class="docutils" />
+<section id="regression-turlarining-farqi">
+<h2>12. Regression turlarining farqi<a class="headerlink" href="#regression-turlarining-farqi" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Asosiy formula</p></th>
+<th class="head"><p>Asosiy xususiyat</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Simple Linear Regression</p></td>
+<td><p><span class="math notranslate nohighlight">\(\hat{y}=b_0+b_1x\)</span></p></td>
+<td><p>Bitta alomat va to‘g‘ri chiziq</p></td>
+</tr>
+<tr class="row-odd"><td><p>Multiple Linear Regression</p></td>
+<td><p><span class="math notranslate nohighlight">\(\hat{y}=b_0+b_1x_1+\cdots+b_mx_m\)</span></p></td>
+<td><p>Bir nechta alomat va chiziqli ta’sir</p></td>
+</tr>
+<tr class="row-even"><td><p>Polynomial Regression</p></td>
+<td><p><span class="math notranslate nohighlight">\(\hat{y}=b_0+b_1x+b_2x^2+\cdots\)</span></p></td>
+<td><p>Darajali va interaction alomatlar</p></td>
+</tr>
+</tbody>
+</table>
+<p>Multiple Linear Regression bir nechta asl alomatning chiziqli ta’sirini
+o‘rganadi. Polynomial Regression esa asl alomatlardan darajali va o‘zaro
+ko‘paytma alomatlar yaratib, chiziqli bo‘lmagan bog‘liqlikni ifodalaydi.</p>
+</section>
+<hr class="docutils" />
+<section id="qachon-ishlatiladi">
+<h2>13. Qachon ishlatiladi?<a class="headerlink" href="#qachon-ishlatiladi" title="Link to this heading"></a></h2>
+<p>Polynomial Regression quyidagi holatlarda foydali:</p>
+<ul class="simple">
+<li><p>scatter plot egri chiziqli bog‘liqlikni ko‘rsatsa;</p></li>
+<li><p>oddiy chiziqli model underfitting qilsa;</p></li>
+<li><p>alomatlar ta’siri tezlashib yoki sekinlashib borsa;</p></li>
+<li><p>alomatlarning birgalikdagi ta’sirini modelga kiritish kerak bo‘lsa;</p></li>
+<li><p>dataset hajmi yaratiladigan polynomial alomatlar soniga nisbatan yetarli
+bo‘lsa.</p></li>
+</ul>
+<p>Misollar:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Masala</p></th>
+<th class="head"><p>Kiruvchi alomat</p></th>
+<th class="head"><p>Natija</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tajriba va ish haqi</p></td>
+<td><p>tajriba yili</p></td>
+<td><p>ish haqi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Harorat va energiya sarfi</p></td>
+<td><p>harorat</p></td>
+<td><p>elektr sarfi</p></td>
+</tr>
+<tr class="row-even"><td><p>Tezlik va yoqilg‘i sarfi</p></td>
+<td><p>tezlik</p></td>
+<td><p>yoqilg‘i sarfi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reklama samaradorligi</p></td>
+<td><p>reklama xarajati</p></td>
+<td><p>sotuv hajmi</p></td>
+</tr>
+<tr class="row-even"><td><p>Biologik jarayon</p></td>
+<td><p>vaqt</p></td>
+<td><p>o‘sish yoki susayish darajasi</p></td>
+</tr>
+</tbody>
+</table>
+<p>Juda murakkab, keskin o‘zgaruvchan yoki ko‘p o‘lchamli bog‘liqliklarda daraxt
+asosidagi modellar, boosting yoki boshqa nochiziqli usullar qulayroq bo‘lishi
+mumkin.</p>
+</section>
+<hr class="docutils" />
+<section id="muhim-xulosa">
+<h2>14. Muhim xulosa<a class="headerlink" href="#muhim-xulosa" title="Link to this heading"></a></h2>
+<p>Polynomial Regressionning asosiy g‘oyasi — asl alomatlardan darajali va
+interaction alomatlar yaratib, chiziqli bo‘lmagan bog‘liqlikni Linear
+Regression yordamida o‘rganish.</p>
+<p>Bitta alomat va ikkinchi daraja uchun:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=b_0+b_1x+b_2x^2
+\]</div>
+<p>Ikki alomat va ikkinchi daraja uchun:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=
+b_0+b_1x_1+b_2x_2+b_3x_1^2+b_4x_1x_2+b_5x_2^2
+\]</div>
+<p>Daraja va alomatlar soni oshganda model kuchliroq bo‘ladi, lekin alomatlar
+soni, hisoblash xarajati va overfitting xavfi ham oshadi. Shu sababli model
+sifati alohida test ma’lumotida yoki cross-validation orqali baholanadi.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="multiple_linear_regression.html" class="btn btn-neutral float-left" title="Multiple Linear Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="logistic_regression.html" class="btn btn-neutral float-right" title="Logistic Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Abduhalil.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

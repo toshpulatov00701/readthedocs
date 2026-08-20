@@ -1,3 +1,7 @@
+---
+orphan: true
+---
+
 # Logistic Regression
 
 Logistic Regression nomida regression bo'lsa ham, u asosan classification

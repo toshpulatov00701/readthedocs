@@ -1,0 +1,1026 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Forest Regression &mdash; myAI 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=dd794df2" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Classification" href="../classification.html" />
+    <link rel="prev" title="Decision Tree Regression" href="decision_tree_regression.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">Kirish</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Machine Learning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../supervised_learning.html">Supervised Learning</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../regression.html">Regression</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="simple_linear_regression.html">Simple Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="multiple_linear_regression.html">Multiple Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="polynomial_regression.html">Polynomial Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="logistic_regression.html">Logistic Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decision_tree_regression.html">Decision Tree Regression</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Random Forest Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../classification.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../knn.html">k-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../random_forest.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../svm.html">SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gradient_boosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../supervised_learning.html#algoritmlarning-qo-llanish-sohasi">Algoritmlarning qo’llanish sohasi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../evaluation_metrics.html">Baholash metrikalari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#recall-qamrov">Recall (Qamrov)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#f1-score">F1-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../kmeans_alg.html">K-means</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../kmeans_alg.html#asosiy-goya">Asosiy g‘oya</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#ishlash-bosqichlari">Ishlash bosqichlari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#kamchiliklari">Kamchiliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#k-qiymatini-tanlash-usullari">K qiymatini tanlash usullari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dbscan_alg.html">DBSCAN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#parametrlari">Parametrlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#obyektlar-turlari">Obyektlar turlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#ishlash-jarayoni">Ishlash jarayoni</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#kamchiliklari">Kamchiliklari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mathematics/index.html">Matematika</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../mathematics/density_distributions.html">Zichlik taqsimotlari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#zichlik-taqsimot-turlari">Zichlik taqsimot turlari</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#diskret-taqsimotlar">Diskret taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#uzluksiz-taqsimotlar">Uzluksiz taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#maxsus-statistik-taqsimotlar">Maxsus/statistik taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#kop-olchamli-multivariate-taqsimotlar">Ko‘p o‘lchamli (multivariate) taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#zichlik-funksiyalari-density-functions">Zichlik funksiyalari(Density Functions)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#ehtimollik-zichlik-funksiyasi-pdf">Ehtimollik zichlik funksiyasi (PDF)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#gauss-normal-taqsimot-zichligi">Gauss (Normal) taqsimot zichligi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#dirichlet-taqsimoti">Dirichlet taqsimoti</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#asosiy-xossalari">Asosiy xossalari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish"><span class="math notranslate nohighlight">\(\alpha\)</span> ni taqsimotning o‘zi sifatida talqin qilish</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/index.html">Boshqa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../others/distance_metric.html">Masofa metrikalari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../others/glossary.html">Glosary</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Machine Learning</a></li>
+          <li class="breadcrumb-item"><a href="../../supervised_learning.html">Supervised Learning</a></li>
+          <li class="breadcrumb-item"><a href="../regression.html">Regression</a></li>
+      <li class="breadcrumb-item active">Random Forest Regression</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="random-forest-regression">
+<h1>Random Forest Regression<a class="headerlink" href="#random-forest-regression" title="Link to this heading"></a></h1>
+<p><strong>Random Forest Regression</strong> — ko‘plab Decision Tree Regression modellarini
+birlashtirib, uzluksiz sonli qiymatni bashorat qiluvchi ansambl algoritmi.</p>
+<p>Masalan:</p>
+<ul class="simple">
+<li><p>uy narxini bashorat qilish;</p></li>
+<li><p>hosildorlik miqdorini aniqlash;</p></li>
+<li><p>suv yoki elektr sarfini baholash;</p></li>
+<li><p>havo haroratini bashorat qilish;</p></li>
+<li><p>mahsulotga talabni prognozlash.</p></li>
+</ul>
+<p>Nomdagi uchta so‘z algoritmning asosiy g‘oyasini ifodalaydi:</p>
+<ul class="simple">
+<li><p><strong>Tree</strong> — bitta qaror daraxti;</p></li>
+<li><p><strong>Forest</strong> — ko‘plab qaror daraxtlari;</p></li>
+<li><p><strong>Random</strong> — obyektlar va alomatlar tasodifiy tanlanadi.</p></li>
+</ul>
+<p>Bitta daraxt o‘rniga turlicha daraxtlar quriladi va ularning bashoratlari
+o‘rtachalanadi. Bu yondashuv <strong>bagging</strong> deb ataladi.</p>
+<hr class="docutils" />
+<section id="kichik-dataset">
+<h2>1. Kichik dataset<a class="headerlink" href="#kichik-dataset" title="Link to this heading"></a></h2>
+<p>Quyidagi datasetda tayyorlanish vaqti orqali imtihon natijasi bashorat qilinadi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Obyekt</p></th>
+<th class="head text-right"><p>Tayyorlanish vaqti <span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head text-right"><p>Natija <span class="math notranslate nohighlight">\(y\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>10</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>14</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>15</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>25</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>28</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td class="text-right"><p>6</p></td>
+<td class="text-right"><p>30</p></td>
+</tr>
+</tbody>
+</table>
+<p>Maqsad — <span class="math notranslate nohighlight">\(x_{\text{new}}=3.5\)</span> uchun <span class="math notranslate nohighlight">\(y\)</span> qiymatini bashorat qilish.</p>
+<p>Linear Regression bitta umumiy tenglama quradi:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=b_0+b_1x
+\]</div>
+<p>Random Forest Regression esa turli daraxtlardagi <code class="docutils literal notranslate"><span class="pre">if–else</span></code> qoidalarini
+birlashtiradi. Shu sababli bitta yopiq regressiya tenglamasi mavjud emas.</p>
+</section>
+<hr class="docutils" />
+<section id="random-forest-qanday-ishlaydi">
+<h2>2. Random Forest qanday ishlaydi?<a class="headerlink" href="#random-forest-qanday-ishlaydi" title="Link to this heading"></a></h2>
+<p>Algoritmning asosiy bosqichlari:</p>
+<ol class="arabic simple">
+<li><p>Har bir daraxt uchun trening datasetidan bootstrap namuna olinadi.</p></li>
+<li><p>Har bir bootstrap namuna asosida regression daraxti quriladi.</p></li>
+<li><p>Har bir tugunda alomatlarning tasodifiy qismigina tekshiriladi.</p></li>
+<li><p>Har bir daraxt yangi obyekt uchun alohida bashorat beradi.</p></li>
+<li><p>Barcha daraxtlarning bashoratlari o‘rtachalanadi.</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(B\)</span> ta daraxt uchun yakuniy bashorat:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{\hat{y}(x)=\frac{1}{B}\sum_{b=1}^{B}T_b(x)}
+\]</div>
+<p>Bu yerda <span class="math notranslate nohighlight">\(T_b(x)\)</span> — <span class="math notranslate nohighlight">\(b\)</span>-daraxtning bashorati.</p>
+</section>
+<hr class="docutils" />
+<section id="bootstrap-sampling">
+<h2>3. Bootstrap Sampling<a class="headerlink" href="#bootstrap-sampling" title="Link to this heading"></a></h2>
+<p>Bootstrap — asl datasetdan obyektlarni <strong>takrorlanish bilan</strong> tasodifiy tanlash
+usuli.</p>
+<p>Asl indekslar:</p>
+<div class="math notranslate nohighlight">
+\[
+D=[1,2,3,4,5,6]
+\]</div>
+<p>Uchta daraxt uchun namunalar quyidagicha bo‘lishi mumkin:</p>
+<div class="math notranslate nohighlight">
+\[
+D_1=[1,2,2,4,5,6]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D_2=[1,3,3,4,5,6]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D_3=[2,3,4,4,5,6]
+\]</div>
+<p>Natijada:</p>
+<ul class="simple">
+<li><p>ayrim obyektlar bir necha marta qatnashadi;</p></li>
+<li><p>ayrim obyektlar ma’lum bir daraxtga umuman tushmaydi;</p></li>
+<li><p>har bir daraxt biroz boshqacha ma’lumotda o‘rganadi.</p></li>
+</ul>
+<p>Barcha daraxtlar aynan bir xil ma’lumotda qurilsa, ularning tuzilishi va
+xatolari ham o‘xshash bo‘lib qolishi mumkin. Bootstrap daraxtlar orasidagi
+farqni oshiradi.</p>
+</section>
+<hr class="docutils" />
+<section id="bitta-daraxt-qanday-quriladi">
+<h2>4. Bitta daraxt qanday quriladi?<a class="headerlink" href="#bitta-daraxt-qanday-quriladi" title="Link to this heading"></a></h2>
+<p>Birinchi bootstrap namuna:</p>
+<div class="math notranslate nohighlight">
+\[
+D_1=[1,2,2,4,5,6]
+\]</div>
+<p>Unga mos ma’lumotlar:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(y\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>10</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>14</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>14</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>25</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>28</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td class="text-right"><p>30</p></td>
+</tr>
+</tbody>
+</table>
+<p>Takrorlangan <span class="math notranslate nohighlight">\(x=2\)</span> qiymatlari bitta noyob qiymat sifatida qaraladi. Nomzod
+chegaralar qo‘shni noyob qiymatlarning o‘rtasidan olinadi:</p>
+<div class="math notranslate nohighlight">
+\[
+1.5,\quad3,\quad4.5,\quad5.5
+\]</div>
+<p>Har bir <span class="math notranslate nohighlight">\(s\)</span> chegara uchun chap va o‘ng guruhlar:</p>
+<div class="math notranslate nohighlight">
+\[
+R_L(s)=\{(x_i,y_i):x_i\leq s\}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+R_R(s)=\{(x_i,y_i):x_i&gt;s\}
+\]</div>
+<p>Bo‘linish xatoligi:</p>
+<div class="math notranslate nohighlight">
+\[
+Q(s)=
+\sum_{i\in R_L}(y_i-\bar{y}_L)^2+
+\sum_{i\in R_R}(y_i-\bar{y}_R)^2
+\]</div>
+<p>Daraxt quyidagi chegarani tanlaydi:</p>
+<div class="math notranslate nohighlight">
+\[
+s^*=\arg\min_s Q(s)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="s-3-chegarasini-hisoblash">
+<h2>5. <span class="math notranslate nohighlight">\(s=3\)</span> chegarasini hisoblash<a class="headerlink" href="#s-3-chegarasini-hisoblash" title="Link to this heading"></a></h2>
+<p><span class="math notranslate nohighlight">\(x\leq3\)</span> sharti uchun chap targetlar:</p>
+<div class="math notranslate nohighlight">
+\[
+y_L=[10,14,14]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\bar{y}_L=\frac{10+14+14}{3}\approx12.67
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Q_L\approx10.67
+\]</div>
+<p>O‘ng targetlar:</p>
+<div class="math notranslate nohighlight">
+\[
+y_R=[25,28,30]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\bar{y}_R=\frac{25+28+30}{3}\approx27.67
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Q_R\approx12.67
+\]</div>
+<p>Umumiy xatolik:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{Q(3)=Q_L+Q_R\approx23.34}
+\]</div>
+<p>Barcha chegaralar taqqoslanadi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Chegara <span class="math notranslate nohighlight">\(s\)</span></p></th>
+<th class="head text-right"><p>Umumiy xatolik <span class="math notranslate nohighlight">\(Q(s)\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1.5</p></td>
+<td class="text-right"><p>236.80</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>3.0</p></td>
+<td class="text-right"><p>23.34</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>4.5</p></td>
+<td class="text-right"><p>126.75</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>5.5</p></td>
+<td class="text-right"><p>244.80</p></td>
+</tr>
+</tbody>
+</table>
+<p>Eng kichik xatolik <span class="math notranslate nohighlight">\(s=3\)</span> da hosil bo‘lgani uchun ildiz tugun quyidagicha
+bo‘ladi:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>                 x ≤ 3?
+                /      \
+              Ha        Yo‘q
+        [10, 14, 14]  [25, 28, 30]
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="daraxtning-keyingi-bolinishlari">
+<h2>6. Daraxtning keyingi bo‘linishlari<a class="headerlink" href="#daraxtning-keyingi-bolinishlari" title="Link to this heading"></a></h2>
+<p>Chap guruhdagi eng yaxshi chegara <span class="math notranslate nohighlight">\(x\leq1.5\)</span>, o‘ng guruhdagi eng yaxshi
+chegara esa <span class="math notranslate nohighlight">\(x\leq4.5\)</span> bo‘lsin. Daraxt:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>                       x ≤ 3?
+                     /        \
+                   Ha          Yo‘q
+               x ≤ 1.5?      x ≤ 4.5?
+               /      \      /       \
+             10       14    25        29
+</pre></div>
+</div>
+<p>Oxirgi bargdagi <code class="docutils literal notranslate"><span class="pre">29</span></code> qiymati shu bargga tushgan targetlarning o‘rtachasidir:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{28+30}{2}=29
+\]</div>
+<p>Regression daraxtining umumiy barg bashorati:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{\hat{y}_{\text{leaf}}
+=\frac{1}{n_{\text{leaf}}}\sum_{i=1}^{n_{\text{leaf}}}y_i}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="daraxtlar-bashoratini-ortachalash">
+<h2>7. Daraxtlar bashoratini o‘rtachalash<a class="headerlink" href="#daraxtlar-bashoratini-ortachalash" title="Link to this heading"></a></h2>
+<p><span class="math notranslate nohighlight">\(x_{\text{new}}=3.5\)</span> uchun uchta tushuntiruvchi daraxt quyidagi bashoratlarni
+bergan bo‘lsin:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Daraxt</p></th>
+<th class="head text-right"><p>Bashorat</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p><span class="math notranslate nohighlight">\(T_1\)</span></p></td>
+<td class="text-right"><p>25</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p><span class="math notranslate nohighlight">\(T_2\)</span></p></td>
+<td class="text-right"><p>15</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p><span class="math notranslate nohighlight">\(T_3\)</span></p></td>
+<td class="text-right"><p>15</p></td>
+</tr>
+</tbody>
+</table>
+<p>Random Forest natijasi:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=\frac{25+15+15}{3}\approx18.33
+\]</div>
+<p>Ushbu uchta daraxt va <code class="docutils literal notranslate"><span class="pre">18.33</span></code> natijasi algoritmni tushuntirish uchun berilgan
+kichik misoldir. Haqiqiy modeldagi bootstrap namunalar va bashoratlar
+<code class="docutils literal notranslate"><span class="pre">random_state</span></code>, daraxt parametrlari hamda realizatsiyaga bog‘liq.</p>
+</section>
+<hr class="docutils" />
+<section id="alomatlar-qanday-tasodifiy-tanlanadi">
+<h2>8. Alomatlar qanday tasodifiy tanlanadi?<a class="headerlink" href="#alomatlar-qanday-tasodifiy-tanlanadi" title="Link to this heading"></a></h2>
+<p>Random Forestda tasodifiylik ikki joyda ishlatiladi:</p>
+<ol class="arabic simple">
+<li><p>Har bir daraxt uchun obyektlar bootstrap orqali tanlanadi.</p></li>
+<li><p>Har bir tugunda alomatlarning tasodifiy qismi tanlanadi.</p></li>
+</ol>
+<p>Masalan, uy narxini bashorat qilish uchun oltita alomat mavjud bo‘lsin:</p>
+<ol class="arabic simple">
+<li><p>maydon;</p></li>
+<li><p>xonalar soni;</p></li>
+<li><p>qavat;</p></li>
+<li><p>markazgacha masofa;</p></li>
+<li><p>uy yoshi;</p></li>
+<li><p>tuman.</p></li>
+</ol>
+<p>Oddiy Decision Tree har bir tugunda barcha alomatlarni tekshirishi mumkin.
+Random Forest esa <span class="math notranslate nohighlight">\(m_{\text{try}}=2\)</span> bo‘lsa, ildiz tugunda tasodifan faqat
+<code class="docutils literal notranslate"><span class="pre">maydon</span></code> va <code class="docutils literal notranslate"><span class="pre">masofa</span></code> alomatlarini ko‘rishi mumkin.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Ildiz tugun:  Maydon, Masofa
+Chap tugun:   Xonalar soni, Qavat
+O‘ng tugun:   Uy yoshi, Tuman
+</pre></div>
+</div>
+<p>Tasodifiy alomatlar to‘plami <strong>har bir tugunda yangidan</strong> tanlanadi. Bir
+tugunda tanlanmagan alomat o‘chirilmaydi; u shu daraxtning boshqa tugunida
+yoki boshqa daraxtda qatnashishi mumkin.</p>
+</section>
+<hr class="docutils" />
+<section id="nega-tasodifiy-alomatlar-kerak">
+<h2>9. Nega tasodifiy alomatlar kerak?<a class="headerlink" href="#nega-tasodifiy-alomatlar-kerak" title="Link to this heading"></a></h2>
+<p>Agar juda kuchli bitta alomat har bir tugunda doim mavjud bo‘lsa, ko‘p
+daraxtlar aynan shu alomat bilan bir xil yoki juda o‘xshash tarzda bo‘linishi
+mumkin. Kuchli korrelyatsiyalangan daraxtlarni o‘rtachalashning foydasi
+cheklangan bo‘ladi.</p>
+<p>Alomatlar qismi tasodifiy tanlanganda ayrim daraxtlar boshqa foydali
+alomatlardan foydalanishga majbur bo‘ladi. Natijada:</p>
+<ul class="simple">
+<li><p>daraxtlar bir-biridan ko‘proq farq qiladi;</p></li>
+<li><p>daraxtlar orasidagi korrelyatsiya kamayadi;</p></li>
+<li><p>o‘rtacha bashorat barqarorroq bo‘ladi;</p></li>
+<li><p>bitta daraxtga xos overfitting ta’siri kamayadi.</p></li>
+</ul>
+<p>Bootstrap va tasodifiy alomat tanlash birgalikda o‘rmondagi xilma-xillikni
+hosil qiladi.</p>
+</section>
+<hr class="docutils" />
+<section id="toliq-matematik-korinish">
+<h2>10. To‘liq matematik ko‘rinish<a class="headerlink" href="#toliq-matematik-korinish" title="Link to this heading"></a></h2>
+<p>Dataset:</p>
+<div class="math notranslate nohighlight">
+\[
+D=\{(x_i,y_i)\}_{i=1}^{n}
+\]</div>
+<p>Har bir <span class="math notranslate nohighlight">\(b\)</span>-daraxt uchun bootstrap namuna olinadi:</p>
+<div class="math notranslate nohighlight">
+\[
+D_b^*=\operatorname{Bootstrap}(D)
+\]</div>
+<p>Har bir tugunda tasodifiy alomatlar to‘plami <span class="math notranslate nohighlight">\(M_b\)</span> ichidan alomat <span class="math notranslate nohighlight">\(j\)</span> va
+chegara <span class="math notranslate nohighlight">\(s\)</span> tanlanadi:</p>
+<div class="math notranslate nohighlight">
+\[
+(j^*,s^*)=\arg\min_{j\in M_b,s}
+\left[
+\sum_{x_i\in R_L}(y_i-\bar{y}_L)^2+
+\sum_{x_i\in R_R}(y_i-\bar{y}_R)^2
+\right]
+\]</div>
+<p>Har bir daraxt <span class="math notranslate nohighlight">\(T_b(x)\)</span> bashoratini beradi. O‘rmon bashorati:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{\hat{y}(x)=\frac{1}{B}\sum_{b=1}^{B}T_b(x)}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="nega-bitta-daraxtdan-barqarorroq">
+<h2>11. Nega bitta daraxtdan barqarorroq?<a class="headerlink" href="#nega-bitta-daraxtdan-barqarorroq" title="Link to this heading"></a></h2>
+<p>Bitta chuqur Decision Tree trening ma’lumotidagi kichik o‘zgarishlarga juda
+sezgir. Dataset ozgina o‘zgarsa, daraxt tuzilishi va bashorati sezilarli
+o‘zgarishi mumkin. Bu yuqori variance muammosidir.</p>
+<p>Random Forest turli bootstrap namunalar va alomatlar bilan ko‘plab daraxtlar
+quradi. Daraxtlarning xatolari to‘liq bir xil bo‘lmasa, o‘rtachalashtirish
+tasodifiy xatolarni qisman muvozanatlashtiradi. Natijada variance odatda
+kamayadi.</p>
+<p>Daraxtlar sonining oshishi o‘rmonni avtomatik ravishda overfittingga olib
+kelmaydi, lekin hisoblash va xotira sarfini oshiradi. Daraxt chuqurligi,
+barg hajmi va alomatlar tanlovi baribir nazorat qilinadi.</p>
+</section>
+<hr class="docutils" />
+<section id="out-of-bag-malumotlar">
+<h2>12. Out-of-Bag ma’lumotlar<a class="headerlink" href="#out-of-bag-malumotlar" title="Link to this heading"></a></h2>
+<p>Bootstrap tanlashda ayrim trening obyektlari ma’lum bir daraxt namunasiga
+tushmaydi. Bunday obyektlar <strong>Out-of-Bag</strong>, qisqacha <strong>OOB</strong> obyektlar deyiladi.</p>
+<p>Bitta obyektning <span class="math notranslate nohighlight">\(n\)</span> marta tanlash davomida umuman tanlanmaslik ehtimoli:</p>
+<div class="math notranslate nohighlight">
+\[
+\left(1-\frac{1}{n}\right)^n
+\]</div>
+<p><span class="math notranslate nohighlight">\(n\)</span> kattalashganda:</p>
+<div class="math notranslate nohighlight">
+\[
+\left(1-\frac{1}{n}\right)^n\approx e^{-1}\approx0.368
+\]</div>
+<p>Demak, har bir daraxt uchun trening obyektlarining taxminan <code class="docutils literal notranslate"><span class="pre">36.8%</span></code> qismi OOB
+bo‘lib qoladi. Obyekt uchun faqat shu obyektni treningda ko‘rmagan daraxtlar
+bashorati birlashtirilib, OOB score hisoblanadi.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RandomForestRegressor</span><span class="p">(</span>
+    <span class="n">bootstrap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">oob_score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>OOB score validation natijasining qulay ichki bahosini beradi, lekin yakuniy
+test datasetini to‘liq almashtirmaydi.</p>
+</section>
+<hr class="docutils" />
+<section id="asosiy-parametrlar">
+<h2>13. Asosiy parametrlar<a class="headerlink" href="#asosiy-parametrlar" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parametr</p></th>
+<th class="head"><p>Vazifasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">n_estimators</span></code></p></td>
+<td><p>O‘rmondagi daraxtlar sonini belgilaydi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_depth</span></code></p></td>
+<td><p>Har bir daraxtning maksimal chuqurligini cheklaydi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_samples_split</span></code></p></td>
+<td><p>Tugunni bo‘lish uchun zarur minimal obyektlar sonini belgilaydi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code></p></td>
+<td><p>Har bir bargdagi minimal obyektlar sonini belgilaydi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_features</span></code></p></td>
+<td><p>Har bir tugunda tasodifiy tekshiriladigan alomatlar ulushini yoki sonini belgilaydi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bootstrap</span></code></p></td>
+<td><p>Bootstrap namuna ishlatilishini boshqaradi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_samples</span></code></p></td>
+<td><p>Har bir bootstrap namunadagi obyektlar sonini cheklaydi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">oob_score</span></code></p></td>
+<td><p>OOB baholashni yoqadi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">random_state</span></code></p></td>
+<td><p>Tasodifiy jarayonni takrorlanuvchan qiladi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">n_jobs</span></code></p></td>
+<td><p>Parallel ishlatiladigan protsessorlar sonini boshqaradi</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">n_estimators</span></code> oshganda bashorat odatda barqarorlashadi, lekin ma’lum nuqtadan
+keyin sifatdagi o‘sish kichrayadi. <code class="docutils literal notranslate"><span class="pre">max_depth</span></code> juda kichik bo‘lsa underfitting,
+juda katta va barglar juda kichik bo‘lsa overfitting xavfi paydo bo‘ladi.</p>
+</section>
+<hr class="docutils" />
+<section id="alomat-muhimligi-qanday-aniqlanadi">
+<h2>14. Alomat muhimligi qanday aniqlanadi?<a class="headerlink" href="#alomat-muhimligi-qanday-aniqlanadi" title="Link to this heading"></a></h2>
+<p>Impurity-based feature importance asosiy fikri:</p>
+<blockquote>
+<div><p>Qaysi alomat daraxt tugunlaridagi xatolikni ko‘proq kamaytirsa, shu alomat
+model uchun muhimroq hisoblanadi.</p>
+</div></blockquote>
+<p>Boshlang‘ich targetlar:</p>
+<div class="math notranslate nohighlight">
+\[
+y=[100,120,200,220]
+\]</div>
+<p>O‘rtacha va boshlang‘ich MSE:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{y}=160
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+MSE_{\text{parent}}=
+\frac{(100-160)^2+(120-160)^2+(200-160)^2+(220-160)^2}{4}
+=2600
+\]</div>
+<p><code class="docutils literal notranslate"><span class="pre">Maydon</span></code> alomati targetlarni <code class="docutils literal notranslate"><span class="pre">[100,120]</span></code> va <code class="docutils literal notranslate"><span class="pre">[200,220]</span></code> guruhlariga ajratsa,
+ikkala guruh MSE qiymati <code class="docutils literal notranslate"><span class="pre">100</span></code> bo‘ladi. O‘lcham bilan vaznlangan keyingi
+xatolik:</p>
+<div class="math notranslate nohighlight">
+\[
+MSE_{\text{after}}=\frac{2}{4}\cdot100+\frac{2}{4}\cdot100=100
+\]</div>
+<p>Xatolik kamayishi:</p>
+<div class="math notranslate nohighlight">
+\[
+\Delta MSE_{\text{maydon}}=2600-100=2500
+\]</div>
+<p><code class="docutils literal notranslate"><span class="pre">Xonalar</span> <span class="pre">soni</span></code> alomati targetlarni <code class="docutils literal notranslate"><span class="pre">[100,200]</span></code> va <code class="docutils literal notranslate"><span class="pre">[120,220]</span></code> guruhlariga
+ajratsa, keyingi MSE <code class="docutils literal notranslate"><span class="pre">2500</span></code> bo‘ladi:</p>
+<div class="math notranslate nohighlight">
+\[
+\Delta MSE_{\text{xonalar}}=2600-2500=100
+\]</div>
+<p>Faqat shu ikki hissa normallashtirilsa:</p>
+<div class="math notranslate nohighlight">
+\[
+Importance_{\text{maydon}}=\frac{2500}{2500+100}\approx0.9615
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Importance_{\text{xonalar}}=\frac{100}{2500+100}\approx0.0385
+\]</div>
+<p>Random Forestda har bir alomat ishlatilgan barcha tugunlardagi vaznlangan
+xatolik kamayishlari barcha daraxtlar bo‘yicha yig‘iladi va yig‘indi <code class="docutils literal notranslate"><span class="pre">1</span></code> ga
+teng bo‘ladigan qilib normallashtiriladi.</p>
+</section>
+<hr class="docutils" />
+<section id="alomat-muhimligini-togri-talqin-qilish">
+<h2>15. Alomat muhimligini to‘g‘ri talqin qilish<a class="headerlink" href="#alomat-muhimligini-togri-talqin-qilish" title="Link to this heading"></a></h2>
+<p>Masalan, <code class="docutils literal notranslate"><span class="pre">feature_importances_</span></code> natijasi:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Maydon         : 0.65
+Xonalar soni   : 0.20
+Uy yoshi       : 0.15
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Maydon</span> <span class="pre">=</span> <span class="pre">0.65</span></code> qiymati targetning aynan <code class="docutils literal notranslate"><span class="pre">65%</span></code> qismi maydon sababli yuzaga
+kelganini bildirmaydi. Bu daraxtlardagi normallashtirilgan xatolik kamayishining
+katta qismi maydon ishlatilgan bo‘linishlarga to‘g‘ri kelganini bildiradi.</p>
+<p>Muhim cheklovlar:</p>
+<ul class="simple">
+<li><p>alomat muhimligi sababiy bog‘lanishni isbotlamaydi;</p></li>
+<li><p>bir-biriga kuchli bog‘langan alomatlar muhimlikni bo‘lib olishi mumkin;</p></li>
+<li><p>ko‘p noyob qiymatga ega alomatlar impurity-based usulda ustun ko‘rinishi
+mumkin;</p></li>
+<li><p>ishonchliroq tekshiruv uchun test datasetidagi permutation importance ham
+hisoblanishi mumkin.</p></li>
+</ul>
+<p>Tasodifiy tanlovga qaramay, foydali alomat ko‘plab daraxt va tugunlarda
+xatolikni kamaytirsa, yuqori umumiy muhimlik oladi.</p>
+</section>
+<hr class="docutils" />
+<section id="bir-nechta-alomat-bilan-ishlash">
+<h2>16. Bir nechta alomat bilan ishlash<a class="headerlink" href="#bir-nechta-alomat-bilan-ishlash" title="Link to this heading"></a></h2>
+<p>Uy narxi datasetida uchta alomat bo‘lsin:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Maydon</p></th>
+<th class="head text-right"><p>Xonalar</p></th>
+<th class="head text-right"><p>Uy yoshi</p></th>
+<th class="head text-right"><p>Narx</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>50</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>15</p></td>
+<td class="text-right"><p>300</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>60</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>10</p></td>
+<td class="text-right"><p>350</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>75</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>8</p></td>
+<td class="text-right"><p>430</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>90</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>550</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>110</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>700</p></td>
+</tr>
+</tbody>
+</table>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X=
+\begin{bmatrix}
+50 &amp; 2 &amp; 15\\
+60 &amp; 2 &amp; 10\\
+75 &amp; 3 &amp; 8\\
+90 &amp; 4 &amp; 5\\
+110 &amp; 4 &amp; 2
+\end{bmatrix},
+\qquad
+y=
+\begin{bmatrix}
+300\\350\\430\\550\\700
+\end{bmatrix}
+\end{split}\]</div>
+<p>Har bir daraxt tugunida <code class="docutils literal notranslate"><span class="pre">maydon</span></code>, <code class="docutils literal notranslate"><span class="pre">xonalar</span></code> va <code class="docutils literal notranslate"><span class="pre">uy</span> <span class="pre">yoshi</span></code> alomatlarining
+tasodifiy qismi tekshiriladi. Tanlangan qism ichidagi eng yaxshi
+<code class="docutils literal notranslate"><span class="pre">alomat</span> <span class="pre">+</span> <span class="pre">chegara</span></code> juftligi ishlatiladi.</p>
+</section>
+<hr class="docutils" />
+<section id="python-orqali-model-qurish">
+<h2>17. Python orqali model qurish<a class="headerlink" href="#python-orqali-model-qurish" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="p">])</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">430</span><span class="p">,</span> <span class="mi">550</span><span class="p">,</span> <span class="mi">700</span><span class="p">])</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">,</span>
+    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span>
+    <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">max_features</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">bootstrap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">oob_score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"MAE:"</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"MSE:"</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"RMSE:"</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"R2:"</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"OOB R2:"</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">oob_score_</span><span class="p">)</span>
+
+<span class="n">new_house</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Yangi bashorat:"</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">new_house</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Maydon"</span><span class="p">,</span> <span class="s2">"Xonalar"</span><span class="p">,</span> <span class="s2">"Uy yoshi"</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">importance</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">importance</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ushbu besh qatorli dataset faqat kod tuzilishini ko‘rsatadi. Ishonchli train,
+test va OOB baholash uchun ancha katta dataset talab qilinadi. Juda kichik
+test to‘plamida <span class="math notranslate nohighlight">\(R^2\)</span> beqaror yoki aniqlanmagan bo‘lishi mumkin.</p>
+</section>
+<hr class="docutils" />
+<section id="har-bir-daraxt-bashoratini-korish">
+<h2>18. Har bir daraxt bashoratini ko‘rish<a class="headerlink" href="#har-bir-daraxt-bashoratini-korish" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tree_predictions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">new_house</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">estimators_</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Daraxtlar bashorati:"</span><span class="p">,</span> <span class="n">tree_predictions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"O‘rtacha:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tree_predictions</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Model bashorati:"</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">new_house</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Oddiy Random Forest Regressionda <code class="docutils literal notranslate"><span class="pre">model.predict</span></code> natijasi alohida daraxtlar
+bashoratining arifmetik o‘rtachasiga teng.</p>
+</section>
+<hr class="docutils" />
+<section id="modelni-baholash">
+<h2>19. Modelni baholash<a class="headerlink" href="#modelni-baholash" title="Link to this heading"></a></h2>
+<p>Random Forest Regression boshqa regression modellari kabi baholanadi:</p>
+<div class="math notranslate nohighlight">
+\[
+MAE=\frac{1}{n}\sum_{i=1}^{n}|y_i-\hat{y}_i|
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+MSE=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+RMSE=\sqrt{MSE}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+R^2=1-
+\frac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}
+{\sum_{i=1}^{n}(y_i-\bar{y})^2}
+\]</div>
+<p>Model sifati trening natijasida emas, test datasetida yoki cross-validation
+orqali aniqlanadi. Giperparametrlar validation natijasiga qarab tanlanadi.
+Test dataset yakuniy tekshiruvgacha model tanlash jarayonidan chetda saqlanadi.</p>
+</section>
+<hr class="docutils" />
+<section id="malumotlarni-tayyorlash">
+<h2>20. Ma’lumotlarni tayyorlash<a class="headerlink" href="#malumotlarni-tayyorlash" title="Link to this heading"></a></h2>
+<p>Random Forest chegaralar orqali bo‘linadi va masofa hisoblamaydi. Shu sababli
+sonli alomatlarni standartlashtirish yoki normallashtirish odatda talab
+qilinmaydi.</p>
+<p>Shunga qaramay:</p>
+<ul class="simple">
+<li><p>yo‘qolgan qiymatlar tanlangan kutubxona va versiyaga mos qayta ishlanadi;</p></li>
+<li><p>matnli kategoriyalar sonli ko‘rinishga o‘tkaziladi;</p></li>
+<li><p>kategoriyaga tartib ma’nosini noto‘g‘ri beruvchi oddiy raqamlashdan ehtiyot
+bo‘linadi;</p></li>
+<li><p>train va test qismlariga ajratish preprocessingdan oldin bajariladi;</p></li>
+<li><p>target leakage keltirib chiqaradigan ustunlar olib tashlanadi.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="afzalliklari">
+<h2>21. Afzalliklari<a class="headerlink" href="#afzalliklari" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>chiziqli bo‘lmagan bog‘lanishlarni o‘rganadi;</p></li>
+<li><p>alomatlar orasidagi murakkab interactionlarni avtomatik aniqlaydi;</p></li>
+<li><p>bitta Decision Treedan barqarorroq;</p></li>
+<li><p>alomatlarni masshtablash odatda kerak emas;</p></li>
+<li><p>sonli bashorat va alomat muhimligini bera oladi;</p></li>
+<li><p>katta miqdordagi alomatlar bilan ishlaydi;</p></li>
+<li><p>OOB orqali qo‘shimcha ichki baholash imkonini beradi;</p></li>
+<li><p>daraxtlar parallel qurilishi mumkin.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="kamchiliklari">
+<h2>22. Kamchiliklari<a class="headerlink" href="#kamchiliklari" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>bitta daraxtga qaraganda tushuntirish qiyinroq;</p></li>
+<li><p>ko‘p daraxt xotira va hisoblash vaqtini oshiradi;</p></li>
+<li><p>bashoratlar trening targetlari diapazonidan tashqariga yaxshi
+ekstrapolyatsiya qilmaydi;</p></li>
+<li><p>juda kichik datasetda natija beqaror bo‘lishi mumkin;</p></li>
+<li><p>impurity-based feature importance noto‘g‘ri talqin qilinishi mumkin;</p></li>
+<li><p>kuchli trendni formulaga aylantirib tushuntirish Linear Regressionga
+qaraganda qiyinroq.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="linear-decision-tree-va-random-forest-farqi">
+<h2>23. Linear, Decision Tree va Random Forest farqi<a class="headerlink" href="#linear-decision-tree-va-random-forest-farqi" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Xususiyat</p></th>
+<th class="head"><p>Linear Regression</p></th>
+<th class="head"><p>Decision Tree Regression</p></th>
+<th class="head"><p>Random Forest Regression</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Model</p></td>
+<td><p>Bitta formula</p></td>
+<td><p>Bitta daraxt</p></td>
+<td><p>Ko‘plab daraxtlar</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bog‘lanish</p></td>
+<td><p>Asosan chiziqli</p></td>
+<td><p>Chiziqli bo‘lishi shart emas</p></td>
+<td><p>Chiziqli bo‘lishi shart emas</p></td>
+</tr>
+<tr class="row-even"><td><p>Bashorat</p></td>
+<td><p>Formula natijasi</p></td>
+<td><p>Bitta barg qiymati</p></td>
+<td><p>Barg qiymatlarining o‘rtachasi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Masshtablash</p></td>
+<td><p>Ba’zan kerak</p></td>
+<td><p>Odatda kerak emas</p></td>
+<td><p>Odatda kerak emas</p></td>
+</tr>
+<tr class="row-even"><td><p>Overfitting</p></td>
+<td><p>Nisbatan pastroq</p></td>
+<td><p>Yuqori bo‘lishi mumkin</p></td>
+<td><p>Bitta daraxtdan pastroq</p></td>
+</tr>
+<tr class="row-odd"><td><p>Barqarorlik</p></td>
+<td><p>Datasetga bog‘liq</p></td>
+<td><p>Pastroq</p></td>
+<td><p>Yuqoriroq</p></td>
+</tr>
+<tr class="row-even"><td><p>Tushuntirish</p></td>
+<td><p>Koeffitsiyentlar</p></td>
+<td><p>Qoidalar</p></td>
+<td><p>Umumiy muhimlik va yordamchi usullar</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ekstrapolyatsiya</p></td>
+<td><p>Mumkin</p></td>
+<td><p>Yaxshi emas</p></td>
+<td><p>Yaxshi emas</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="algoritmning-ishlash-tartibi">
+<h2>24. Algoritmning ishlash tartibi<a class="headerlink" href="#algoritmning-ishlash-tartibi" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(B\)</span> ta daraxt soni belgilanadi.</p></li>
+<li><p>Har bir daraxt uchun bootstrap namuna olinadi.</p></li>
+<li><p>Daraxtning har bir tugunida alomatlarning tasodifiy qismi tanlanadi.</p></li>
+<li><p>Tanlangan alomatlardagi barcha nomzod chegaralar tekshiriladi.</p></li>
+<li><p>Xatolikni eng ko‘p kamaytirgan bo‘linish tanlanadi.</p></li>
+<li><p>To‘xtash sharti bajarilguncha tugunlar rekursiv bo‘linadi.</p></li>
+<li><p>Har bir bargda targetlarning o‘rtacha qiymati saqlanadi.</p></li>
+<li><p>Yangi obyekt barcha daraxtlardan o‘tkaziladi.</p></li>
+<li><p>Daraxtlar bashoratining o‘rtachasi yakuniy natija bo‘ladi.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="muhim-xulosa">
+<h2>25. Muhim xulosa<a class="headerlink" href="#muhim-xulosa" title="Link to this heading"></a></h2>
+<p>Random Forest Regressionning uchta tayanch g‘oyasi:</p>
+<ol class="arabic simple">
+<li><p><strong>Bootstrap</strong> — har bir daraxt turli obyektlar namunasida o‘rganadi.</p></li>
+<li><p><strong>Tasodifiy alomatlar</strong> — har bir tugunda alomatlarning faqat bir qismi
+tekshiriladi.</p></li>
+<li><p><strong>O‘rtachalashtirish</strong> — barcha daraxtlar bashorati birlashtiriladi.</p></li>
+</ol>
+<p>Yakuniy formula:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{\hat{y}(x)=\frac{1}{B}\sum_{b=1}^{B}T_b(x)}
+\]</div>
+<p>Tasodifiylik daraxtlarni turlicha qiladi, o‘rtachalashtirish esa ularning
+tasodifiy xatolarini kamaytirib, bitta daraxtga qaraganda barqarorroq model
+hosil qiladi.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="decision_tree_regression.html" class="btn btn-neutral float-left" title="Decision Tree Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../classification.html" class="btn btn-neutral float-right" title="Classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Abduhalil.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -189,9 +189,9 @@ A3 = [9, 4, 0]
 $$
 
 $$
-D(A1, A2) = |3-7| + |5-8| + 0{1=1 \text{bo’lgani uchun}}
+D(A1, A2) = |3-7| + |5-8| + 0 ({1=1 \text{bo’lgani uchun}})
 $$
 
 $$
-D(A1, A3) = |3-9| + |5-9| + 1{1!=0 \text{bo’lgani uchun}}
+D(A1, A3) = |3-9| + |5-4| + 1 ({1!=0 \text{bo’lgani uchun}})
 $$

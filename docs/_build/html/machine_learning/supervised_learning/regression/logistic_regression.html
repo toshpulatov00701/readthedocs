@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logistic Regression &mdash; myAI 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=dd794df2" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Decision Tree Regression" href="decision_tree_regression.html" />
+    <link rel="prev" title="Polynomial Regression" href="polynomial_regression.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            myAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../main.html">Kirish</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Machine Learning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../supervised_learning.html">Supervised Learning</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../regression.html">Regression</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="simple_linear_regression.html">Simple Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="multiple_linear_regression.html">Multiple Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="polynomial_regression.html">Polynomial Regression</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Logistic Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decision_tree_regression.html">Decision Tree Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="random_forest_regression.html">Random Forest Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../classification.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../knn.html">k-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../random_forest.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../svm.html">SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gradient_boosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../supervised_learning.html#algoritmlarning-qo-llanish-sohasi">Algoritmlarning qo’llanish sohasi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../evaluation_metrics.html">Baholash metrikalari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#recall-qamrov">Recall (Qamrov)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#f1-score">F1-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_metrics.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../kmeans_alg.html">K-means</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../kmeans_alg.html#asosiy-goya">Asosiy g‘oya</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#ishlash-bosqichlari">Ishlash bosqichlari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#kamchiliklari">Kamchiliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kmeans_alg.html#k-qiymatini-tanlash-usullari">K qiymatini tanlash usullari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dbscan_alg.html">DBSCAN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#parametrlari">Parametrlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#obyektlar-turlari">Obyektlar turlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#ishlash-jarayoni">Ishlash jarayoni</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dbscan_alg.html#kamchiliklari">Kamchiliklari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mathematics/index.html">Matematika</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../mathematics/density_distributions.html">Zichlik taqsimotlari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#zichlik-taqsimot-turlari">Zichlik taqsimot turlari</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#diskret-taqsimotlar">Diskret taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#uzluksiz-taqsimotlar">Uzluksiz taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#maxsus-statistik-taqsimotlar">Maxsus/statistik taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#kop-olchamli-multivariate-taqsimotlar">Ko‘p o‘lchamli (multivariate) taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#zichlik-funksiyalari-density-functions">Zichlik funksiyalari(Density Functions)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#ehtimollik-zichlik-funksiyasi-pdf">Ehtimollik zichlik funksiyasi (PDF)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#gauss-normal-taqsimot-zichligi">Gauss (Normal) taqsimot zichligi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#dirichlet-taqsimoti">Dirichlet taqsimoti</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#asosiy-xossalari">Asosiy xossalari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../mathematics/density_distributions.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../mathematics/density_distributions.html#alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish"><span class="math notranslate nohighlight">\(\alpha\)</span> ni taqsimotning o‘zi sifatida talqin qilish</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/index.html">Boshqa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../others/distance_metric.html">Masofa metrikalari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../others/glossary.html">Glosary</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">myAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Machine Learning</a></li>
+          <li class="breadcrumb-item"><a href="../../supervised_learning.html">Supervised Learning</a></li>
+          <li class="breadcrumb-item"><a href="../regression.html">Regression</a></li>
+      <li class="breadcrumb-item active">Logistic Regression</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="logistic-regression">
+<h1>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading"></a></h1>
+<p><strong>Logistic Regression</strong> — nomida “regression” so‘zi bo‘lsa ham, asosan
+klassifikatsiya masalalarida ishlatiladigan algoritm. Model obyektning ma’lum
+sinfga tegishli bo‘lish ehtimolini hisoblaydi.</p>
+<p>Masalan:</p>
+<ul class="simple">
+<li><p>elektron xat spam yoki spam emas;</p></li>
+<li><p>mijoz kreditni qaytaradi yoki qaytarmaydi;</p></li>
+<li><p>bemorda kasallik bor yoki yo‘q;</p></li>
+<li><p>talaba imtihondan o‘tadi yoki o‘tmaydi.</p></li>
+</ul>
+<p>Binary klassifikatsiyada natija ikki sinfdan iborat:</p>
+<div class="math notranslate nohighlight">
+\[
+y\in\{0,1\}
+\]</div>
+<p>Odatda <code class="docutils literal notranslate"><span class="pre">0</span></code> — manfiy sinf, <code class="docutils literal notranslate"><span class="pre">1</span></code> esa musbat sinf sifatida belgilanadi.</p>
+<hr class="docutils" />
+<section id="linear-regression-bilan-asosiy-farqi">
+<h2>1. Linear Regression bilan asosiy farqi<a class="headerlink" href="#linear-regression-bilan-asosiy-farqi" title="Link to this heading"></a></h2>
+<p>Simple Linear Regression quyidagi qiymatni hisoblaydi:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}=b_0+b_1x
+\]</div>
+<p>Natija istalgan haqiqiy son, masalan <span class="math notranslate nohighlight">\(-3\)</span>, <span class="math notranslate nohighlight">\(0.7\)</span> yoki <span class="math notranslate nohighlight">\(15\)</span> bo‘lishi mumkin.
+Klassifikatsiyada esa <span class="math notranslate nohighlight">\(0\)</span> va <span class="math notranslate nohighlight">\(1\)</span> oralig‘idagi ehtimollik kerak:</p>
+<div class="math notranslate nohighlight">
+\[
+0\leq P(y=1\mid x)\leq1
+\]</div>
+<p>Logistic Regression chiziqli ifodani avval hisoblaydi:</p>
+<div class="math notranslate nohighlight">
+\[
+z=b_0+b_1x
+\]</div>
+<p>Keyin <span class="math notranslate nohighlight">\(z\)</span> qiymatini sigmoid funksiyasi orqali ehtimollikka aylantiradi.</p>
+</section>
+<hr class="docutils" />
+<section id="sigmoid-funksiyasi">
+<h2>2. Sigmoid funksiyasi<a class="headerlink" href="#sigmoid-funksiyasi" title="Link to this heading"></a></h2>
+<p>Sigmoid funksiyasi:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma(z)=\frac{1}{1+e^{-z}}
+\]</div>
+<p>Logistic Regression modeli:</p>
+<div class="math notranslate nohighlight">
+\[
+p=P(y=1\mid x)=\sigma(b_0+b_1x)
+\]</div>
+<p>Sigmoid har qanday haqiqiy sonni <span class="math notranslate nohighlight">\((0,1)\)</span> oralig‘iga o‘tkazadi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p><span class="math notranslate nohighlight">\(z\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(\sigma(z)\)</span></p></th>
+<th class="head"><p>Talqin</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p><span class="math notranslate nohighlight">\(-5\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(0.0067\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code>-sinf ehtimoli juda past</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p><span class="math notranslate nohighlight">\(-1\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(0.2689\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code>-sinf ehtimoli past</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(0.5000\)</span></p></td>
+<td><p>Ikki sinf chegarasi</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(0.7311\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code>-sinf ehtimoli yuqori</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p><span class="math notranslate nohighlight">\(5\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(0.9933\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code>-sinf ehtimoli juda yuqori</p></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math notranslate nohighlight">\(z\)</span> oshganda ehtimollik <code class="docutils literal notranslate"><span class="pre">1</span></code> ga, <span class="math notranslate nohighlight">\(z\)</span> kamayganda esa <code class="docutils literal notranslate"><span class="pre">0</span></code> ga yaqinlashadi.</p>
+</section>
+<hr class="docutils" />
+<section id="kichik-dataset">
+<h2>3. Kichik dataset<a class="headerlink" href="#kichik-dataset" title="Link to this heading"></a></h2>
+<p>Quyidagi misolda:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x\)</span> — o‘qish soati;</p></li>
+<li><p><span class="math notranslate nohighlight">\(y=0\)</span> — imtihondan o‘tmagan;</p></li>
+<li><p><span class="math notranslate nohighlight">\(y=1\)</span> — imtihondan o‘tgan.</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Obyekt</p></th>
+<th class="head text-right"><p>O‘qish soati <span class="math notranslate nohighlight">\(x\)</span></p></th>
+<th class="head text-right"><p>Natija <span class="math notranslate nohighlight">\(y\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>4</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td class="text-right"><p>6</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<p>Maqsad — o‘qish soati asosida imtihondan o‘tish ehtimolini hisoblash.</p>
+</section>
+<hr class="docutils" />
+<section id="ehtimollikni-qolda-hisoblash">
+<h2>4. Ehtimollikni qo‘lda hisoblash<a class="headerlink" href="#ehtimollikni-qolda-hisoblash" title="Link to this heading"></a></h2>
+<p>Tushuntiruvchi misol sifatida quyidagi koeffitsiyentlar berilgan bo‘lsin:</p>
+<div class="math notranslate nohighlight">
+\[
+b_0=-5,\qquad b_1=1.5
+\]</div>
+<p>Model:</p>
+<div class="math notranslate nohighlight">
+\[
+z=-5+1.5x
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(y=1\mid x)=\frac{1}{1+e^{-(-5+1.5x)}}
+\]</div>
+<p><span class="math notranslate nohighlight">\(x=4\)</span> uchun avval chiziqli qiymat hisoblanadi:</p>
+<div class="math notranslate nohighlight">
+\[
+z=-5+1.5\cdot4=1
+\]</div>
+<p>Keyin sigmoid qo‘llanadi:</p>
+<div class="math notranslate nohighlight">
+\[
+p=\frac{1}{1+e^{-1}}\approx0.731
+\]</div>
+<p>Demak, model <span class="math notranslate nohighlight">\(x=4\)</span> bo‘lgan obyekt uchun <code class="docutils literal notranslate"><span class="pre">1</span></code>-sinf ehtimolini taxminan
+<span class="math notranslate nohighlight">\(73.1\%\)</span> deb baholaydi.</p>
+<p>Bu bo‘limdagi <span class="math notranslate nohighlight">\(b_0=-5\)</span> va <span class="math notranslate nohighlight">\(b_1=1.5\)</span> qiymatlari hisoblash jarayonini
+ko‘rsatish uchun berilgan. Koeffitsiyentlar amalda ma’lumotdan optimizatsiya
+orqali o‘rganiladi.</p>
+</section>
+<hr class="docutils" />
+<section id="ehtimollikdan-sinfga-otish">
+<h2>5. Ehtimollikdan sinfga o‘tish<a class="headerlink" href="#ehtimollikdan-sinfga-otish" title="Link to this heading"></a></h2>
+<p>Logistic Regression dastlab <code class="docutils literal notranslate"><span class="pre">0</span></code> yoki <code class="docutils literal notranslate"><span class="pre">1</span></code> emas, ehtimollik qaytaradi. Sinf
+olish uchun <strong>threshold</strong>, ya’ni chegara qiymati tanlanadi. Masalan,
+<span class="math notranslate nohighlight">\(t=0.5\)</span> bo‘lsa:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\hat{y}=
+\begin{cases}
+1, &amp; p\geq0.5,\\
+0, &amp; p&lt;0.5.
+\end{cases}
+\end{split}\]</div>
+<p>Yuqoridagi misolda <span class="math notranslate nohighlight">\(p=0.731\)</span> bo‘lgani sababli bashorat <code class="docutils literal notranslate"><span class="pre">1</span></code> bo‘ladi.</p>
+<p>Threshold har doim <code class="docutils literal notranslate"><span class="pre">0.5</span></code> bo‘lishi shart emas:</p>
+<ul class="simple">
+<li><p>kasallikni o‘tkazib yuborish xavfli bo‘lsa, threshold pasaytirilishi mumkin;</p></li>
+<li><p>noto‘g‘ri musbat bashorat qimmatga tushsa, threshold oshirilishi mumkin.</p></li>
+</ul>
+<p>Threshold o‘zgarishi precision va recall orasidagi muvozanatni o‘zgartiradi.</p>
+</section>
+<hr class="docutils" />
+<section id="qaror-chegarasi">
+<h2>6. Qaror chegarasi<a class="headerlink" href="#qaror-chegarasi" title="Link to this heading"></a></h2>
+<p><span class="math notranslate nohighlight">\(0.5\)</span> threshold uchun sinflar chegarasi <span class="math notranslate nohighlight">\(p=0.5\)</span> nuqtada joylashadi. Sigmoid
+funksiyasida <span class="math notranslate nohighlight">\(\sigma(0)=0.5\)</span>, shuning uchun:</p>
+<div class="math notranslate nohighlight">
+\[
+b_0+b_1x=0
+\]</div>
+<p>Bitta alomatli modelning qaror chegarasi:</p>
+<div class="math notranslate nohighlight">
+\[
+x=-\frac{b_0}{b_1}
+\]</div>
+<p><span class="math notranslate nohighlight">\(b_0=-5\)</span> va <span class="math notranslate nohighlight">\(b_1=1.5\)</span> uchun:</p>
+<div class="math notranslate nohighlight">
+\[
+x=-\frac{-5}{1.5}\approx3.33
+\]</div>
+<p><span class="math notranslate nohighlight">\(x\)</span> qiymati taxminan <code class="docutils literal notranslate"><span class="pre">3.33</span></code> dan katta bo‘lsa, model <code class="docutils literal notranslate"><span class="pre">1</span></code>-sinfga moyil bo‘ladi.</p>
+</section>
+<hr class="docutils" />
+<section id="koeffitsiyentlar-qanday-topiladi">
+<h2>7. Koeffitsiyentlar qanday topiladi?<a class="headerlink" href="#koeffitsiyentlar-qanday-topiladi" title="Link to this heading"></a></h2>
+<p><span class="math notranslate nohighlight">\(b_0\)</span> va <span class="math notranslate nohighlight">\(b_1\)</span> qiymatlari variantlarni ko‘r-ko‘rona sinash orqali
+tanlanmaydi. Optimal qiymatlar <strong>Maximum Likelihood Estimation</strong> orqali
+topiladi. Bu jarayon Binary Cross-Entropy yoki <strong>Log Loss</strong> funksiyasini
+minimallashtirishga teng.</p>
+<p>Bitta obyekt uchun loss:</p>
+<div class="math notranslate nohighlight">
+\[
+L_i=-\left[y_i\ln(p_i)+(1-y_i)\ln(1-p_i)\right]
+\]</div>
+<p>Dataset bo‘yicha o‘rtacha loss:</p>
+<div class="math notranslate nohighlight">
+\[
+J(b_0,b_1)=
+-\frac{1}{m}\sum_{i=1}^{m}
+\left[y_i\ln(p_i)+(1-y_i)\ln(1-p_i)\right]
+\]</div>
+<p>Maqsad:</p>
+<div class="math notranslate nohighlight">
+\[
+J(b_0,b_1)\rightarrow\min
+\]</div>
+<p>Log Loss quyidagi xususiyatga ega:</p>
+<ul class="simple">
+<li><p>to‘g‘ri sinfga yuqori ehtimollik berilsa, loss kichik bo‘ladi;</p></li>
+<li><p>noto‘g‘ri sinfga katta ishonch bildirilsa, loss juda katta bo‘ladi.</p></li>
+</ul>
+<p>Masalan, haqiqiy sinf <span class="math notranslate nohighlight">\(y=1\)</span> bo‘lsa:</p>
+<div class="math notranslate nohighlight">
+\[
+L=-\ln(p)
+\]</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Bashorat <span class="math notranslate nohighlight">\(p\)</span></p></th>
+<th class="head text-right"><p>Loss <span class="math notranslate nohighlight">\(-\ln(p)\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>0.90</p></td>
+<td class="text-right"><p>0.105</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>0.60</p></td>
+<td class="text-right"><p>0.511</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>0.10</p></td>
+<td class="text-right"><p>2.303</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>0.01</p></td>
+<td class="text-right"><p>4.605</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="gradient-qanday-hisoblanadi">
+<h2>8. Gradient qanday hisoblanadi?<a class="headerlink" href="#gradient-qanday-hisoblanadi" title="Link to this heading"></a></h2>
+<p>Log Lossning koeffitsiyentlar bo‘yicha hosilalari gradientni beradi:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial J}{\partial b_0}
+=\frac{1}{m}\sum_{i=1}^{m}(p_i-y_i)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial J}{\partial b_1}
+=\frac{1}{m}\sum_{i=1}^{m}(p_i-y_i)x_i
+\]</div>
+<p>Gradient loss eng tez oshadigan yo‘nalishni ko‘rsatadi. Lossni kamaytirish
+uchun koeffitsiyentlar gradientga qarama-qarshi yo‘nalishda yangilanadi:</p>
+<div class="math notranslate nohighlight">
+\[
+b_j:=b_j-\alpha\frac{\partial J}{\partial b_j}
+\]</div>
+<p>Bu yerda <span class="math notranslate nohighlight">\(\alpha\)</span> — <strong>learning rate</strong>, ya’ni qadam kattaligi.</p>
+</section>
+<hr class="docutils" />
+<section id="gradient-descentning-birinchi-qadami">
+<h2>9. Gradient Descentning birinchi qadami<a class="headerlink" href="#gradient-descentning-birinchi-qadami" title="Link to this heading"></a></h2>
+<p>Yuqoridagi dataset va boshlang‘ich qiymatlar:</p>
+<div class="math notranslate nohighlight">
+\[
+b_0=0,\qquad b_1=0
+\]</div>
+<p>Barcha obyektlar uchun:</p>
+<div class="math notranslate nohighlight">
+\[
+z_i=0,\qquad p_i=\sigma(0)=0.5
+\]</div>
+<p>Haqiqiy qiymatlar va xatoliklar:</p>
+<div class="math notranslate nohighlight">
+\[
+y=[0,0,0,1,1,1]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+p-y=[0.5,0.5,0.5,-0.5,-0.5,-0.5]
+\]</div>
+<p>Intercept gradienti:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial J}{\partial b_0}
+=\frac{0.5+0.5+0.5-0.5-0.5-0.5}{6}=0
+\]</div>
+<p><span class="math notranslate nohighlight">\(b_1\)</span> gradienti:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\frac{\partial J}{\partial b_1}
+&amp;=\frac{1}{6}\sum_{i=1}^{6}(p_i-y_i)x_i\\
+&amp;=\frac{0.5\cdot1+0.5\cdot2+0.5\cdot3
+-0.5\cdot4-0.5\cdot5-0.5\cdot6}{6}\\
+&amp;=-0.75
+\end{aligned}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\alpha=0.1\)</span> bo‘lsa, birinchi yangilanish:</p>
+<div class="math notranslate nohighlight">
+\[
+b_0:=0-0.1\cdot0=0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+b_1:=0-0.1\cdot(-0.75)=0.075
+\]</div>
+<p>Yangi model:</p>
+<div class="math notranslate nohighlight">
+\[
+z=0.075x
+\]</div>
+<p>Keyingi iteratsiyada ehtimolliklar, gradientlar va koeffitsiyentlar qayta
+hisoblanadi. Loss yetarlicha kamayguncha yoki to‘xtash sharti bajarilguncha
+jarayon davom etadi.</p>
+<p>Birinchi qadamda dataset simmetriyasi sababli <span class="math notranslate nohighlight">\(b_0\)</span> gradienti nol chiqdi.
+Keyingi qadamlarda ehtimolliklar o‘zgargani uchun <span class="math notranslate nohighlight">\(b_0\)</span> ham yangilanadi.</p>
+</section>
+<hr class="docutils" />
+<section id="nega-bu-perebor-emas">
+<h2>10. Nega bu perebor emas?<a class="headerlink" href="#nega-bu-perebor-emas" title="Link to this heading"></a></h2>
+<p>Perebor barcha mumkin bo‘lgan koeffitsiyent juftliklarini navbat bilan sinab
+ko‘rishni talab qiladi. Gradient Descent esa hosila yordamida loss qaysi
+yo‘nalishda kamayishini aniqlaydi.</p>
+<p>Jarayonning qisqa ko‘rinishi:</p>
+<ol class="arabic simple">
+<li><p>Koeffitsiyentlarga boshlang‘ich qiymat beriladi.</p></li>
+<li><p><span class="math notranslate nohighlight">\(z=X\beta\)</span> hisoblanadi.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p=\sigma(z)\)</span> orqali ehtimolliklar olinadi.</p></li>
+<li><p>Log Loss va gradient hisoblanadi.</p></li>
+<li><p>Koeffitsiyentlar <span class="math notranslate nohighlight">\(\beta:=\beta-\alpha\nabla J\)</span> orqali yangilanadi.</p></li>
+<li><p>To‘xtash sharti bajarilguncha qadamlar takrorlanadi.</p></li>
+</ol>
+<p>Logistic Regression uchun oddiy Linear Regressiondagi kabi yopiq ko‘rinishdagi
+normal tenglama mavjud emas. Koeffitsiyentlar iterativ optimizatsiya orqali
+topiladi. Amaliy kutubxonalar <code class="docutils literal notranslate"><span class="pre">lbfgs</span></code>, <code class="docutils literal notranslate"><span class="pre">liblinear</span></code>, <code class="docutils literal notranslate"><span class="pre">newton-cg</span></code>, <code class="docutils literal notranslate"><span class="pre">sag</span></code> yoki
+<code class="docutils literal notranslate"><span class="pre">saga</span></code> kabi optimizatorlardan foydalanishi mumkin.</p>
+</section>
+<hr class="docutils" />
+<section id="matritsa-korinishi">
+<h2>11. Matritsa ko‘rinishi<a class="headerlink" href="#matritsa-korinishi" title="Link to this heading"></a></h2>
+<p>Bir nechta alomatli dataset uchun:</p>
+<div class="math notranslate nohighlight">
+\[
+z=X\beta
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+p=\sigma(X\beta)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+J(\beta)=-\frac{1}{m}
+\left[y^T\ln(p)+(1-y)^T\ln(1-p)\right]
+\]</div>
+<p>Gradient:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla J=\frac{1}{m}X^T(p-y)
+\]</div>
+<p>Yangilanish:</p>
+<div class="math notranslate nohighlight">
+\[
+\beta:=\beta-\alpha\nabla J
+\]</div>
+<p>Intercept <span class="math notranslate nohighlight">\(X\)</span> matritsadagi <code class="docutils literal notranslate"><span class="pre">1</span></code> lar ustuni yoki alohida parametr orqali
+ifodalanadi.</p>
+</section>
+<hr class="docutils" />
+<section id="bir-nechta-alomatli-model">
+<h2>12. Bir nechta alomatli model<a class="headerlink" href="#bir-nechta-alomatli-model" title="Link to this heading"></a></h2>
+<p><span class="math notranslate nohighlight">\(n\)</span> ta kiruvchi alomat uchun chiziqli qism:</p>
+<div class="math notranslate nohighlight">
+\[
+z=b_0+b_1x_1+b_2x_2+\cdots+b_nx_n
+\]</div>
+<p>Ehtimollik:</p>
+<div class="math notranslate nohighlight">
+\[
+P(y=1\mid x_1,\ldots,x_n)
+=\frac{1}{1+e^{-z}}
+\]</div>
+<p>Masalan, imtihondan o‘tish ehtimoli quyidagi alomatlar orqali baholanishi
+mumkin:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_1\)</span> — o‘qish soati;</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_2\)</span> — yechilgan testlar soni;</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_3\)</span> — uyqu soati.</p></li>
+</ul>
+<p>Model:</p>
+<div class="math notranslate nohighlight">
+\[
+z=b_0+b_1x_1+b_2x_2+b_3x_3
+\]</div>
+<p>Har bir koeffitsiyent boshqa alomatlar o‘zgarmagan holatda tegishli alomatning
+log-odds qiymatiga ta’sirini bildiradi.</p>
+</section>
+<hr class="docutils" />
+<section id="log-odds-va-koeffitsiyent-talqini">
+<h2>13. Log-odds va koeffitsiyent talqini<a class="headerlink" href="#log-odds-va-koeffitsiyent-talqini" title="Link to this heading"></a></h2>
+<p>Ehtimollikdan <strong>odds</strong> quyidagicha olinadi:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{odds}=\frac{p}{1-p}
+\]</div>
+<p>Logistic Regression log-odds qiymatini chiziqli modellashtiradi:</p>
+<div class="math notranslate nohighlight">
+\[
+\ln\left(\frac{p}{1-p}\right)
+=b_0+b_1x_1+\cdots+b_nx_n
+\]</div>
+<p><span class="math notranslate nohighlight">\(x_j\)</span> bir birlikka oshganda log-odds <span class="math notranslate nohighlight">\(b_j\)</span> ga o‘zgaradi, odds esa <span class="math notranslate nohighlight">\(e^{b_j}\)</span>
+marta o‘zgaradi. Masalan:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(b_j&gt;0\)</span> bo‘lsa, <code class="docutils literal notranslate"><span class="pre">1</span></code>-sinf ehtimoli oshishga moyil;</p></li>
+<li><p><span class="math notranslate nohighlight">\(b_j&lt;0\)</span> bo‘lsa, <code class="docutils literal notranslate"><span class="pre">1</span></code>-sinf ehtimoli kamayishga moyil;</p></li>
+<li><p><span class="math notranslate nohighlight">\(b_j=0\)</span> bo‘lsa, alomat chiziqli qaror qiymatiga ta’sir qilmaydi.</p></li>
+</ul>
+<p>Koeffitsiyent kattaligini alomatlar turli birliklarda bo‘lganda to‘g‘ridan
+to‘g‘ri solishtirish noto‘g‘ri bo‘lishi mumkin. Standartlashtirish talqinni va
+optimizatsiyani yengillashtiradi.</p>
+</section>
+<hr class="docutils" />
+<section id="regularizatsiya">
+<h2>14. Regularizatsiya<a class="headerlink" href="#regularizatsiya" title="Link to this heading"></a></h2>
+<p>Amaliy Logistic Regression ko‘pincha koeffitsiyentlarning haddan tashqari
+kattalashishini cheklovchi regularizatsiyadan foydalanadi.</p>
+<p>L2 regularizatsiyali loss:</p>
+<div class="math notranslate nohighlight">
+\[
+J_{L2}(\beta)=J(\beta)+\lambda\sum_{j=1}^{n}b_j^2
+\]</div>
+<p>Regularizatsiya:</p>
+<ul class="simple">
+<li><p>overfitting xavfini kamaytiradi;</p></li>
+<li><p>kuchli bog‘langan alomatlarda modelni barqarorlashtiradi;</p></li>
+<li><p>mukammal ajraladigan sinflarda koeffitsiyentlarning cheksiz o‘sishini
+cheklaydi.</p></li>
+</ul>
+<p>Yuqoridagi kichik datasetda <code class="docutils literal notranslate"><span class="pre">0</span></code> va <code class="docutils literal notranslate"><span class="pre">1</span></code> sinflari mukammal ajraladi. Shu sababli
+regularizatsiyasiz Maximum Likelihood koeffitsiyentlari chekli optimumga ega
+bo‘lmasligi mumkin. Amaliy kutubxonalardagi regularizatsiya chekli va barqaror
+yechim olishga yordam beradi.</p>
+</section>
+<hr class="docutils" />
+<section id="modelni-baholash">
+<h2>15. Modelni baholash<a class="headerlink" href="#modelni-baholash" title="Link to this heading"></a></h2>
+<p>Faqat accuracy qiymatiga tayanish, ayniqsa sinflar nomutanosib bo‘lsa, noto‘g‘ri
+xulosa berishi mumkin. Asosiy baholash vositalari:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrika</p></th>
+<th class="head"><p>Ko‘rsatadigan jihat</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Accuracy</p></td>
+<td><p>Barcha bashoratlarning to‘g‘ri ulushi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Precision</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code> deb topilgan obyektlarning qanchasi haqiqatan <code class="docutils literal notranslate"><span class="pre">1</span></code> ekani</p></td>
+</tr>
+<tr class="row-even"><td><p>Recall</p></td>
+<td><p>Haqiqiy <code class="docutils literal notranslate"><span class="pre">1</span></code> obyektlarning qanchasi topilgani</p></td>
+</tr>
+<tr class="row-odd"><td><p>F1-score</p></td>
+<td><p>Precision va recallning muvozanatli o‘rtachasi</p></td>
+</tr>
+<tr class="row-even"><td><p>ROC-AUC</p></td>
+<td><p>Turli thresholdlarda sinflarni ajratish qobiliyati</p></td>
+</tr>
+<tr class="row-odd"><td><p>Log Loss</p></td>
+<td><p>Bashorat ehtimolliklarining sifati</p></td>
+</tr>
+</tbody>
+</table>
+<p>Confusion matrix <code class="docutils literal notranslate"><span class="pre">true</span> <span class="pre">positive</span></code>, <code class="docutils literal notranslate"><span class="pre">true</span> <span class="pre">negative</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span> <span class="pre">positive</span></code> va
+<code class="docutils literal notranslate"><span class="pre">false</span> <span class="pre">negative</span></code> holatlarini alohida ko‘rsatadi.</p>
+</section>
+<hr class="docutils" />
+<section id="python-orqali-misol">
+<h2>16. Python orqali misol<a class="headerlink" href="#python-orqali-misol" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">log_loss</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">X_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">3.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.5</span><span class="p">]])</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+<span class="n">classes</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"b0:"</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"b1:"</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Probabilities:"</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Classes:"</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+
+<span class="n">y_probability</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Log Loss:"</span><span class="p">,</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_probability</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> har bir sinf ehtimolini qaytaradi. Binary klassifikatsiyada
+ikkinchi ustun odatda <code class="docutils literal notranslate"><span class="pre">1</span></code>-sinf ehtimolidir. <code class="docutils literal notranslate"><span class="pre">predict</span></code> esa tanlangan threshold
+asosida yakuniy sinfni qaytaradi.</p>
+<p>Katta loyihalarda preprocessing va model bitta <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> ichiga joylanadi.
+Model train ma’lumotida o‘rgatiladi, test ma’lumotida esa alohida baholanadi.</p>
+</section>
+<hr class="docutils" />
+<section id="kop-sinfli-klassifikatsiya">
+<h2>17. Ko‘p sinfli klassifikatsiya<a class="headerlink" href="#kop-sinfli-klassifikatsiya" title="Link to this heading"></a></h2>
+<p>Logistic Regression binary klassifikatsiyadan tashqari uch yoki undan ko‘p
+sinf uchun ham qo‘llanishi mumkin.</p>
+<p>Asosiy yondashuvlar:</p>
+<ul class="simple">
+<li><p><strong>One-vs-Rest</strong> — har bir sinf qolgan barcha sinflarga qarshi o‘rgatiladi;</p></li>
+<li><p><strong>Multinomial Logistic Regression</strong> — barcha sinflar ehtimoli softmax orqali
+birgalikda modellashtiriladi.</p></li>
+</ul>
+<p>Ko‘p sinfli holatda barcha sinf ehtimollari yig‘indisi <code class="docutils literal notranslate"><span class="pre">1</span></code> ga teng bo‘ladi.</p>
+</section>
+<hr class="docutils" />
+<section id="qachon-yaxshi-ishlaydi">
+<h2>18. Qachon yaxshi ishlaydi?<a class="headerlink" href="#qachon-yaxshi-ishlaydi" title="Link to this heading"></a></h2>
+<p>Logistic Regression quyidagi holatlarda yaxshi boshlang‘ich model hisoblanadi:</p>
+<ul class="simple">
+<li><p>maqsad klassifikatsiya bo‘lsa;</p></li>
+<li><p>ehtimollik kerak bo‘lsa;</p></li>
+<li><p>sinflar taxminan chiziqli chegara bilan ajralsa;</p></li>
+<li><p>koeffitsiyentlarni tushuntirish muhim bo‘lsa;</p></li>
+<li><p>tez va sodda baseline model kerak bo‘lsa.</p></li>
+</ul>
+<p>Model quyidagi holatlarda qiynalishi mumkin:</p>
+<ul class="simple">
+<li><p>sinflar orasidagi chegara juda murakkab bo‘lsa;</p></li>
+<li><p>kuchli nochiziqli bog‘liqliklar mavjud bo‘lsa;</p></li>
+<li><p>muhim interaction alomatlar modelga kiritilmagan bo‘lsa;</p></li>
+<li><p>kuchli outlierlar yoki noto‘g‘ri masshtablangan alomatlar optimizatsiyaga
+xalaqit bersa.</p></li>
+</ul>
+<p>Polynomial va interaction alomatlar qo‘shish ayrim nochiziqli chegaralarni
+ifodalashi mumkin, lekin model murakkabligi va overfitting xavfi ham oshadi.</p>
+</section>
+<hr class="docutils" />
+<section id="linear-va-logistic-regression-farqi">
+<h2>19. Linear va Logistic Regression farqi<a class="headerlink" href="#linear-va-logistic-regression-farqi" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Jihat</p></th>
+<th class="head"><p>Linear Regression</p></th>
+<th class="head"><p>Logistic Regression</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Vazifa</p></td>
+<td><p>Sonli qiymatni bashorat qilish</p></td>
+<td><p>Sinfni yoki sinf ehtimolini bashorat qilish</p></td>
+</tr>
+<tr class="row-odd"><td><p>Natija</p></td>
+<td><p>Istalgan haqiqiy son</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code> va <code class="docutils literal notranslate"><span class="pre">1</span></code> oralig‘idagi ehtimollik</p></td>
+</tr>
+<tr class="row-even"><td><p>Asosiy funksiya</p></td>
+<td><p>Chiziqli funksiya</p></td>
+<td><p>Chiziqli funksiya va sigmoid</p></td>
+</tr>
+<tr class="row-odd"><td><p>Loss</p></td>
+<td><p>Odatda MSE</p></td>
+<td><p>Log Loss</p></td>
+</tr>
+<tr class="row-even"><td><p>Koeffitsiyentlar</p></td>
+<td><p>Yopiq formula yoki optimizatsiya</p></td>
+<td><p>Iterativ optimizatsiya</p></td>
+</tr>
+<tr class="row-odd"><td><p>Qaror</p></td>
+<td><p>Sonli bashorat</p></td>
+<td><p>Threshold orqali sinf</p></td>
+</tr>
+</tbody>
+</table>
+<p>“Regression” nomi log-odds qiymatining kiruvchi alomatlarga nisbatan chiziqli
+modellashtirilishidan kelib chiqadi. Yakuniy vazifa esa klassifikatsiya bo‘ladi.</p>
+</section>
+<hr class="docutils" />
+<section id="muhim-xulosa">
+<h2>20. Muhim xulosa<a class="headerlink" href="#muhim-xulosa" title="Link to this heading"></a></h2>
+<p>Logistic Regressionning asosiy jarayoni:</p>
+<div class="math notranslate nohighlight">
+\[
+X\longrightarrow z=X\beta
+\longrightarrow p=\sigma(z)
+\longrightarrow \hat{y}
+\]</div>
+<p>Bu yerda:</p>
+<ol class="arabic simple">
+<li><p>Chiziqli qiymat hisoblanadi.</p></li>
+<li><p>Sigmoid qiymatni ehtimollikka aylantiradi.</p></li>
+<li><p>Threshold ehtimollikni sinfga aylantiradi.</p></li>
+<li><p>Log Loss ehtimollik xatosini o‘lchaydi.</p></li>
+<li><p>Gradient yoki boshqa optimizator koeffitsiyentlarni yangilaydi.</p></li>
+</ol>
+<p>Koeffitsiyentlar perebor orqali emas, Log Lossni minimallashtiruvchi matematik
+optimizatsiya orqali topiladi. Model natijasi avval ehtimollik, keyin esa
+vazifaga mos threshold asosidagi sinfdir.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="polynomial_regression.html" class="btn btn-neutral float-left" title="Polynomial Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="decision_tree_regression.html" class="btn btn-neutral float-right" title="Decision Tree Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Abduhalil.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

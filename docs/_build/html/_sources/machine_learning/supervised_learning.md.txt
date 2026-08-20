@@ -15,7 +15,6 @@ supervised_learning/knn
 supervised_learning/decision_tree
 supervised_learning/random_forest
 supervised_learning/svm
-supervised_learning/logistic_regression
 supervised_learning/gradient_boosting
 ```
 

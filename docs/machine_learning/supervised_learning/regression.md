@@ -116,4 +116,8 @@ ________________________________________
 
 regression/simple_linear_regression
 regression/multiple_linear_regression
+regression/polynomial_regression
+regression/logistic_regression
+regression/decision_tree_regression
+regression/random_forest_regression
 ```
