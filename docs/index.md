@@ -1,6 +1,6 @@
 # Mundarija
 
-Telegram111: <a href="https://t.me/abduhalil_toshpulatov" target="_blank">@abduhalil_toshpulatov</a>  
+Telegram: <a href="https://t.me/abduhalil_toshpulatov" target="_blank">@abduhalil_toshpulatov</a>  
 Email: [abduhalil00701@gmail.com]  
 
    ```{toctree}

@@ -1,0 +1,8 @@
+# Virtual environment
+.venv/
+
+# Sphinx build output
+
+# Python cache
+__pycache__/
+*.py[cod]

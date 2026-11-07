@@ -17,666 +17,313 @@ bashorat sifatida olinadi.
 
 ---
 
-## 1. Asosiy g‘oya
+## 1. Dataset
 
-Quyidagi kichik dataset berilgan bo‘lsin:
+Quyidagi uylar datasetida maydon, xonalar soni va yosh bo‘yicha narx bashorat
+qilinadi:
 
-| Obyekt | O‘qish soati $x$ | Imtihon bali $y$ |
-| -----: | ----------------: | ----------------: |
-|      1 |                 1 |                10 |
-|      2 |                 2 |                12 |
-|      3 |                 3 |                13 |
-|      4 |                 4 |                30 |
-|      5 |                 5 |                32 |
-|      6 |                 6 |                35 |
+| № | Maydon $x_1$ | Xonalar $x_2$ | Yoshi $x_3$ | Narxi $y$ |
+| -: | ------------: | -------------: | -----------: | ---------: |
+|  1 |            50 |              2 |           20 |        0.8 |
+|  2 |            60 |              3 |            5 |        1.5 |
+|  3 |            45 |              2 |           15 |        0.7 |
+|  4 |            80 |              4 |           10 |        2.0 |
+|  5 |            70 |              3 |           25 |        1.1 |
+|  6 |            90 |              4 |            3 |        2.5 |
+|  7 |            55 |              2 |            8 |        1.2 |
+|  8 |           100 |              5 |           15 |        2.2 |
+|  9 |            65 |              3 |           12 |        1.4 |
+| 10 |            40 |              1 |           30 |        0.5 |
 
-$x=1,2,3$ bo‘lganda ballar kichik, $x=4,5,6$ bo‘lganda esa katta. Daraxt
-birinchi bosqichda quyidagi shartni topishi mumkin:
+---
 
-```text
-O‘qish soati x ≤ 3.5 mi?
-          /              \
-        Ha                Yo‘q
-   kichik ballar       katta ballar
+## 2. Daraxt nima qiladi?
+
+Daraxt uylarni savollar orqali guruhlarga bo‘ladi. Har bir guruhdagi narxlar
+bir-biriga iloji boricha yaqin bo‘lishi kerak.
+
+Buning uchun faqat 2 ta formula kerak.
+
+**Bashorat** — guruhdagi narxlarning o‘rtachasi:
+
+$$
+\hat{y}=\frac{y_1+y_2+\cdots+y_n}{n}
+$$
+
+**Xatolik** — narxlarning o‘rtachadan farqi kvadratlarining yig‘indisi:
+
+$$
+SSE=\sum_{i=1}^{n}(y_i-\hat{y})^2
+$$
+
+Daraxtning maqsadi xatolikni eng ko‘p kamaytiradigan savolni topishdir.
+
+---
+
+## 3. Boshlanish
+
+Barcha uylar bitta guruhda turibdi:
+
+$$
+\hat{y}=\frac{13.9}{10}=1.39,\qquad SSE=4.009
+$$
+
+Xatolik katta, chunki arzon va qimmat uylar aralash.
+
+---
+
+## 4. Chegara qanday tanlanadi?
+
+1. Alomat qiymatlari tartiblanadi.
+2. Chegara nomzodlari sifatida qo‘shni qiymatlarning o‘rtasi olinadi:
+   $\frac{a+b}{2}$. Masalan, 50 va 55 orasida 52.5.
+3. Har bir chegara uchun ikki guruhning xatoliklari hisoblanib, qo‘shiladi.
+4. Eng kichik xatolik bergan chegara tanlanadi.
+
+Maydon bo‘yicha sinov:
+
+| Savol | Chap o‘rtacha | O‘ng o‘rtacha | Umumiy SSE |
+| ----- | -------------: | -------------: | ----------: |
+| Maydon ≤ 52.5 | 0.67 | 1.70 | 1.767 |
+| Maydon ≤ 57.5 | 0.80 | 1.78 | 1.688 |
+| Maydon ≤ 67.5 | 1.02 | 1.95 | 1.918 |
+| **Maydon ≤ 75** | **1.03** | **2.23** | **0.961** |
+| Maydon ≤ 85 | 1.15 | 2.35 | 1.705 |
+
+Quyidagi grafikda Maydonning barcha 9 ta nomzod chegarasi ko‘rsatilgan:
+
+```{figure} /_static/dtr_chegara_tanlash.svg
+:alt: Maydonning to‘qqizta nomzod chegarasi uchun umumiy SSE grafigi. Eng kichik qiymat 75 chegarasida va 0.961 ga teng.
+:width: 100%
+:align: center
+
+Har bir nomzod chegara sinab ko‘riladi va eng kichik SSE bergani tanlanadi.
 ```
 
-Algoritm `3.5` chegarasini taxminan tanlamaydi. Barcha mumkin bo‘lgan
-chegaralardagi xatoliklar hisoblanadi va eng kichik xatolik bergan chegara
-tanlanadi.
+Barcha alomatlarning eng yaxshi natijasi:
 
----
+| Alomat | Eng yaxshi savol | Umumiy SSE |
+| ------ | ---------------- | ----------: |
+| Maydon | ≤ 75 | **0.961** |
+| Xonalar | ≤ 3.5 | 0.961 |
+| Yoshi | ≤ 17.5 | 2.517 |
 
-## 2. Daraxtdagi asosiy tushunchalar
+G‘olib savol:
 
-```text
-                 x ≤ 3.5?
-                /        \
-              Ha          Yo‘q
-          x ≤ 1.5?       x ≤ 5.5?
-          /     \         /     \
-        10     12.5      31      35
+$$
+\boxed{\text{Maydon}\leq75}
+$$
+
+Bo‘linish natijasida har bir guruh o‘z o‘rtachasini oladi va uylar bashoratga
+ancha yaqinlashadi:
+
+```{figure} /_static/dtr_xatolik_kamayishi.svg
+:alt: Ikki grafik. Chapda bitta o‘rtacha 1.39 va SSE 4.009, o‘ngda Maydon 75 chegarasidan keyingi ikkita o‘rtacha 1.03 va 2.23 hamda SSE 0.961.
+:width: 100%
+:align: center
+
+To‘q sariq chiziqlar qisqargani sari xatolik kamayadi: $4.009\longrightarrow0.961$.
 ```
 
-- **Root node** — eng yuqoridagi boshlang‘ich tugun;
-- **internal node** — shart joylashgan ichki tugun;
-- **branch** — shart natijasida tanlanadigan yo‘nalish;
-- **split** — tugundagi ma’lumotlarni ikkiga ajratish;
-- **leaf node** — yakuniy tugun va bashorat qiymati.
+---
 
-Regression daraxtida barg qiymati odatda shu bargga tushgan obyektlarning
-o‘rtacha target qiymatidir.
+## 5. Jarayon har bir guruhda takrorlanadi
+
+**Chap guruh** (uylar 1, 2, 3, 5, 7, 9, 10):
+
+| Alomat | Eng yaxshi savol | Umumiy SSE |
+| ------ | ---------------- | ----------: |
+| **Maydon** | **≤ 52.5** | **0.147** |
+| Xonalar | ≤ 2.5 | 0.347 |
+| Yoshi | ≤ 13.5 | 0.234 |
+
+**O‘ng guruh** (uylar 4, 6, 8):
+
+| Alomat | Eng yaxshi savol | Umumiy SSE |
+| ------ | ---------------- | ----------: |
+| Maydon | ≤ 85 | 0.045 |
+| Xonalar | ≤ 4.5 | 0.125 |
+| **Yoshi** | **≤ 6.5** | **0.020** |
+
+`6.5` soni 3 va 10 yoshning o‘rtasi. 6-uy eng yangi va eng qimmat bo‘lgani uchun
+alohida ajraldi.
 
 ---
 
-## 3. Daraxt bo‘linmasa nima bo‘ladi?
+## 6. Tayyor daraxt
 
-Barcha target qiymatlari bitta ildiz tugunda joylashadi:
+```{figure} /_static/dtr_daraxt.svg
+:alt: Ikki bosqichli daraxt. Ildizda Maydon 75 dan kichik yoki tengmi degan savol. Ha tomonida Maydon 52.5 savoli va 0.67 hamda 1.30 barglari, Yo‘q tomonida Yoshi 6.5 savoli va 2.50 hamda 2.10 barglari. Yangi uyning yo‘li 1.30 bargiga boradi.
+:width: 100%
+:align: center
 
-$$
-y=[10,12,13,30,32,35]
-$$
-
-Tugundagi bashorat target qiymatlarining o‘rtachasiga teng:
-
-$$
-\bar{y}=\frac{10+12+13+30+32+35}{6}=22
-$$
-
-Daraxt bo‘linmasa, barcha obyektlar uchun:
-
-$$
-\hat{y}=22
-$$
-
-bashorat qilinadi. Bitta qiymat barcha obyektlarni yaxshi ifodalamagani uchun
-daraxt foydali bo‘linishni izlaydi.
-
----
-
-## 4. Tugundagi xatolik
-
-Decision Tree Regression ko‘pincha **Squared Error** mezonidan foydalanadi.
-Tugundagi kvadratik xatoliklar yig‘indisi:
-
-$$
-SSE=\sum_{i=1}^{n}(y_i-\bar{y})^2
-$$
-
-Ushbu dataset uchun:
-
-$$
-\begin{aligned}
-SSE={}&(10-22)^2+(12-22)^2+(13-22)^2\\
-&+(30-22)^2+(32-22)^2+(35-22)^2\\
-={}&144+100+81+64+100+169\\
-={}&658
-\end{aligned}
-$$
-
-Daraxt bo‘linishdan keyingi umumiy xatolikni imkon qadar kamaytirishga
-harakat qiladi.
-
----
-
-## 5. Nomzod chegaralar qanday topiladi?
-
-Tugundagi $x$ qiymatlari kichikdan kattaga saralanadi:
-
-$$
-1,\ 2,\ 3,\ 4,\ 5,\ 6
-$$
-
-Qo‘shni noyob qiymatlar orasidagi o‘rta nuqtalar nomzod chegara sifatida
-olinadi:
-
-$$
-1.5,\ 2.5,\ 3.5,\ 4.5,\ 5.5
-$$
-
-Har bir $t$ chegara uchun ma’lumot ikki guruhga ajratiladi:
-
-$$
-R_L=\{(x_i,y_i):x_i\leq t\}
-$$
-
-$$
-R_R=\{(x_i,y_i):x_i>t\}
-$$
-
-Bo‘linish xatoligi:
-
-$$
-SSE_{\text{split}}=SSE_L+SSE_R
-$$
-
----
-
-## 6. Birinchi nomzod: $x\leq1.5$
-
-Chap guruhda faqat bitta target qiymati qoladi:
-
-$$
-y_L=[10],\qquad \bar{y}_L=10,\qquad SSE_L=0
-$$
-
-O‘ng guruh:
-
-$$
-y_R=[12,13,30,32,35]
-$$
-
-$$
-\bar{y}_R=\frac{12+13+30+32+35}{5}=24.4
-$$
-
-$$
-SSE_R=485.2
-$$
-
-Umumiy xatolik:
-
-$$
-SSE_{\text{split}}=0+485.2=485.2
-$$
-
----
-
-## 7. Ikkinchi nomzod: $x\leq2.5$
-
-Chap guruh:
-
-$$
-y_L=[10,12],\qquad \bar{y}_L=11,\qquad SSE_L=2
-$$
-
-O‘ng guruh:
-
-$$
-y_R=[13,30,32,35],\qquad \bar{y}_R=27.5,\qquad SSE_R=293
-$$
-
-Umumiy xatolik:
-
-$$
-SSE_{\text{split}}=2+293=295
-$$
-
----
-
-## 8. Uchinchi nomzod: $x\leq3.5$
-
-Chap guruh:
-
-$$
-y_L=[10,12,13],\qquad \bar{y}_L=\frac{35}{3}\approx11.67
-$$
-
-$$
-SSE_L\approx4.67
-$$
-
-O‘ng guruh:
-
-$$
-y_R=[30,32,35],\qquad \bar{y}_R=\frac{97}{3}\approx32.33
-$$
-
-$$
-SSE_R\approx12.67
-$$
-
-Umumiy xatolik:
-
-$$
-\boxed{SSE_{\text{split}}\approx17.34}
-$$
-
-Bu bo‘linish dastlabki xatolikni keskin kamaytiradi:
-
-$$
-658\longrightarrow17.34
-$$
-
----
-
-## 9. Eng yaxshi birinchi bo‘linish
-
-Barcha nomzodlarning natijasi:
-
-| Bo‘linish | Chap targetlar | O‘ng targetlar | Umumiy SSE |
-| --------- | -------------- | -------------- | ----------: |
-| $x\leq1.5$ | `[10]` | `[12,13,30,32,35]` | 485.20 |
-| $x\leq2.5$ | `[10,12]` | `[13,30,32,35]` | 295.00 |
-| $x\leq3.5$ | `[10,12,13]` | `[30,32,35]` | **17.34** |
-| $x\leq4.5$ | `[10,12,13,30]` | `[32,35]` | 261.25 |
-| $x\leq5.5$ | `[10,12,13,30,32]` | `[35]` | 455.20 |
-
-Eng kichik xatolik $x\leq3.5$ shartida hosil bo‘ladi. Shuning uchun ildiz
-tugunda shu shart tanlanadi:
-
-```text
-                    x ≤ 3.5?
-                   /        \
-                 Ha          Yo‘q
-          [10, 12, 13]    [30, 32, 35]
+Tayyor daraxt. To‘q sariq chiziq yangi uyning yo‘lini ko‘rsatadi.
 ```
 
-Xatolik kamayishi **impurity reduction** deb ham qaraladi:
+Xatolik bosqichma-bosqich kamayib boradi:
 
-$$
-\Delta SSE=SSE_{\text{parent}}-SSE_{\text{split}}
-$$
+| Bosqich | Guruhlar soni | SSE |
+| ------- | -------------: | ----: |
+| Boshlanish | 1 | 4.009 |
+| 1-bo‘linish | 2 | 0.961 |
+| 2-bo‘linish | 4 | 0.167 |
 
-Eng kichik $SSE_{\text{split}}$ eng katta xatolik kamayishiga teng.
-
----
-
-## 10. Keyingi tugunlarni bo‘lish
-
-Chap tugundagi qiymatlar:
-
-$$
-y=[10,12,13]
-$$
-
-Ikki nomzoddan $x\leq1.5$ uchun SSE `0.5`, $x\leq2.5$ uchun esa `2`
-chiqadi. Shuning uchun chap tugunda $x\leq1.5$ tanlanadi.
-
-O‘ng tugundagi qiymatlar:
-
-$$
-y=[30,32,35]
-$$
-
-$x\leq4.5$ uchun SSE `4.5`, $x\leq5.5$ uchun esa `2` chiqadi. Shuning
-uchun o‘ng tugunda $x\leq5.5$ tanlanadi.
-
-Maksimal chuqurlik `2` bo‘lsa, hosil bo‘lgan daraxt:
+Yangi uy (Maydon = 68, Yoshi = 10) uchun bashorat:
 
 ```text
-                         x ≤ 3.5?
-                       /          \
-                     Ha            Yo‘q
-                x ≤ 1.5?          x ≤ 5.5?
-                /      \          /       \
-              10       12.5      31        35
+68 ≤ 75?   → Ha
+68 ≤ 52.5? → Yo‘q
+Natija: 1.30
 ```
 
-Qoidalar bo‘lakli funksiya ko‘rinishida yoziladi:
+Daraxtning har bir savoli alomatlar fazosini chiziq bilan ikkiga bo‘ladi. Har
+bir barg shu fazodagi bitta to‘g‘ri to‘rtburchakka mos keladi:
 
-$$
-\hat{y}=
-\begin{cases}
-10, & x\leq1.5,\\
-12.5, & 1.5<x\leq3.5,\\
-31, & 3.5<x\leq5.5,\\
-35, & x>5.5.
-\end{cases}
-$$
+```{figure} /_static/dtr_bolinish_sohalari.svg
+:alt: Gorizontal o‘qda Maydon, vertikal o‘qda Yoshi joylashgan grafik. Chegaralar Maydon 52.5, Maydon 75 va Yoshi 6.5. To‘rtta soha 0.67, 1.30, 2.10 va 2.50 bashoratlariga ega. Yangi uy 1.30 sohasiga tushadi.
+:width: 100%
+:align: center
 
-Decision Tree Regression grafigi silliq chiziq emas, zinapoyasimon funksiya
-hosil qiladi.
+Nuqtalar yonidagi sonlar uylarning narxi. Yangi uy tushgan sohaning bashorati 1.30 ga teng.
+```
 
 ---
 
-## 11. Bashorat qilish
+## 7. Nega daraxtda Xonalar yo‘q?
 
-Yangi obyekt ildizdan boshlab shartlar bo‘ylab barggacha yo‘naltiriladi.
+Xonalar har bir qadamda sinab ko‘rildi, lekin birorta qadamda ham g‘olib
+bo‘lmadi:
 
-| Yangi $x$ | Bosib o‘tiladigan yo‘l | Bashorat |
-| --------: | ---------------------- | -------: |
-|       2.7 | $x\leq3.5$, keyin $x>1.5$ | 12.5 |
-|       4.2 | $x>3.5$, keyin $x\leq5.5$ | 31 |
-|       6.5 | $x>3.5$, keyin $x>5.5$ | 35 |
+- 1-qadamda Maydon bilan durang chiqdi, chunki ikkalasi ham aynan bir xil uylarni
+  ajratadi. Durangda birinchi tekshirilgan alomat olinadi.
+- Ma’lumotlarda maydon oshgan sari xonalar soni ham oshadi, ya’ni Xonalar yangi
+  ma’lumot bermaydi. Maydon esa aniqroq, chunki qiymatlari ko‘proq.
 
-Trening datasetidagi bashoratlar:
-
-| $x$ | Haqiqiy $y$ | Bashorat $\hat{y}$ |
-| --: | ----------: | ------------------: |
-|   1 |          10 |                  10 |
-|   2 |          12 |                12.5 |
-|   3 |          13 |                12.5 |
-|   4 |          30 |                  31 |
-|   5 |          32 |                  31 |
-|   6 |          35 |                  35 |
-
-$$
-SSE=2.5
-$$
-
-$$
-MSE=\frac{2.5}{6}\approx0.417
-$$
-
-Bu natija faqat trening ma’lumotidagi moslikni ko‘rsatadi. Model sifati
-alohida test ma’lumotida yoki cross-validation orqali baholanadi.
+Daraxtga faqat foydali savollar kiradi. Keraksiz alomatlar o‘z-o‘zidan tashlab
+yuboriladi.
 
 ---
 
-## 12. Nega bargda o‘rtacha qiymat olinadi?
+## 8. Qachon to‘xtatiladi?
 
-Bitta bargga $y=[12,13]$ qiymatlari tushgan bo‘lsin. Kvadratik xatolik uchun
-eng yaxshi doimiy bashorat o‘rtacha qiymatdir:
+Daraxt to‘xtatilmasa, har bir bargda bittadan uy qoladi va daraxt ma’lumotni yod
+olib qo‘yadi, ya’ni **overfitting** qiladi. Buning oldini olish uchun cheklovlar
+qo‘yiladi: maksimal chuqurlik (`max_depth`), bargdagi minimal uylar soni
+(`min_samples_leaf`) va boshqalar.
+
+---
+
+## 9. Nominal alomat: Tuman qo‘shilgan misol
+
+Datasetga nominal alomat, ya’ni Tuman ustuni qo‘shilgan bo‘lsin:
+
+| № | Maydon $x_1$ | Xonalar $x_2$ | Yoshi $x_3$ | Tuman $x_4$ | Narxi $y$ |
+| -: | ------------: | -------------: | -----------: | :----------: | ---------: |
+|  1 |            50 |              2 |           20 |      B      |        0.8 |
+|  2 |            60 |              3 |            5 |      A      |        1.5 |
+|  3 |            45 |              2 |           15 |      C      |        0.7 |
+|  4 |            80 |              4 |           10 |      A      |        2.0 |
+|  5 |            70 |              3 |           25 |      B      |        1.1 |
+|  6 |            90 |              4 |            3 |      A      |        2.5 |
+|  7 |            55 |              2 |            8 |      B      |        1.2 |
+|  8 |           100 |              5 |           15 |      B      |        2.2 |
+|  9 |            65 |              3 |           12 |      A      |        1.4 |
+| 10 |            40 |              1 |           30 |      C      |        0.5 |
+
+### Asosiy farq
+
+A, B, C orasida tartib yo‘q, shuning uchun “Tuman ≤ B?” degan savol ma’nosiz.
+Uning o‘rniga savol “Tuman shu guruhga kiradimi?” shaklida beriladi, masalan:
 
 $$
-\bar{y}=\frac{12+13}{2}=12.5
+\text{Tuman}\in\{C\}
 $$
 
+### Tumanlar bo‘yicha o‘rtacha narx
+
+| Tuman | Uylar | Narxlar | O‘rtacha |
+| ----- | ----- | ------- | --------: |
+| A | 2, 4, 6, 9 | 1.5, 2.0, 2.5, 1.4 | 1.85 |
+| B | 1, 5, 7, 8 | 0.8, 1.1, 1.2, 2.2 | 1.33 |
+| C | 3, 10 | 0.7, 0.5 | 0.60 |
+
+### Mumkin bo‘lgan bo‘linishlar
+
+| Savol | “Ha” o‘rtacha | “Yo‘q” o‘rtacha | Umumiy SSE |
+| ----- | -------------: | ---------------: | ----------: |
+| Tuman ∈ {A}? | 1.85 | 1.08 | 2.598 |
+| Tuman ∈ {B}? | 1.33 | 1.43 | 3.981 |
+| **Tuman ∈ {C}?** | **0.60** | **1.59** | **2.449** |
+
+Xatolik oldingidek $\sum(y_i-\hat{y})^2$ formula bilan hisoblanadi.
+
+$k$ ta qiymat bo‘lsa, bo‘linishlar soni quyidagicha bo‘ladi:
+
 $$
-SSE(12.5)=(12-12.5)^2+(13-12.5)^2=0.5
+2^{k-1}-1
 $$
 
-$12$ yoki $13$ bashorat qilinsa, SSE `1` ga teng bo‘ladi. Umuman olganda,
-kvadratik xatolikni minimallashtiruvchi doimiy qiymat arifmetik o‘rtachadir:
+### Qisqa yo‘l
+
+Kategoriyalar o‘rtacha narx bo‘yicha tartiblanadi:
+
+$$
+C\ (0.60)\longrightarrow B\ (1.33)\longrightarrow A\ (1.85)
+$$
+
+Keyin xuddi miqdoriy alomatdagidek faqat qo‘shni chegaralar tekshiriladi:
+
+```{figure} /_static/dtr_tuman_tartibi.svg
+:alt: Tumanlar C, B, A tartibida joylashgan. O‘rtacha narxlar 0.60, 1.33 va 1.85. C va B orasidagi chegara uchun SSE 2.449, B va A orasidagi chegara uchun SSE 2.598.
+:width: 100%
+:align: center
+
+Tartiblangan tumanlar orasida faqat ikkita chegara tekshiriladi.
+```
+
+Shunday qilib, barcha kombinatsiyalarni sinamasdan, $k-1$ ta tekshiruvning
+o‘zida eng yaxshi bo‘linish topiladi.
+
+### Boshqa alomatlar bilan solishtirish
+
+| Alomat | Eng yaxshi savol | Umumiy SSE |
+| ------ | ---------------- | ----------: |
+| **Maydon** | **≤ 75** | **0.961** |
+| Xonalar | ≤ 3.5 | 0.961 |
+| Yoshi | ≤ 17.5 | 2.517 |
+| Tuman | ∈ {C} | 2.449 |
+
+Bu misolda Tuman g‘olib bo‘lmadi, shuning uchun daraxt o‘zgarmaydi. Lekin keyingi
+har bir qadamda Tuman ham boshqa alomatlar qatorida sinab ko‘riladi.
+
+### Amaliyotda: one-hot encoding
+
+Ko‘p kutubxonalar, masalan sklearn, faqat raqamlar bilan ishlaydi. Shuning uchun
+Tuman ustuni raqamlarga aylantiriladi:
+
+| Tuman | Tuman_A | Tuman_B | Tuman_C |
+| ----- | -------: | -------: | -------: |
+| A | 1 | 0 | 0 |
+| B | 0 | 1 | 0 |
+| C | 0 | 0 | 1 |
+
+Shunda daraxt `Tuman_C ≤ 0.5?` deb so‘raydi. Bu “C tumanida emasmi?” degan savol
+bilan bir xil.
+
+```{warning}
+A = 1, B = 2, C = 3 deb raqam berish noto‘g‘ri. Bunda daraxt “B tumani A va C
+ning o‘rtasida” degan, aslida mavjud bo‘lmagan tartibni o‘rganib oladi.
+```
+
+---
+
+## 10. Muhim xulosa
+
+Har bir qadamda barcha alomatlar va barcha chegaralar sinab ko‘riladi, xatolikni
+eng ko‘p kamaytirgan savol tanlanadi va bu jarayon guruhlar ichida takrorlanadi.
+Bashorat esa uy tushgan guruhdagi narxlarning o‘rtachasiga teng:
 
 $$
 \boxed{\hat{y}_{\text{leaf}}
 =\frac{1}{n_{\text{leaf}}}\sum_{i=1}^{n_{\text{leaf}}}y_i}
 $$
-
----
-
-## 13. Bir nechta alomat bilan ishlash
-
-Bir nechta alomat bo‘lsa, daraxt har bir tugunda barcha alomatlardagi barcha
-mumkin bo‘lgan chegaralarni tekshiradi.
-
-Uy narxi misoli:
-
-| Obyekt | Maydon $x_1$ | Yosh $x_2$ | Narx $y$ |
-| -----: | ------------: | ----------: | --------: |
-|      1 |            50 |          20 |       200 |
-|      2 |            60 |           5 |       260 |
-|      3 |           100 |          25 |       400 |
-|      4 |           110 |           4 |       460 |
-
-Daraxt bo‘linmasa, o‘rtacha narx va xatolik:
-
-$$
-\bar{y}=330,\qquad SSE_{\text{root}}=43600
-$$
-
-Maydon bo‘yicha nomzod chegaralar:
-
-$$
-55,\quad80,\quad105
-$$
-
-Yosh qiymatlari tegishli obyektlar bilan birga saralanganda nomzod chegaralar:
-
-$$
-4.5,\quad12.5,\quad22.5
-$$
-
-Barcha natijalar:
-
-| Alomat | Bo‘linish | Umumiy SSE |
-| ------ | --------- | ----------: |
-| Maydon $x_1$ | $x_1\leq55$ | 21066.67 |
-| Maydon $x_1$ | $x_1\leq80$ | **3600.00** |
-| Maydon $x_1$ | $x_1\leq105$ | 21066.67 |
-| Yosh $x_2$ | $x_2\leq4.5$ | 21066.67 |
-| Yosh $x_2$ | $x_2\leq12.5$ | 40000.00 |
-| Yosh $x_2$ | $x_2\leq22.5$ | 37066.67 |
-
-Eng kichik xatolik maydonning `80` chegarasida hosil bo‘ladi:
-
-$$
-\boxed{x_1\leq80}
-$$
-
-```text
-                     Maydon ≤ 80?
-                    /            \
-                  Ha              Yo‘q
-            [200, 260]        [400, 460]
-```
-
-Yosh alomati ushbu tugunda tanlanmagan bo‘lsa ham, boshqa tugunda yoki boshqa
-datasetda tanlanishi mumkin. Har bir tugun uchun tanlash jarayoni qaytadan
-bajariladi.
-
----
-
-## 14. Eng yaxshi alomat va chegaraning umumiy formulasi
-
-Datasetda $m$ ta alomat mavjud bo‘lsin:
-
-$$
-X=(x_1,x_2,\ldots,x_m)
-$$
-
-Har bir $j$ alomat va $t$ chegara uchun:
-
-$$
-SSE(j,t)=
-\sum_{i\in R_L(j,t)}(y_i-\bar{y}_L)^2
-+\sum_{i\in R_R(j,t)}(y_i-\bar{y}_R)^2
-$$
-
-Algoritm quyidagi juftlikni tanlaydi:
-
-$$
-\boxed{(j^*,t^*)=\arg\min_{j,t}SSE(j,t)}
-$$
-
-Bu formula barcha alomat va chegaralar orasidan bo‘linish xatoligi eng kichik
-bo‘lgan juftlik tanlanishini bildiradi.
-
-Multiple Linear Regression alomatlarni bitta formulada birlashtiradi:
-
-$$
-\hat{y}=b_0+b_1x_1+b_2x_2+\cdots+b_mx_m
-$$
-
-Decision Tree Regression esa alomatlarni ketma-ket `if–else` shartlarida
-ishlatadi. Bir yo‘ldagi ayrim alomatlar umuman ishlatilmasligi ham mumkin.
-
----
-
-## 15. Daraxt qachon bo‘linishni to‘xtatadi?
-
-Cheklovsiz daraxt har bir trening obyektini alohida bargga joylashtirib,
-trening xatoligini nolga tushirishi mumkin. Bunday daraxt yangi ma’lumotda
-yomon ishlashi ehtimoli yuqori.
-
-Asosiy boshqaruv parametrlari:
-
-| Parametr | Vazifasi |
-| -------- | -------- |
-| `max_depth` | Daraxtning maksimal chuqurligini cheklaydi |
-| `min_samples_split` | Tugunni bo‘lish uchun zarur minimal obyektlar sonini belgilaydi |
-| `min_samples_leaf` | Har bir bargda qolishi kerak bo‘lgan minimal obyektlar sonini belgilaydi |
-| `max_leaf_nodes` | Barglar sonini cheklaydi |
-| `ccp_alpha` | Cost-complexity pruning kuchini belgilaydi |
-
-Juda sayoz daraxt muhim bog‘liqliklarni o‘rgana olmay, **underfitting** qiladi.
-Juda chuqur daraxt esa trening ma’lumotidagi shovqinni yodlab,
-**overfitting** qiladi.
-
-Parametrlar train natijasiga qarab emas, validation yoki cross-validation
-natijasiga qarab tanlanadi.
-
----
-
-## 16. Ekstrapolyatsiya cheklovi
-
-Decision Tree Regression trening ma’lumotidan tashqaridagi o‘sish yoki pasayish
-tendensiyasini davom ettirmaydi. Yuqoridagi daraxtda:
-
-$$
-x>5.5\Rightarrow\hat{y}=35
-$$
-
-Shuning uchun $x=6.5$, $x=10$ va $x=100$ qiymatlari bir xil oxirgi bargga
-tushsa, har uchalasi uchun ham `35` bashorat qilinadi.
-
-Linear Regression chiziqni yangi oraliqqa davom ettira oladi, Decision Tree
-esa mavjud barg qiymatlaridan tashqariga tabiiy ravishda chiqmaydi.
-
----
-
-## 17. Python orqali model qurish
-
-```python
-import numpy as np
-from sklearn.metrics import mean_squared_error
-from sklearn.tree import DecisionTreeRegressor, export_text
-
-X = np.array([
-    [1],
-    [2],
-    [3],
-    [4],
-    [5],
-    [6],
-])
-
-y = np.array([10, 12, 13, 30, 32, 35])
-
-model = DecisionTreeRegressor(
-    max_depth=2,
-    random_state=42,
-)
-
-model.fit(X, y)
-
-y_pred = model.predict(X)
-print("Bashoratlar:", y_pred)
-print("MSE:", mean_squared_error(y, y_pred))
-
-X_new = np.array([[2.7], [4.2], [6.5]])
-print("Yangi bashoratlar:", model.predict(X_new))
-
-rules = export_text(model, feature_names=["oqish_soati"])
-print(rules)
-```
-
-Natija:
-
-```text
-Bashoratlar: [10.  12.5 12.5 31.  31.  35. ]
-MSE: 0.4166666666666667
-Yangi bashoratlar: [12.5 31.  35. ]
-```
-
-Daraxt qoidalari:
-
-```text
-|--- oqish_soati <= 3.50
-|   |--- oqish_soati <= 1.50
-|   |   |--- value: [10.00]
-|   |--- oqish_soati > 1.50
-|   |   |--- value: [12.50]
-|--- oqish_soati > 3.50
-|   |--- oqish_soati <= 5.50
-|   |   |--- value: [31.00]
-|   |--- oqish_soati > 5.50
-|   |   |--- value: [35.00]
-```
-
-Bir nechta alomatli datasetda `X` matritsasiga qo‘shimcha ustunlar kiritiladi.
-Algoritm har bir tugunda barcha ustunlarni avtomatik tekshiradi.
-
----
-
-## 18. Modelni baholash
-
-Regression daraxti MAE, MSE, RMSE va $R^2$ kabi odatiy regression
-metrikalari bilan baholanadi.
-
-Trening xatoligining kichikligi yetarli emas. To‘g‘ri baholash tartibi:
-
-1. Dataset train va test qismlariga ajratiladi.
-2. Daraxt faqat train qismida o‘rgatiladi.
-3. `max_depth`, `min_samples_leaf` kabi parametrlar cross-validation orqali
-   tanlanadi.
-4. Yakuniy sifat test qismida o‘lchanadi.
-
-Test xatoligi trening xatoligidan ancha katta bo‘lsa, overfitting ehtimoli
-yuqori bo‘ladi.
-
----
-
-## 19. Linear va Decision Tree Regression farqi
-
-| Xususiyat | Linear Regression | Decision Tree Regression |
-| --------- | ----------------- | ------------------------ |
-| Model ko‘rinishi | To‘g‘ri chiziq yoki tekislik | Qarorlar daraxti |
-| Ifoda | Koeffitsiyentli formula | `if–else` qoidalar |
-| Chiziqlilik talabi | Mavjud | Mavjud emas |
-| Masshtablash | Ba’zan kerak | Odatda kerak emas |
-| Bashorat grafigi | Silliq | Zinapoyasimon |
-| Interactionlar | Alohida kiritilishi mumkin | Avtomatik o‘rganilishi mumkin |
-| Overfitting xavfi | Nisbatan pastroq | Yuqoriroq |
-| Ekstrapolyatsiya | Mumkin | Yaxshi ishlamaydi |
-
-Decision Tree Classification va Decision Tree Regression ham bir xil daraxt
-tuzilmasidan foydalanadi. Farqi barg natijasida:
-
-- Classification bargida sinf yoki sinf ehtimoli saqlanadi;
-- Regression bargida sonli bashorat, odatda o‘rtacha qiymat saqlanadi.
-
----
-
-## 20. Afzalliklari va kamchiliklari
-
-Afzalliklari:
-
-- qoidalarni tushuntirish oson;
-- chiziqli bo‘lmagan bog‘liqliklarni o‘rganadi;
-- bir nechta alomat bilan ishlaydi;
-- alomatlarni standartlashtirish odatda talab qilinmaydi;
-- alomatlar orasidagi murakkab o‘zaro ta’sirlarni aniqlaydi;
-- sonli va tartibli qaror chegaralarini tabiiy ifodalaydi.
-
-Kamchiliklari:
-
-- chuqur daraxt tez overfitting qiladi;
-- ma’lumotdagi kichik o‘zgarish daraxt tuzilishini o‘zgartirishi mumkin;
-- bashorat funksiyasi zinapoyasimon bo‘ladi;
-- ekstrapolyatsiya qobiliyati past;
-- bitta daraxt ko‘pincha Random Forest yoki Gradient Boostingdan beqarorroq.
-
----
-
-## 21. Algoritmning ishlash tartibi
-
-1. Barcha obyektlar ildiz tugunga joylashtiriladi.
-2. Har bir alomatdagi nomzod chegaralar topiladi.
-3. Har bir `alomat + chegara` juftligi uchun chap va o‘ng guruhlar tuziladi.
-4. Guruhlarning o‘rtacha target qiymatlari hisoblanadi.
-5. Chap va o‘ng guruhdagi SSE qiymatlari qo‘shiladi.
-6. Eng kichik umumiy xatolik bergan juftlik tanlanadi.
-7. Hosil bo‘lgan yangi tugunlarda jarayon takrorlanadi.
-8. To‘xtash sharti bajarilganda tugun bargga aylanadi.
-9. Bargdagi target qiymatlarining o‘rtachasi bashorat sifatida saqlanadi.
-
----
-
-## 22. Muhim xulosa
-
-Decision Tree Regression har bir tugunda quyidagi ko‘rinishdagi shartlarni
-tekshiradi:
-
-$$
-x_j\leq t
-$$
-
-Har bir bo‘linish uchun:
-
-$$
-SSE_{\text{split}}=SSE_{\text{left}}+SSE_{\text{right}}
-$$
-
-hisoblanadi va eng kichik xatolik bergan alomat hamda chegara tanlanadi.
-Yakuniy barg bashorati:
-
-$$
-\boxed{\hat{y}_{\text{leaf}}
-=\frac{1}{n_{\text{leaf}}}\sum_{i=1}^{n_{\text{leaf}}}y_i}
-$$
-
-Asosiy maqsad — o‘xshash target qiymatlarini bir bargda to‘plash. Daraxt
-chuqurligi va barg hajmi nazorat qilinmasa, trening ma’lumotiga ortiqcha
-moslashish xavfi paydo bo‘ladi.

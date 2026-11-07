@@ -2,9 +2,22 @@ Kirish
 ================
 **Sun'iy intellekt (AI)** - bu kompyuter tizimlarining odatda inson intellekti bilan bog‘liq bo‘lgan o‘rganish, fikrlash, muammolarni hal qilish, idrok etish va qaror qabul qilish kabi vazifalarni bajarish qobiliyati. Amaliy jihatdan AI – bu berilganlardan (data) foydalanib modellash, bashorat va qaror qilishni optimallashtirishdir.
 
-<img src="_static/ai-overview.png" alt="Rasm tavsifi" width="100%"/>
+<img src="_static/ai-yonalishlari.svg" alt="Rasm tavsifi" width="100%"/>
 
-Sun'iy intellektning asosiy bo‘limlari:
+```text
+Artificial Intelligence
+├── Symbolic (rule-based) AI
+│   ├── Expert systems
+│   ├── Fuzzy logic
+│   └── Search and planning
+├── Machine learning
+│   ├── Supervised / unsupervised / reinforcement learning
+│   └── Neural networks → Deep learning → Generative AI
+└── Application areas
+    ├── Computer vision
+    ├── Natural language processing (and speech recognition)
+    └── Robotics
+```
 
 - **Mashinali o‘rganish (*Machine learning*)** - Kompyuterlar ma’lumotlardan naqsh (pattern) va qonuniyatlarni o‘rganadi va shu asosida bashorat yoki qaror qabul qiladi.
   
