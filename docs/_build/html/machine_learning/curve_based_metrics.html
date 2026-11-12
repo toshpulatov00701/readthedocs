@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Egri chiziqqa asoslangan metrikalar &mdash; myAI 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=dd794df2" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="K-means" href="kmeans_alg.html" />
+    <link rel="prev" title="Baholash metrikalari" href="evaluation_metrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            myAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Kirish</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Machine Learning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">Mashinali o‘rganish</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised_learning.html">Supervised Learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/regression.html">Regression</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="supervised_learning/regression/simple_linear_regression.html">Simple Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supervised_learning/regression/multiple_linear_regression.html">Multiple Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supervised_learning/regression/polynomial_regression.html">Polynomial Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supervised_learning/regression/logistic_regression.html">Logistic Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supervised_learning/regression/decision_tree_regression.html">Decision Tree Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supervised_learning/regression/random_forest_regression.html">Random Forest Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/classification.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/knn.html">k-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/decision_tree.html">Decision Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/random_forest.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/svm.html">SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning/gradient_boosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supervised_learning.html#algoritmlarning-qo-llanish-sohasi">Algoritmlarning qo’llanish sohasi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation_metrics.html">Baholash metrikalari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#accuracy-umumiy-to-g-rilik">Accuracy (umumiy to’g’rilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#recall-sensitivity-qamrov-sezgirlik">Recall / Sensitivity (qamrov, sezgirlik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#specificity-o-ziga-xoslik">Specificity (o’ziga xoslik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#f1-score">F1-score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#balanced-accuracy-muvozanatlangan-to-g-rilik">Balanced Accuracy (muvozanatlangan to’g’rilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#cohen-s-kappa">Cohen’s Kappa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#mcc-matthews-correlation-coefficient">MCC (Matthews Correlation Coefficient)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation_metrics.html#jaccard-score-iou-intersection-over-union">Jaccard Score (IoU, Intersection over Union)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Egri chiziqqa asoslangan metrikalar</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#roc-auc">ROC-AUC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pr-auc">PR-AUC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#average-precision-ap">Average Precision (AP)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kmeans_alg.html">K-means</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kmeans_alg.html#asosiy-goya">Asosiy g‘oya</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#ishlash-bosqichlari">Ishlash bosqichlari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#kamchiliklari">Kamchiliklari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kmeans_alg.html#k-qiymatini-tanlash-usullari">K qiymatini tanlash usullari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbscan_alg.html">DBSCAN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#parametrlari">Parametrlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#obyektlar-turlari">Obyektlar turlari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#ishlash-jarayoni">Ishlash jarayoni</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#afzalliklari">Afzalliklari</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbscan_alg.html#kamchiliklari">Kamchiliklari</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mathematics/index.html">Matematika</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mathematics/density_distributions.html">Zichlik taqsimotlari</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#zichlik-taqsimot-turlari">Zichlik taqsimot turlari</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#diskret-taqsimotlar">Diskret taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#uzluksiz-taqsimotlar">Uzluksiz taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#maxsus-statistik-taqsimotlar">Maxsus/statistik taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#kop-olchamli-multivariate-taqsimotlar">Ko‘p o‘lchamli (multivariate) taqsimotlar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#zichlik-funksiyalari-density-functions">Zichlik funksiyalari(Density Functions)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#ehtimollik-zichlik-funksiyasi-pdf">Ehtimollik zichlik funksiyasi (PDF)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#gauss-normal-taqsimot-zichligi">Gauss (Normal) taqsimot zichligi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#dirichlet-taqsimoti">Dirichlet taqsimoti</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#asosiy-xossalari">Asosiy xossalari</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mathematics/density_distributions.html#misol">Misol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mathematics/density_distributions.html#alpha-ni-taqsimotning-ozi-sifatida-talqin-qilish"><span class="math notranslate nohighlight">\(\alpha\)</span> ni taqsimotning o‘zi sifatida talqin qilish</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../others/index.html">Boshqa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../others/distance_metric.html">Masofa metrikalari</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/glossary.html">Glosary</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">myAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Machine Learning</a></li>
+      <li class="breadcrumb-item active">Egri chiziqqa asoslangan metrikalar</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="egri-chiziqqa-asoslangan-metrikalar">
+<h1>Egri chiziqqa asoslangan metrikalar<a class="headerlink" href="#egri-chiziqqa-asoslangan-metrikalar" title="Link to this heading"></a></h1>
+<p><strong>Egri chiziqqa asoslangan metrikalar (<em>curve-based metrics</em>)</strong> — klassifikatsiya modelining sifatini bitta threshold (chegara) qiymatida emas, balki barcha threshold qiymatlari bo’yicha baholaydigan ko’rsatkichlar. Sahifada uchta metrika tushuntiriladi: <strong>ROC-AUC</strong>, <strong>PR-AUC</strong> va <strong>Average Precision (AP)</strong>.</p>
+<p>Har bir metrika alohida savolga javob beradi:</p>
+<ul class="simple">
+<li><p>“Model ijobiy va salbiy obyektlarni qanchalik yaxshi ajratadi?” → ROC-AUC</p></li>
+<li><p>“Model topgan ijobiy obyektlar qanchalik ishonchli va haqiqiy ijobiy obyektlarning qanchasi topildi?” → PR-AUC, AP</p></li>
+</ul>
+<p><em>! Sinflar <strong>nomutanosib</strong> (<em>imbalanced</em>) bo’lgan datasetlarda PR-AUC va AP alohida ahamiyatga ega, chunki ROC-AUC kam uchraydigan sinfdagi muammoni yashirishi mumkin.</em></p>
+<p>Tushuntirish tartibi:</p>
+<ol class="arabic simple">
+<li><p>Misol dataset.</p></li>
+<li><p>Confusion matrix.</p></li>
+<li><p>TP, FP, FN, TN qiymatlari.</p></li>
+<li><p>Threshold tushunchasi.</p></li>
+<li><p>ROC egri chizig’i va ROC-AUC.</p></li>
+<li><p>Precision-Recall egri chizig’i va PR-AUC.</p></li>
+<li><p>Average Precision (AP).</p></li>
+<li><p>Uchala metrikani taqqoslash.</p></li>
+</ol>
+<hr class="docutils" />
+<h2>Misol dataset</h2>
+<p>Model 100 nafar bemorni 3 sinfga ajratadi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Bemorlar soni</p></th>
+<th class="head"><p>Ulushi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>80</p></td>
+<td><p>80%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>15</p></td>
+<td><p>15%</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>5</p></td>
+<td><p>5%</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Jami</strong></p></td>
+<td><p><strong>100</strong></p></td>
+<td><p><strong>100%</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>Dataset nomutanosib: sog’lom bemorlar 80% ni, Kovid bemorlari esa atigi 5% ni tashkil qiladi.</p>
+<p><em>! Jadvalda faqat haqiqiy sinflar soni berilgan. Confusion matrix tuzish uchun model bashoratlari ham kerak. Quyidagi hisob-kitoblarda tushuntirish maqsadida namunaviy bashorat natijalari ishlatiladi.</em></p>
+<hr class="docutils" />
+<h2>Confusion matrix (chalkashlik matritsasi)</h2>
+<p>Model quyidagi natijalarni bergan bo’lsin:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Haqiqiy ↓ / Bashorat →</p></th>
+<th class="head"><p>Sog’lom</p></th>
+<th class="head"><p>Gripp</p></th>
+<th class="head"><p>Kovid</p></th>
+<th class="head"><p><strong>Jami (haqiqiy)</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Sog’lom</strong></p></td>
+<td><p><strong>72</strong></p></td>
+<td><p>6</p></td>
+<td><p>2</p></td>
+<td><p>80</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Gripp</strong></p></td>
+<td><p>3</p></td>
+<td><p><strong>10</strong></p></td>
+<td><p>2</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Kovid</strong></p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p><strong>3</strong></p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Jami (bashorat)</strong></p></td>
+<td><p>76</p></td>
+<td><p>17</p></td>
+<td><p>7</p></td>
+<td><p><strong>100</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>Jadvalni o’qish tartibi:</p>
+<ul class="simple">
+<li><p>72 nafar sog’lom bemor to’g’ri aniqlangan.</p></li>
+<li><p>10 nafar gripp bemori to’g’ri aniqlangan.</p></li>
+<li><p>3 nafar Kovid bemori to’g’ri aniqlangan.</p></li>
+<li><p><strong>Diagonal</strong> (qalin sonlar) — to’g’ri bashoratlar.</p></li>
+</ul>
+<p>Accuracy:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Accuracy} = \frac{72+10+3}{100} = \mathbf{0.85}
+\]</div>
+<p>Sodda ma’nosi: 100 ta bemordan 85 tasi to’g’ri tasniflangan.</p>
+<p><em>! Yuqori accuracy model barcha sinflarni yaxshi aniqlayotganini bildirmaydi. Masalan, Kovid sinfida atigi 3 ta bemor to’g’ri aniqlangan.</em></p>
+<hr class="docutils" />
+<h2>TP, FP, FN, TN</h2>
+<p>ROC-AUC, PR-AUC va AP hisoblashda har bir sinf alohida qaraladi. Usul nomi — <strong>One-vs-Rest (OvR)</strong>.</p>
+<p>Masalan, Kovid sinfini baholashda:</p>
+<ul class="simple">
+<li><p>Kovid — <strong>Positive</strong> (ijobiy sinf).</p></li>
+<li><p>Sog’lom va Gripp — <strong>Negative</strong> (salbiy sinflar).</p></li>
+</ul>
+<p>Sog’lom sinfi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Ko’rsatkich</p></th>
+<th class="head"><p>Qiymat</p></th>
+<th class="head"><p>Izoh</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TP</p></td>
+<td><p>72</p></td>
+<td><p>Sog’lom bemor to’g’ri “sog’lom” deb topilgan</p></td>
+</tr>
+<tr class="row-odd"><td><p>FP</p></td>
+<td><p>3 + 1 = 4</p></td>
+<td><p>Boshqa sinfdagi bemor “sog’lom” deb topilgan</p></td>
+</tr>
+<tr class="row-even"><td><p>FN</p></td>
+<td><p>6 + 2 = 8</p></td>
+<td><p>Sog’lom bemor boshqa sinfga kiritilgan</p></td>
+</tr>
+<tr class="row-odd"><td><p>TN</p></td>
+<td><p>100 − 72 − 4 − 8 = 16</p></td>
+<td><p>Sog’lom bo’lmagan bemor “sog’lom” deb topilmagan</p></td>
+</tr>
+</tbody>
+</table>
+<p>Gripp sinfi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Ko’rsatkich</p></th>
+<th class="head"><p>Qiymat</p></th>
+<th class="head"><p>Izoh</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TP</p></td>
+<td><p>10</p></td>
+<td><p>Gripp bemori to’g’ri “gripp” deb topilgan</p></td>
+</tr>
+<tr class="row-odd"><td><p>FP</p></td>
+<td><p>6 + 1 = 7</p></td>
+<td><p>Boshqa sinfdagi bemor “gripp” deb topilgan</p></td>
+</tr>
+<tr class="row-even"><td><p>FN</p></td>
+<td><p>3 + 2 = 5</p></td>
+<td><p>Gripp bemori boshqa sinfga kiritilgan</p></td>
+</tr>
+<tr class="row-odd"><td><p>TN</p></td>
+<td><p>100 − 10 − 7 − 5 = 78</p></td>
+<td><p>Gripp bo’lmagan bemor “gripp” deb topilmagan</p></td>
+</tr>
+</tbody>
+</table>
+<p>Kovid sinfi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Ko’rsatkich</p></th>
+<th class="head"><p>Qiymat</p></th>
+<th class="head"><p>Izoh</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TP</p></td>
+<td><p>3</p></td>
+<td><p>Kovid bemori to’g’ri “Kovid” deb topilgan</p></td>
+</tr>
+<tr class="row-odd"><td><p>FP</p></td>
+<td><p>2 + 2 = 4</p></td>
+<td><p>Boshqa sinfdagi bemor “Kovid” deb topilgan</p></td>
+</tr>
+<tr class="row-even"><td><p>FN</p></td>
+<td><p>1 + 1 = 2</p></td>
+<td><p>Kovid bemori boshqa sinfga kiritilgan</p></td>
+</tr>
+<tr class="row-odd"><td><p>TN</p></td>
+<td><p>100 − 3 − 4 − 2 = 91</p></td>
+<td><p>Kovid bo’lmagan bemor “Kovid” deb topilmagan</p></td>
+</tr>
+</tbody>
+</table>
+<p>Demak, uchta sinf uchun uchta alohida binary classification (ikki sinfli) masala hosil bo’ldi.</p>
+<hr class="docutils" />
+<h2>Threshold (chegara qiymati)</h2>
+<p>Model har bir bemor uchun tayyor sinf nomini emas, balki sinfga tegishlilik ehtimolini yoki <strong>score</strong> qiymatini chiqaradi. <strong>Threshold</strong> — score qaysi qiymatdan boshlab “ijobiy” deb hisoblanishini belgilaydigan chegara.</p>
+<p>Kovid sinfi uchun bir nechta bemor misoli:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bemor</p></th>
+<th class="head"><p>Kovid uchun score</p></th>
+<th class="head"><p>Haqiqiy holat</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0.95</p></td>
+<td><p>Kovid</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>0.85</p></td>
+<td><p>Sog’lom</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>0.80</p></td>
+<td><p>Kovid</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>0.70</p></td>
+<td><p>Gripp</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>0.60</p></td>
+<td><p>Kovid</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>0.45</p></td>
+<td><p>Kovid</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>0.30</p></td>
+<td><p>Sog’lom</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Threshold = 0.5 bo’lsa, score 0.5 yoki yuqoriroq bo’lgan bemorlar (1–5) “Kovid” deb belgilanadi. 6-bemor Kovid bo’lsa ham o’tkazib yuboriladi.</p></li>
+<li><p>Threshold = 0.3 bo’lsa, barcha 7 bemor “Kovid” deb belgilanadi. 6-bemor topiladi, lekin 7-bemor bekorga “Kovid” deb belgilanadi.</p></li>
+</ul>
+<p>Natijada:</p>
+<ul class="simple">
+<li><p>Threshold pasaysa, odatda TP ortadi, lekin FP ham ortadi.</p></li>
+<li><p>Threshold oshsa, odatda FP kamayadi, lekin FN ortadi.</p></li>
+</ul>
+<p><em>! Confusion matrix modelning faqat bitta threshold qiymatidagi natijasini ko’rsatadi. ROC va PR egri chiziqlari esa threshold o’zgarganda natija qanday o’zgarishini ko’rsatadi.</em></p>
+<hr class="docutils" />
+<section id="roc-auc">
+<h2>ROC-AUC<a class="headerlink" href="#roc-auc" title="Link to this heading"></a></h2>
+<p><strong>ROC (<em>Receiver Operating Characteristic</em>) egri chizig’i</strong> — turli threshold qiymatlarida model ijobiy obyektlarni qanchalik to’liq topishini va salbiy obyektlarni qanchalik ko’p noto’g’ri “ijobiy” deb belgilashini ko’rsatadigan grafik.</p>
+<p>Savol: model ijobiy va salbiy obyektlarni qanchalik yaxshi ajratadi?</p>
+<p>ROC egri chizig’ini qurish uchun ikkita ko’rsatkich kerak.</p>
+<p><strong>TPR (<em>True Positive Rate</em>)</strong> — haqiqiy ijobiy obyektlarning qancha qismi to’g’ri aniqlangan. Recall bilan bir xil.</p>
+<div class="math notranslate nohighlight">
+\[
+TPR = \frac{TP}{TP + FN}
+\]</div>
+<p><strong>FPR (<em>False Positive Rate</em>)</strong> — salbiy obyektlarning qancha qismi noto’g’ri ravishda “ijobiy” deb aniqlangan.</p>
+<div class="math notranslate nohighlight">
+\[
+FPR = \frac{FP}{FP + TN}
+\]</div>
+<p>ROC grafigida:</p>
+<ul class="simple">
+<li><p>X o’qi — FPR.</p></li>
+<li><p>Y o’qi — TPR.</p></li>
+</ul>
+<img src="../_static/roc_curve.png" alt="ROC egri chizig'i: mukammal, yaxshi va tasodifiy klassifikator" width="70%"/>
+<p>Grafikni o’qish tartibi:</p>
+<ul class="simple">
+<li><p><strong>Yuqori chap burchak</strong> (FPR = 0, TPR = 1) — mukammal klassifikator.</p></li>
+<li><p><strong>Qizil punktir diagonal</strong> — tasodifiy klassifikator.</p></li>
+<li><p>Egri chiziq yuqori chap burchakka yaqinlashgan sari modelning ajratish qobiliyati yaxshilanadi.</p></li>
+</ul>
+<h3>Confusion matrix asosida ROC nuqtalari</h3>
+<p>Confusion matrix shartli ravishda threshold = 0.5 holatiga mos deb olinadi.</p>
+<p>Sog’lom:</p>
+<div class="math notranslate nohighlight">
+\[
+TPR = \frac{72}{72+8} = 0.9 \qquad FPR = \frac{4}{4+16} = 0.2
+\]</div>
+<p>Gripp:</p>
+<div class="math notranslate nohighlight">
+\[
+TPR = \frac{10}{10+5} = 0.6667 \qquad FPR = \frac{7}{7+78} = 0.0824
+\]</div>
+<p>Kovid:</p>
+<div class="math notranslate nohighlight">
+\[
+TPR = \frac{3}{3+2} = 0.6 \qquad FPR = \frac{4}{4+91} = 0.0421
+\]</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>FPR (X)</p></th>
+<th class="head"><p>TPR (Y)</p></th>
+<th class="head"><p>ROC nuqtasi (FPR, TPR)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>0.2000</p></td>
+<td><p>0.9000</p></td>
+<td><p>(0.2, 0.9)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>0.0824</p></td>
+<td><p>0.6667</p></td>
+<td><p>(0.0824, 0.6667)</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>0.0421</p></td>
+<td><p>0.6000</p></td>
+<td><p>(0.0421, 0.6)</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>! Yuqoridagi hisob-kitob har bir sinf uchun ROC grafigidagi faqat bitta nuqtani beradi. ROC-AUC hisoblash uchun bir nechta threshold qiymatidagi nuqtalar kerak.</em></p>
+<h3>ROC-AUC formulasi va talqini</h3>
+<p><strong>AUC (<em>Area Under the Curve</em>)</strong> — egri chiziq ostidagi yuza. ROC-AUC — ROC egri chizig’i ostidagi yuza:</p>
+<div class="math notranslate nohighlight">
+\[
+ROC\text{-}AUC = \int_0^1 TPR(FPR)\,dFPR
+\]</div>
+<p>Sodda ma’nosi: ROC-AUC modelning ijobiy va salbiy obyektlarni ajrata olish qobiliyatini bitta son bilan baholaydi.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ROC-AUC</p></th>
+<th class="head"><p>Baho</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1.00</p></td>
+<td><p>Mukammal ajratish</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.90 – 1.00</p></td>
+<td><p>Juda yaxshi</p></td>
+</tr>
+<tr class="row-even"><td><p>0.80 – 0.90</p></td>
+<td><p>Yaxshi</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.70 – 0.80</p></td>
+<td><p>Qoniqarli</p></td>
+</tr>
+<tr class="row-even"><td><p>0.60 – 0.70</p></td>
+<td><p>Zaif</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.50</p></td>
+<td><p>Tasodifiy ajratish</p></td>
+</tr>
+<tr class="row-even"><td><p>0.50 dan past</p></td>
+<td><p>Tasodifiy ajratishdan yomon</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>! ROC-AUC sinflar nomutanosibligiga PR-AUC’ga qaraganda kamroq sezgir. Kam uchraydigan sinfdagi xatolarni baholashda faqat ROC-AUC yetarli bo’lmasligi mumkin.</em></p>
+</section>
+<hr class="docutils" />
+<section id="pr-auc">
+<h2>PR-AUC<a class="headerlink" href="#pr-auc" title="Link to this heading"></a></h2>
+<p><strong>Precision-Recall (PR) egri chizig’i</strong> — turli threshold qiymatlarida model “ijobiy” deb topgan obyektlarning qanchasi haqiqatan ijobiy ekanini va haqiqiy ijobiy obyektlarning qanchasi topilganini ko’rsatadigan grafik.</p>
+<p>Savol: model topgan ijobiy obyektlar qanchalik ishonchli va haqiqiy ijobiy obyektlarning qanchasi topildi?</p>
+<p>PR egri chizig’ini qurish uchun ikkita ko’rsatkich kerak.</p>
+<p><strong>Precision</strong> — model “ijobiy” deb topgan obyektlarning qancha qismi haqiqatan ijobiy.</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Precision} = \frac{TP}{TP + FP}
+\]</div>
+<p><strong>Recall</strong> — haqiqiy ijobiy obyektlarning qancha qismi model tomonidan aniqlangan.</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Recall} = \frac{TP}{TP + FN}
+\]</div>
+<p>PR grafigida:</p>
+<ul class="simple">
+<li><p>X o’qi — Recall.</p></li>
+<li><p>Y o’qi — Precision.</p></li>
+</ul>
+<img src="../_static/roc_vs_pr_curve.png" alt="Muvozanatli datasetda ROC egri chizig'i va nomutanosib datasetda PR egri chizig'i" width="90%"/>
+<p>Rasmda ikki xil baholash yonma-yon ko’rsatilgan:</p>
+<ul class="simple">
+<li><p><strong>Chapda</strong> — muvozanatli datasetdagi ROC egri chizig’i. AUC = 0.84, model yaxshi ko’rinadi.</p></li>
+<li><p><strong>O’ngda</strong> — nomutanosib datasetdagi PR egri chizig’i. AUC-PR = 0.18, model zaif ekani ochiq ko’rinadi.</p></li>
+<li><p><strong>Kulrang punktir chiziq</strong> — tasodifiy model darajasi (baseline). ROC grafigida baseline diagonal, PR grafigida esa ijobiy sinf ulushiga teng gorizontal chiziq (rasmda 0.02).</p></li>
+</ul>
+<h3>Confusion matrix asosida PR nuqtalari</h3>
+<p>Threshold = 0.5 holatida:</p>
+<p>Sog’lom:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Precision} = \frac{72}{72+4} = 0.9474 \qquad \text{Recall} = \frac{72}{72+8} = 0.9
+\]</div>
+<p>Gripp:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Precision} = \frac{10}{10+7} = 0.5882 \qquad \text{Recall} = \frac{10}{10+5} = 0.6667
+\]</div>
+<p>Kovid:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Precision} = \frac{3}{3+4} = 0.4286 \qquad \text{Recall} = \frac{3}{3+2} = 0.6
+\]</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Recall (X)</p></th>
+<th class="head"><p>Precision (Y)</p></th>
+<th class="head"><p>PR nuqtasi (Recall, Precision)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>0.9000</p></td>
+<td><p>0.9474</p></td>
+<td><p>(0.9, 0.9474)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>0.6667</p></td>
+<td><p>0.5882</p></td>
+<td><p>(0.6667, 0.5882)</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>0.6000</p></td>
+<td><p>0.4286</p></td>
+<td><p>(0.6, 0.4286)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Sodda ma’nosi (Kovid): model “Kovid” deb belgilagan 7 nafar bemordan faqat 3 nafari haqiqatan Kovid bemori. Demak, Kovid sinfida yolg’on xavotir (FP) ko’p. Aynan PR egri chizig’i kamchilikni yaqqol ko’rsatadi.</p>
+<h3>PR-AUC formulasi va talqini</h3>
+<p>PR-AUC — Precision-Recall egri chizig’i ostidagi yuza:</p>
+<div class="math notranslate nohighlight">
+\[
+PR\text{-}AUC = \int_0^1 \text{Precision}(\text{Recall})\,d\,\text{Recall}
+\]</div>
+<p>Sodda ma’nosi: PR-AUC ijobiy obyektlarni topish qobiliyatini (recall) va topilgan obyektlarning ishonchliligini (precision) birgalikda baholaydi. Yuqori PR-AUC yaxshi modelni bildiradi.</p>
+<h3>Nega PR-AUC nomutanosib datasetda muhim?</h3>
+<p>Misol datasetda Kovid bemorlari atigi 5 nafar:</p>
+<ul class="simple">
+<li><p>Model 5 nafar Kovid bemoridan 3 nafarini topdi.</p></li>
+<li><p>Qo’shimcha ravishda 4 nafar sog’lom yoki gripp bemori ham “Kovid” deb belgilandi.</p></li>
+</ul>
+<p>Recall = 0.6 bo’lsa ham, Precision = 0.4286.</p>
+<p>FP = 4 qiymati ikki metrikada turlicha ko’rinadi:</p>
+<ul class="simple">
+<li><p><strong>ROC egri chizig’ida</strong> FP barcha 95 ta salbiy obyektga nisbatan olinadi: FPR = 4 / 95 = 0.0421. Xato juda kichik ko’rinadi.</p></li>
+<li><p><strong>PR egri chizig’ida</strong> FP to’g’ridan-to’g’ri precision qiymatini pasaytiradi: 3 / 7 = 0.4286. Xato yaqqol ko’rinadi.</p></li>
+</ul>
+<p><em>! Salbiy obyektlar juda ko’p bo’lganda FPR deyarli o’zgarmaydi, precision esa keskin tushadi. PR-AUC kam uchraydigan sinflarni baholashda juda foydali bo’lishining sababi aynan precision sezgirligida.</em></p>
+</section>
+<hr class="docutils" />
+<section id="average-precision-ap">
+<h2>Average Precision (AP)<a class="headerlink" href="#average-precision-ap" title="Link to this heading"></a></h2>
+<p><strong>Average Precision (AP)</strong> — turli threshold qiymatlarida olingan precision va recall natijalarini birlashtiradigan va ijobiy sinfni aniqlash sifatini bitta son bilan baholaydigan metrika. AP — PR egri chizig’i ostidagi yuzani hisoblashning maxsus usuli.</p>
+<div class="math notranslate nohighlight">
+\[
+AP = \sum_{k=1}^{n}(R_k - R_{k-1})\,P_k
+\]</div>
+<p>Belgilar:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(R_k\)</span> — <span class="math notranslate nohighlight">\(k\)</span>-qadamdagi recall.</p></li>
+<li><p><span class="math notranslate nohighlight">\(R_{k-1}\)</span> — oldingi qadamdagi recall (<span class="math notranslate nohighlight">\(R_0 = 0\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(P_k\)</span> — <span class="math notranslate nohighlight">\(k\)</span>-qadamdagi precision.</p></li>
+<li><p><span class="math notranslate nohighlight">\(n\)</span> — threshold o’zgarishi natijasida hosil bo’lgan qadamlar soni.</p></li>
+</ul>
+<p>Sodda ma’nosi: har bir qadamda recall qanchaga oshgani olinadi va oshish miqdori joriy qadamdagi precision qiymatiga ko’paytiriladi. Precision yuqori bo’lsa, AP ham yuqori bo’ladi. Yolg’on xavotir (FP) ko’paysa, precision pasayadi va AP ham pasayadi.</p>
+<h3>Kovid sinfi uchun AP hisobi</h3>
+<p>Haqiqiy Kovid bemorlari soni: 5 ta. Hisoblash uchun turli threshold qiymatlaridagi namunaviy natijalar olinadi.</p>
+<p><em>! Jadvaldagi sonlar o’quv maqsadida tuzilgan. Threshold = 0.5 qatoridagi TP va FP qiymatlari yuqoridagi confusion matrix bilan mos keladi.</em></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Threshold</p></th>
+<th class="head"><p>TP</p></th>
+<th class="head"><p>FP</p></th>
+<th class="head"><p>Recall = TP / 5</p></th>
+<th class="head"><p>Precision = TP / (TP + FP)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.9</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0.2</p></td>
+<td><p>1.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.7</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>0.4</p></td>
+<td><p>0.6667</p></td>
+</tr>
+<tr class="row-even"><td><p>0.5</p></td>
+<td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>0.6</p></td>
+<td><p>0.4286</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.3</p></td>
+<td><p>4</p></td>
+<td><p>15</p></td>
+<td><p>0.8</p></td>
+<td><p>0.2105</p></td>
+</tr>
+<tr class="row-even"><td><p>0.1</p></td>
+<td><p>5</p></td>
+<td><p>95</p></td>
+<td><p>1.0</p></td>
+<td><p>0.0500</p></td>
+</tr>
+</tbody>
+</table>
+<p>Qiymatlar AP formulasiga qo’yiladi:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+AP = {} &amp; (0.2 - 0) \cdot 1 \\
+&amp; + (0.4 - 0.2) \cdot 0.6667 \\
+&amp; + (0.6 - 0.4) \cdot 0.4286 \\
+&amp; + (0.8 - 0.6) \cdot 0.2105 \\
+&amp; + (1 - 0.8) \cdot 0.05
+\end{aligned}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+AP = 0.2 + 0.13334 + 0.08572 + 0.04210 + 0.01 = \mathbf{0.4712}
+\]</div>
+<p>Demak, Kovid sinfi uchun Average Precision taxminan <strong>0.4712</strong> (47.12%).</p>
+<h3>PR-AUC va AP farqi</h3>
+<p>PR-AUC va AP ko’pincha bir xil metrika deb qaraladi, lekin hisoblash usulida farq bor:</p>
+<ul class="simple">
+<li><p><strong>PR-AUC</strong> — PR egri chizig’i ostidagi yuza odatda <strong>trapetsiyalar usulida</strong> hisoblanadi: qo’shni nuqtalar to’g’ri chiziq bilan tutashtiriladi.</p></li>
+<li><p><strong>AP</strong> — recall o’sishining har bir oralig’i joriy qadamdagi precision qiymatiga ko’paytiriladi va natijalar qo’shiladi (<strong>zinapoyasimon</strong> hisob).</p></li>
+</ul>
+<p>Kovid sinfi misolida:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrika</p></th>
+<th class="head"><p>Qiymat</p></th>
+<th class="head"><p>Foizda</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PR-AUC (trapetsiyalar usuli)</p></td>
+<td><p>0.5662</p></td>
+<td><p>56.62%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Average Precision</p></td>
+<td><p>0.4712</p></td>
+<td><p>47.12%</p></td>
+</tr>
+</tbody>
+</table>
+<p>Demak, PR-AUC va AP bir xil son bo’lishi shart emas.</p>
+<p><em>! Ayrim dasturiy kutubxonalar PR-AUC atamasini AP ma’nosida ham ishlatadi. Ilmiy maqolada qaysi integrallash usuli qo’llangani aniq ko’rsatilishi kerak. Masalan, scikit-learn kutubxonasidagi <code class="docutils literal notranslate"><span class="pre">average_precision_score</span></code> trapetsiyalar usulidan emas, yuqoridagi AP yig’indisidan foydalanadi.</em></p>
+<hr class="docutils" />
+<h2>Threshold jadvali</h2>
+<p>Uchala metrikani barcha sinflar uchun hisoblashda bir nechta threshold qiymatidagi natijalar kerak bo’ladi.</p>
+<p><em>! Jadvaldagi TP va FP qiymatlari o’quv maqsadida tanlangan. Threshold = 0.5 qatoridagi qiymatlar confusion matrix bilan mos, qolgan qiymatlar egri chiziqlarni hosil qilish uchun qo’shimcha farazlar.</em></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Threshold</p></th>
+<th class="head"><p>TP</p></th>
+<th class="head"><p>FP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>0.9</p></td>
+<td><p>30</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sog’lom</p></td>
+<td><p>0.7</p></td>
+<td><p>60</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>0.5</p></td>
+<td><p>72</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sog’lom</p></td>
+<td><p>0.3</p></td>
+<td><p>78</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>0.1</p></td>
+<td><p>80</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>0.9</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>Gripp</p></td>
+<td><p>0.7</p></td>
+<td><p>7</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>0.5</p></td>
+<td><p>10</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-even"><td><p>Gripp</p></td>
+<td><p>0.3</p></td>
+<td><p>13</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>0.1</p></td>
+<td><p>15</p></td>
+<td><p>85</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>0.9</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kovid</p></td>
+<td><p>0.7</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>0.5</p></td>
+<td><p>3</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kovid</p></td>
+<td><p>0.3</p></td>
+<td><p>4</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>0.1</p></td>
+<td><p>5</p></td>
+<td><p>95</p></td>
+</tr>
+</tbody>
+</table>
+<p>Har bir threshold uchun quyidagi qiymatlar hisoblanadi:</p>
+<div class="math notranslate nohighlight">
+\[
+TPR = \frac{TP}{P} \qquad FPR = \frac{FP}{N}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{Precision} = \frac{TP}{TP + FP} \qquad \text{Recall} = \frac{TP}{P}
+\]</div>
+<p>Belgilar: <span class="math notranslate nohighlight">\(P\)</span> — ijobiy sinfdagi obyektlar soni, <span class="math notranslate nohighlight">\(N\)</span> — salbiy sinfdagi obyektlar soni. Masalan, Kovid uchun <span class="math notranslate nohighlight">\(P = 5\)</span>, <span class="math notranslate nohighlight">\(N = 95\)</span>.</p>
+<p>Hosil bo’lgan nuqtalar asosida:</p>
+<ul class="simple">
+<li><p>ROC grafigi quriladi, grafik ostidagi yuza — ROC-AUC.</p></li>
+<li><p>PR grafigi quriladi, grafik ostidagi yuza — PR-AUC.</p></li>
+<li><p>Recall o’zgarishlari va mos precision qiymatlari asosida AP hisoblanadi.</p></li>
+</ul>
+<hr class="docutils" />
+<h2>Yakuniy natijalar</h2>
+<p>ROC-AUC va PR-AUC trapetsiyalar usulida, Average Precision esa AP formulasi yordamida hisoblangan:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>ROC-AUC</p></th>
+<th class="head"><p>PR-AUC</p></th>
+<th class="head"><p>AP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>0.9269</p></td>
+<td><p>0.9816</p></td>
+<td><p>0.9724</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>0.8722</p></td>
+<td><p>0.7081</p></td>
+<td><p>0.6238</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>0.8579</p></td>
+<td><p>0.5662</p></td>
+<td><p>0.4712</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>! Barcha qiymatlar sun’iy threshold ma’lumotlari asosidagi namunaviy hisob-kitob natijasi, haqiqiy model natijasi emas.</em></p>
+<p>Natijalar tahlili:</p>
+<ul class="simple">
+<li><p><strong>Sog’lom</strong> — uchala metrika ham yuqori (0.93 – 0.98). Model sog’lom bemorlarni yaxshi aniqlaydi.</p></li>
+<li><p><strong>Gripp</strong> — ROC-AUC = 0.8722, PR-AUC = 0.7081, AP = 0.6238. Gripp sinfi sog’lom sinfiga qaraganda sustroq ajratiladi.</p></li>
+<li><p><strong>Kovid</strong> — ROC-AUC = 0.8579 nisbatan yuqori, lekin PR-AUC = 0.5662 va AP = 0.4712 ancha past.</p></li>
+</ul>
+<p><em>! Kovid sinfida ROC-AUC “yaxshi” degan baho beradi, PR-AUC va AP esa kam uchraydigan sinfda yolg’on xavotir (FP) muammosi borligini ko’rsatadi.</em></p>
+<hr class="docutils" />
+<h2>Umumiy son: Macro va Weighted o'rtacha</h2>
+<p>ROC-AUC, PR-AUC va AP har bir sinf uchun alohida hisoblanadi. Butun model uchun bitta umumiy son olishning ikki asosiy usuli bor.</p>
+<p><strong>Macro (oddiy o’rtacha)</strong> — har bir sinf natijasi teng ahamiyatga ega.</p>
+<div class="math notranslate nohighlight">
+\[
+ROC_{\text{macro}} = \frac{ROC_1 + ROC_2 + ROC_3}{3} = \frac{0.9269 + 0.8722 + 0.8579}{3} = \mathbf{0.8856}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+PR_{\text{macro}} = \frac{0.9816 + 0.7081 + 0.5662}{3} = \mathbf{0.7520}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+AP_{\text{macro}} = \frac{0.9724 + 0.6238 + 0.4712}{3} = \mathbf{0.6891}
+\]</div>
+<p><strong>Weighted (tortilgan o’rtacha)</strong> — har bir sinf natijasi sinfning datasetdagi ulushiga qarab hisobga olinadi.</p>
+<div class="math notranslate nohighlight">
+\[
+AP_{\text{weighted}} = 0.80 \cdot AP_{\text{sog'lom}} + 0.15 \cdot AP_{\text{gripp}} + 0.05 \cdot AP_{\text{kovid}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+AP_{\text{weighted}} = 0.80 \cdot 0.9724 + 0.15 \cdot 0.6238 + 0.05 \cdot 0.4712 = \mathbf{0.8951}
+\]</div>
+<p>Sog’lom sinfi 80% ulushga ega va umumiy natijaga eng katta ta’sir ko’rsatadi: weighted AP (0.8951) macro AP’dan (0.6891) ancha yuqori chiqdi.</p>
+<p><em>! Nomutanosib datasetda macro o’rtacha ko’pincha foydaliroq, chunki kam uchraydigan Kovid sinfi ham sog’lom sinfi bilan teng vaznga ega bo’ladi.</em></p>
+<hr class="docutils" />
+<h2>Uchala metrika farqi</h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Xususiyat</p></th>
+<th class="head"><p>ROC-AUC</p></th>
+<th class="head"><p>PR-AUC</p></th>
+<th class="head"><p>AP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Asosiy ko’rsatkichlar</p></td>
+<td><p>TPR va FPR</p></td>
+<td><p>Precision va Recall</p></td>
+<td><p>Precision va Recall</p></td>
+</tr>
+<tr class="row-odd"><td><p>Grafik</p></td>
+<td><p>ROC egri chizig’i</p></td>
+<td><p>PR egri chizig’i</p></td>
+<td><p>PR egri chizig’i asosidagi yig’indi</p></td>
+</tr>
+<tr class="row-even"><td><p>Yolg’on xavotir (FP) hisobi</p></td>
+<td><p>FPR orqali</p></td>
+<td><p>Precision orqali</p></td>
+<td><p>Precision orqali</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sinflar nomutanosibligida</p></td>
+<td><p>Kamroq sezgir</p></td>
+<td><p>Juda foydali</p></td>
+<td><p>Juda foydali</p></td>
+</tr>
+<tr class="row-even"><td><p>Hisoblash</p></td>
+<td><p>Egri chiziq ostidagi yuza</p></td>
+<td><p>Egri chiziq ostidagi yuza</p></td>
+<td><p>Recall qadamlaridagi precision yig’indisi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tasodifiy model darajasi</p></td>
+<td><p>0.5</p></td>
+<td><p>Ijobiy sinf ulushi</p></td>
+<td><p>Ijobiy sinf ulushi</p></td>
+</tr>
+</tbody>
+</table>
+<p>Metrika tanlash:</p>
+<ul class="simple">
+<li><p><strong>ROC-AUC</strong> — modelning umumiy ajratish qobiliyatini baholash kerak bo’lganda. Ijobiy va salbiy obyektlar qanchalik yaxshi farqlanishini ko’rsatadi.</p></li>
+<li><p><strong>PR-AUC</strong> — kam uchraydigan sinfni aniqlash muhim bo’lganda, ayniqsa FP ko’payishi model sifatiga jiddiy ta’sir qiladigan vaziyatlarda.</p></li>
+<li><p><strong>Average Precision (AP)</strong> — har bir sinf uchun precision va recall muvozanatini bitta son bilan baholash kerak bo’lganda. Object detection va nomutanosib klassifikatsiya masalalarida keng qo’llanadi.</p></li>
+</ul>
+<hr class="docutils" />
+<h2>Confusion matrix yetarlimi?</h2>
+<p>Faqat confusion matrix asosida ROC-AUC, PR-AUC va AP’ning aniq qiymatlarini hisoblab bo’lmaydi.</p>
+<p>Sababi:</p>
+<ul class="simple">
+<li><p>Confusion matrix modelning bitta threshold qiymatidagi natijasini ko’rsatadi.</p></li>
+<li><p>ROC-AUC uchun turli threshold qiymatlaridagi TPR va FPR kerak.</p></li>
+<li><p>PR-AUC uchun turli threshold qiymatlaridagi precision va recall kerak.</p></li>
+<li><p>AP uchun recall o’zgarishlariga mos precision qiymatlari kerak.</p></li>
+</ul>
+<p><em>! Modeldan faqat bashorat qilingan sinflar (<code class="docutils literal notranslate"><span class="pre">predict</span></code>) emas, balki har bir sinf uchun score yoki ehtimollik qiymatlari (<code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> yoki <code class="docutils literal notranslate"><span class="pre">decision_function</span></code>) ham olinishi kerak.</em></p>
+<hr class="docutils" />
+<h2>Tasodifiy model darajasi (baseline)</h2>
+<p>Metrika qiymati yaxshi yoki yomon ekanini bilish uchun natija tasodifiy model darajasi bilan solishtiriladi.</p>
+<ul class="simple">
+<li><p><strong>ROC-AUC</strong> uchun tasodifiy model darajasi har doim <strong>0.5</strong>.</p></li>
+<li><p><strong>PR-AUC va AP</strong> uchun tasodifiy model darajasi ijobiy sinfning datasetdagi ulushiga teng.</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Ijobiy sinf ulushi</p></th>
+<th class="head"><p>PR baseline</p></th>
+<th class="head"><p>AP</p></th>
+<th class="head"><p>AP / baseline</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>80%</p></td>
+<td><p>0.80</p></td>
+<td><p>0.9724</p></td>
+<td><p>≈ 1.2 baravar</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>15%</p></td>
+<td><p>0.15</p></td>
+<td><p>0.6238</p></td>
+<td><p>≈ 4.2 baravar</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>5%</p></td>
+<td><p>0.05</p></td>
+<td><p>0.4712</p></td>
+<td><p>≈ 9.4 baravar</p></td>
+</tr>
+</tbody>
+</table>
+<p>Demak, Kovid sinfidagi AP = 0.47 natijasini 0.5 bilan emas, 0.05 bilan solishtirish kerak: model tasodifiy taxmindan taxminan 9 baravar yaxshi, lekin mukammal natijadan (1.0) hali ancha uzoq.</p>
+<hr class="docutils" />
+<h2>Qisqa xulosa</h2>
+<ul class="simple">
+<li><p><strong>Threshold</strong> — score qaysi qiymatdan boshlab “ijobiy” hisoblanishini belgilaydi. Confusion matrix faqat bitta threshold natijasini ko’rsatadi.</p></li>
+<li><p><strong>ROC egri chizig’i</strong> — X o’qida FPR, Y o’qida TPR. Egri chiziq yuqori chap burchakka yaqin bo’lsa, model yaxshi.</p></li>
+<li><p><strong>ROC-AUC</strong> — ROC egri chizig’i ostidagi yuza. 1.0 mukammal, 0.5 tasodifiy.</p></li>
+<li><p><strong>PR egri chizig’i</strong> — X o’qida Recall, Y o’qida Precision.</p></li>
+<li><p><strong>PR-AUC</strong> — PR egri chizig’i ostidagi yuza (trapetsiyalar usuli). Kam uchraydigan sinfdagi yolg’on xavotirni yaqqol ko’rsatadi.</p></li>
+<li><p><strong>AP</strong> — recall o’sishi × precision ko’paytmalarining yig’indisi. PR-AUC bilan yaqin, lekin bir xil son emas.</p></li>
+<li><p><strong>Macro o’rtacha</strong> — sinflarni teng ko’radi va nomutanosiblikda eng adolatli.</p></li>
+<li><p><strong>Baseline</strong> — ROC-AUC uchun 0.5, PR-AUC va AP uchun ijobiy sinf ulushi.</p></li>
+<li><p><strong>Tavsiya</strong> — 80/15/5 kabi nomutanosib ko’p sinfli masalada uchala metrika ham keltiriladi, har bir sinfning AP va PR-AUC qiymati alohida ko’rsatiladi, umumiy baho uchun macro o’rtacha beriladi. Natijada kam uchraydigan Kovid sinfining sifati sog’lom sinf natijalari ortida yashirinib qolmaydi.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="evaluation_metrics.html" class="btn btn-neutral float-left" title="Baholash metrikalari" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="kmeans_alg.html" class="btn btn-neutral float-right" title="K-means" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Abduhalil.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
