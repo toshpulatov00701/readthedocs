@@ -71,11 +71,15 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Baholash metrikalari</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#accuracy-aniqlik-darajasi">Accuracy (aniqlik darajasi)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accuracy-umumiy-to-g-rilik">Accuracy (umumiy to’g’rilik)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#precision-aniqlik-ishonchlilik">Precision (aniqlik, ishonchlilik)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#recall-qamrov">Recall (Qamrov)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recall-sensitivity-qamrov-sezgirlik">Recall / Sensitivity (qamrov, sezgirlik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#specificity-o-ziga-xoslik">Specificity (o’ziga xoslik)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#f1-score">F1-score</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#misol">Misol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#balanced-accuracy-muvozanatlangan-to-g-rilik">Balanced Accuracy (muvozanatlangan to’g’rilik)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cohen-s-kappa">Cohen’s Kappa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mcc-matthews-correlation-coefficient">MCC (Matthews Correlation Coefficient)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jaccard-score-iou-intersection-over-union">Jaccard Score (IoU, Intersection over Union)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="kmeans_alg.html">K-means</a><ul>
@@ -153,87 +157,927 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="baholash-metrikalari">
 <h1>Baholash metrikalari<a class="headerlink" href="#baholash-metrikalari" title="Link to this heading"></a></h1>
-<p><strong>Baholash metrikalari (<em>evaluation metrics</em>)</strong> - bu mashinali o‘rganishda (ko‘pincha klassifikatsiyada) modelning ishlash sifatini o‘lchash uchun qo‘llanadigan ko‘rsatkichlardir.</p>
-<p>Confusion Matrix (chalg‘ituvchi matritsa):</p>
+<p><strong>Baholash metrikalari (<em>evaluation metrics</em>)</strong> — klassifikatsiya modelining ishlash sifatini o’lchaydigan ko’rsatkichlar. Model bashoratlari haqiqiy javoblar bilan solishtiriladi, metrika esa solishtirish natijasini <strong>bitta songa</strong> aylantiradi.</p>
+<p>Har bir metrika alohida savolga javob beradi:</p>
+<ul class="simple">
+<li><p>“Jami nechta javob to’g’ri?” → Accuracy</p></li>
+<li><p>“Model ‘kasal’ desa, javobga ishonsa bo’ladimi?” → Precision</p></li>
+<li><p>“Kasallarning nechtasi topildi?” → Recall</p></li>
+<li><p>“Model tasodifiy taxmindan yaxshiroqmi?” → Cohen’s Kappa, MCC</p></li>
+</ul>
+<p><em>! Bitta metrikaga qarash yetarli emas, ayniqsa sinflar <strong>nomutanosib</strong> bo’lganda.</em></p>
+<hr class="docutils" />
+<h2>Misol dataset</h2>
+<p>Model 100 ta bemorni 3 sinfga ajratadi:</p>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p></p></th>
-<th class="head"><p>Haqiqatda ijobiy (Positive)</p></th>
-<th class="head"><p>Haqiqatda salbiy (Negative)</p></th>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Haqiqiy soni</p></th>
+<th class="head"><p>Ulushi</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Model ijobiy dedi</p></td>
-<td><p>True Positive (TP)</p></td>
-<td><p>False Positive (FP)</p></td>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>80</p></td>
+<td><p>80%</p></td>
 </tr>
-<tr class="row-odd"><td><p>Model salbiy dedi</p></td>
-<td><p>False Negative (FN)</p></td>
-<td><p>True Negative (TN)</p></td>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>15</p></td>
+<td><p>15%</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>5</p></td>
+<td><p>5%</p></td>
 </tr>
 </tbody>
 </table>
+<p><strong>Nomutanosib (<em>imbalanced</em>) dataset</strong> — bitta sinf boshqa sinflardan ancha ko’p bo’lgan dataset. Misolda sog’lomlar 80 ta, Kovid bemorlari esa atigi 5 ta. Hayotda nomutanosiblik juda ko’p uchraydi: kasallik, firibgarlik, spam, nosozlik har doim kam bo’ladi.</p>
+<p>Sahifadagi barcha hisob-kitoblar yuqoridagi dataset va quyidagi confusion matrix asosida bajariladi. Misoldagi model keyingi bo’limlarda <strong>asosiy model</strong> deb ataladi.</p>
 <hr class="docutils" />
-<section id="accuracy-aniqlik-darajasi">
-<h2>Accuracy (aniqlik darajasi)<a class="headerlink" href="#accuracy-aniqlik-darajasi" title="Link to this heading"></a></h2>
-<p>to‘g‘ri klassifikatsiya qilingan obyektlar sonining jami obyektlar soniga nisbati.</p>
+<h2>Confusion matrix (chalkashlik matritsasi)</h2>
+<p><strong>Confusion matrix</strong> — model qayerda to’g’ri topganini va qaysi sinfni qaysi sinf bilan adashtirganini ko’rsatadigan jadval.</p>
+<ul class="simple">
+<li><p><strong>Qatorlar</strong> — bemorning <strong>haqiqiy</strong> sinfi.</p></li>
+<li><p><strong>Ustunlar</strong> — model <strong>bashorat qilgan</strong> sinf.</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Haqiqiy ↓ / Bashorat →</p></th>
+<th class="head"><p>Sog’lom</p></th>
+<th class="head"><p>Gripp</p></th>
+<th class="head"><p>Kovid</p></th>
+<th class="head"><p><strong>Jami (haqiqiy)</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Sog’lom</strong></p></td>
+<td><p><strong>74</strong></p></td>
+<td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>80</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Gripp</strong></p></td>
+<td><p>5</p></td>
+<td><p><strong>8</strong></p></td>
+<td><p>2</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Kovid</strong></p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p><strong>3</strong></p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Jami (bashorat)</strong></p></td>
+<td><p>80</p></td>
+<td><p>13</p></td>
+<td><p>7</p></td>
+<td><p><strong>100</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>Jadvalni o’qish tartibi:</p>
+<ul class="simple">
+<li><p><strong>Diagonal</strong> (qalin sonlar) — to’g’ri javoblar: 74 + 8 + 3 = <strong>85</strong>.</p></li>
+<li><p><strong>Diagonaldan tashqaridagi sonlar</strong> — xatolar. Jami 15 ta.</p></li>
+<li><p>“Gripp” qatori va “Sog’lom” ustunidagi <strong>5</strong> soni: 5 ta gripp bemori model tomonidan “sog’lom” deb topilgan.</p></li>
+<li><p>“Kovid” qatoridagi 1 + 1 = 2 ta bemor boshqa sinfga kiritilgan, ya’ni o’tkazib yuborilgan.</p></li>
+</ul>
+<hr class="docutils" />
+<h2>TP, FP, FN, TN</h2>
+<p>Barcha metrikalar to’rtta sondan quriladi: TP, FP, FN va TN. Ko’p sinfli masalada har bir sinf navbat bilan <strong>“tanlangan sinf”</strong> va <strong>“qolgan barcha sinflar”</strong> ko’rinishida qaraladi. Usul nomi — <strong>One-vs-Rest</strong>.</p>
+<p>To’rtta tushuncha (Kovid sinfi misolida):</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Belgi</p></th>
+<th class="head"><p>To’liq nomi</p></th>
+<th class="head"><p>Sodda ma’nosi</p></th>
+<th class="head"><p>Kovid uchun</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>TP</strong></p></td>
+<td><p>True Positive</p></td>
+<td><p>Bemor Kovid edi, model ham <strong>Kovid</strong> dedi</p></td>
+<td><p><strong>3</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>FN</strong></p></td>
+<td><p>False Negative</p></td>
+<td><p>Bemor Kovid edi, model <strong>boshqa sinf</strong> dedi (o’tkazib yuborildi)</p></td>
+<td><p>1 + 1 = <strong>2</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>FP</strong></p></td>
+<td><p>False Positive</p></td>
+<td><p>Bemor Kovid emas edi, model <strong>Kovid</strong> dedi (yolg’on xavotir)</p></td>
+<td><p>2 + 2 = <strong>4</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>TN</strong></p></td>
+<td><p>True Negative</p></td>
+<td><p>Bemor Kovid emas edi, model ham <strong>Kovid emas</strong> dedi</p></td>
+<td><p>100 − 3 − 2 − 4 = <strong>91</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>Matritsadan tez topish usuli:</p>
+<ul class="simple">
+<li><p><strong>TP</strong> — diagonaldagi son.</p></li>
+<li><p><strong>FN</strong> — sinf <strong>qatoridagi</strong> qolgan sonlar yig’indisi (haqiqiy sinf to’g’ri, bashorat boshqa).</p></li>
+<li><p><strong>FP</strong> — sinf <strong>ustunidagi</strong> qolgan sonlar yig’indisi (haqiqiy sinf boshqa, bashorat tanlangan sinf).</p></li>
+<li><p><strong>TN</strong> — jami − TP − FN − FP.</p></li>
+</ul>
+<p>Barcha sinflar uchun:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>TP</p></th>
+<th class="head"><p>FP</p></th>
+<th class="head"><p>FN</p></th>
+<th class="head"><p>TN</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>74</p></td>
+<td><p>5 + 1 = 6</p></td>
+<td><p>4 + 2 = 6</p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>8</p></td>
+<td><p>4 + 1 = 5</p></td>
+<td><p>5 + 2 = 7</p></td>
+<td><p>80</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>3</p></td>
+<td><p>2 + 2 = 4</p></td>
+<td><p>1 + 1 = 2</p></td>
+<td><p>91</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>! Keyingi barcha hisob-kitoblar yuqoridagi jadvaldan olinadi.</em></p>
+<hr class="docutils" />
+<section id="accuracy-umumiy-to-g-rilik">
+<h2>Accuracy (umumiy to’g’rilik)<a class="headerlink" href="#accuracy-umumiy-to-g-rilik" title="Link to this heading"></a></h2>
+<p>To’g’ri klassifikatsiya qilingan obyektlar sonining jami obyektlar soniga nisbati.</p>
+<p>Savol: jami javoblarning qanchasi to’g’ri?</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Accuracy} = \frac{\text{to'g'ri javoblar}}{\text{jami}} = \frac{74+8+3}{100} = \mathbf{0.85}
+\]</div>
+<p>Ikki sinfli masalada formula quyidagi ko’rinishni oladi:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
 \]</div>
-<p>Model “kasal” deganlarning 87% haqiqatda kasal bo‘lgan.</p>
+<p>Sodda ma’nosi: 100 bemordan 85 tasining sinfi to’g’ri topildi.</p>
+<p>Kamchiligi: 85% yaxshi ko’rinadi, lekin to’g’ri javoblarning katta qismi (74 tasi) sog’lomlar. Sog’lomlarni topish oson, chunki sog’lomlar ko’pchilikni tashkil qiladi. Accuracy kichik sinflardagi yomon natijani <strong>yashiradi</strong>. Batafsil tushuntirish “Accuracy va Balanced Accuracy farqi” hamda “Nomutanosiblik tuzog’i” bo’limlarida berilgan.</p>
+<p>Qachon ishlatiladi: faqat sinflar taxminan teng bo’lganda.</p>
 </section>
 <hr class="docutils" />
 <section id="precision-aniqlik-ishonchlilik">
 <h2>Precision (aniqlik, ishonchlilik)<a class="headerlink" href="#precision-aniqlik-ishonchlilik" title="Link to this heading"></a></h2>
-<p>model musbat (masalan, anomal) deb aytganlarning nechta qismi aslida ham musbat?</p>
+<p>Model tanlangan sinf deb aytgan obyektlarning qancha qismi haqiqatan ham tanlangan sinfga tegishli?</p>
 <div class="math notranslate nohighlight">
 \[
-\text{Precision} = \frac{TP}{TP + FP}
+\text{Precision} = \frac{TP}{TP + FP} = \frac{\text{to'g'ri topilganlar}}{\text{model tanlangan sinf deb aytgan barcha obyektlar}}
 \]</div>
-<p>Savolga javob beradi: “Model anomal dedi, haqiqatda ham anomal bo‘lish ehtimoli nechcha %?”</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Hisob</p></th>
+<th class="head"><p>Natija</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>74 / (74 + 6)</p></td>
+<td><p>0.925</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>8 / (8 + 5)</p></td>
+<td><p>0.615</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>3 / (3 + 4)</p></td>
+<td><p>0.429</p></td>
+</tr>
+</tbody>
+</table>
+<p>Sodda ma’nosi (Kovid): model 7 kishiga “Kovid” dedi. 7 kishidan faqat 3 tasi haqiqatan Kovid edi. Demak, modelning “Kovid” degan javobiga faqat 43% ishonish mumkin.</p>
+<p>Hayotiy misol: spam filtri. Precision past bo’lsa, muhim xatlar spam papkasiga tushib ketadi. Yolg’on xavotir qimmatga tushadigan joyda precision muhim.</p>
 </section>
 <hr class="docutils" />
-<section id="recall-qamrov">
-<h2>Recall (Qamrov)<a class="headerlink" href="#recall-qamrov" title="Link to this heading"></a></h2>
-<p>Haqiqiy musbatlardan nechtasini model topa oldi?</p>
+<section id="recall-sensitivity-qamrov-sezgirlik">
+<h2>Recall / Sensitivity (qamrov, sezgirlik)<a class="headerlink" href="#recall-sensitivity-qamrov-sezgirlik" title="Link to this heading"></a></h2>
+<p>Haqiqatan tanlangan sinfga tegishli obyektlarning qancha qismini model topa oldi?</p>
 <div class="math notranslate nohighlight">
 \[
-\text{Recall} = \frac{TP}{TP + FN}
+\text{Recall} = \frac{TP}{TP + FN} = \frac{\text{to'g'ri topilganlar}}{\text{haqiqatan tanlangan sinfga tegishli barcha obyektlar}}
 \]</div>
-<p>Haqiqiy kasallarning 55% ini model topgan.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Hisob</p></th>
+<th class="head"><p>Natija</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>74 / 80</p></td>
+<td><p>0.925</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>8 / 15</p></td>
+<td><p>0.533</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>3 / 5</p></td>
+<td><p>0.600</p></td>
+</tr>
+</tbody>
+</table>
+<p>Sodda ma’nosi (Kovid): haqiqatda 5 ta Kovid bemori bor edi. Model 3 tasini topdi, 2 tasini o’tkazib yubordi. O’tkazib yuborilgan bemor davolanmasdan uyga ketadi.</p>
+<p>Hayotiy misol: tibbiyot, firibgarlikni aniqlash. Kasalni yoki firibgarni o’tkazib yuborish yolg’on xavotirdan ancha qimmatga tushadi.</p>
+<p>Precision va recall farqi:</p>
+<ul class="simple">
+<li><p><strong>Precision</strong> — “Model aytgan javoblarning qanchasi to’g’ri?”</p></li>
+<li><p><strong>Recall</strong> — “Mavjud holatlarning qanchasi topildi?”</p></li>
+</ul>
+<p><em>! Precision va recall ko’pincha qarama-qarshi harakat qiladi. Model hamma bemorga “Kovid” desa, recall 1.0 bo’ladi (birorta ham Kovid bemori o’tkazib yuborilmaydi), lekin precision keskin tushib ketadi.</em></p>
+</section>
+<hr class="docutils" />
+<section id="specificity-o-ziga-xoslik">
+<h2>Specificity (o’ziga xoslik)<a class="headerlink" href="#specificity-o-ziga-xoslik" title="Link to this heading"></a></h2>
+<p>Tanlangan sinfga tegishli bo’lmagan obyektlarning qancha qismini model to’g’ri rad etdi?</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Specificity} = \frac{TN}{TN + FP}
+\]</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Hisob</p></th>
+<th class="head"><p>Natija</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>14 / (14 + 6)</p></td>
+<td><p>0.700</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>80 / (80 + 5)</p></td>
+<td><p>0.941</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>91 / (91 + 4)</p></td>
+<td><p>0.958</p></td>
+</tr>
+</tbody>
+</table>
+<p>Sodda ma’nosi (Kovid): Kovid bo’lmagan 95 kishidan 91 tasiga model to’g’ri “Kovid emas” dedi.</p>
+<p>Recall bilan farqi:</p>
+<ul class="simple">
+<li><p><strong>Recall</strong> — “Kasallar topildimi?”</p></li>
+<li><p><strong>Specificity</strong> — “Sog’lomlar bekorga kasal deyilmadimi?”</p></li>
+</ul>
+<p><em>! Kichik sinflarda specificity doim yuqori chiqadi, chunki “tanlangan sinf emas” obyektlar juda ko’p va TN katta bo’ladi. Kovid uchun 0.958 natija aldamasligi kerak: Kovid bemorlarining 40 foizi baribir o’tkazib yuborilgan. Specificity yolg’iz holda yetarli xulosa bermaydi.</em></p>
 </section>
 <hr class="docutils" />
 <section id="f1-score">
 <h2>F1-score<a class="headerlink" href="#f1-score" title="Link to this heading"></a></h2>
-<p>Precision va Recall orasidagi balansni o‘lchaydi (ularning harmonik o‘rtachasi).</p>
+<p>Precision va recall orasidagi balansni o’lchaydi (<strong>garmonik o’rtacha</strong>).</p>
 <div class="math notranslate nohighlight">
 \[
-\text{F1} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2TP}{2TP + FP + FN}
 \]</div>
-<p>Nega alohida ko‘rsatkich yetarli emas?</p>
+<p>Oddiy o’rtachadan farqi: precision yoki recall past bo’lsa, F1 ham past chiqadi. Masalan, precision = 1.0 va recall = 0.1 bo’lsa, oddiy o’rtacha 0.55, F1 esa atigi 0.18.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Hisob</p></th>
+<th class="head"><p>Natija</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>2·74 / (148 + 6 + 6)</p></td>
+<td><p>0.925</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>2·8 / (16 + 5 + 7)</p></td>
+<td><p>0.571</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>2·3 / (6 + 4 + 2)</p></td>
+<td><p>0.500</p></td>
+</tr>
+</tbody>
+</table>
+<p>Sodda ma’nosi: F1 “model sinfni topishda ham, ishonchli javob berishda ham qanchalik yaxshi” degan savolga javob beradi. Sog’lom uchun natija yaxshi, Gripp va Kovid uchun o’rtacha.</p>
+<p>Nega alohida ko’rsatkich yetarli emas?</p>
 <ul class="simple">
-<li><p>Agar faqat Accuracy yuqori bo‘lsa, recall past bo‘lishi mumkin (ko‘p haqiqiy pozitivlar o‘tkazib yuboriladi).</p></li>
-<li><p>Agar faqat recall yuqori bo‘lsa, precision past bo‘lishi mumkin (ko‘p noto‘g‘ri pozitivlar chiqadi).</p></li>
-<li><p>F1-score ikkalasini harmonik o‘rtacha qilib baholaydi, shuning uchun bir tomonga og‘ib ketishni oldini oladi.</p></li>
+<li><p>Faqat precision yuqori bo’lsa, recall past bo’lishi mumkin (ko’p haqiqiy holatlar o’tkazib yuboriladi).</p></li>
+<li><p>Faqat recall yuqori bo’lsa, precision past bo’lishi mumkin (ko’p yolg’on xavotir chiqadi).</p></li>
+<li><p>F1-score ikkala ko’rsatkichni garmonik o’rtacha orqali baholaydi va bir tomonga og’ib ketishning oldini oladi.</p></li>
 </ul>
+<hr class="docutils" />
+<h2>O'rtacha olish usullari: Macro, Weighted, Micro</h2>
+<p>Precision, recall, F1 va Jaccard har bir sinf uchun alohida hisoblanadi. Bitta umumiy son olishning 3 usuli bor.</p>
+<p><strong>Macro (oddiy o’rtacha)</strong> — har bir sinf <strong>teng</strong> hisoblanadi, sinf hajmidan qat’i nazar.</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Macro-F1} = \frac{0.925 + 0.571 + 0.500}{3} = 0.665
+\]</div>
+<p><strong>Weighted (tortilgan o’rtacha)</strong> — har bir sinf <strong>hajmga qarab</strong> tortiladi. Sog’lom 80% vaznga, Kovid 5% vaznga ega.</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Weighted-F1} = 0.80 \cdot 0.925 + 0.15 \cdot 0.571 + 0.05 \cdot 0.500 = 0.851
+\]</div>
+<p><strong>Micro (bitta umumiy hisob)</strong> — barcha sinflarning TP, FP va FN qiymatlari qo’shiladi va formulaga bir marta qo’yiladi.</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Micro-F1} = \frac{2 \cdot 85}{2 \cdot 85 + 15 + 15} = \frac{170}{200} = 0.85
+\]</div>
+<p><em>! Har bir obyektga faqat bitta sinf beriladigan ko’p sinfli masalada Micro-F1 har doim accuracy’ga teng.</em></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Macro</p></th>
+<th class="head"><p>Weighted</p></th>
+<th class="head"><p>Micro</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Precision</p></td>
+<td><p>0.656</p></td>
+<td><p>0.854</p></td>
+<td><p>0.85</p></td>
+</tr>
+<tr class="row-odd"><td><p>Recall</p></td>
+<td><p>0.686</p></td>
+<td><p>0.85</p></td>
+<td><p>0.85</p></td>
+</tr>
+<tr class="row-even"><td><p>F1</p></td>
+<td><p><strong>0.665</strong></p></td>
+<td><p>0.851</p></td>
+<td><p>0.85</p></td>
+</tr>
+</tbody>
+</table>
+<p>Xulosa: weighted va micro natijalari 0.85 atrofida, chunki natijani Sog’lom sinfi ko’tarib turibdi. Macro esa 0.67 atrofida, chunki Gripp va Kovid ham teng ovozga ega. <strong>Nomutanosib datasetda macro eng adolatli usul.</strong></p>
 </section>
 <hr class="docutils" />
-<section id="misol">
-<h2>Misol<a class="headerlink" href="#misol" title="Link to this heading"></a></h2>
-<p>Aytaylik, sizda 100 ta test namunasi bor:</p>
+<section id="balanced-accuracy-muvozanatlangan-to-g-rilik">
+<h2>Balanced Accuracy (muvozanatlangan to’g’rilik)<a class="headerlink" href="#balanced-accuracy-muvozanatlangan-to-g-rilik" title="Link to this heading"></a></h2>
+<p>Har bir sinf recall qiymatlarining oddiy o’rtachasi.</p>
+<p>Savol: har bir sinfga teng e’tibor berilsa, model o’rtacha qanchalik yaxshi?</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Balanced Accuracy} = \frac{\text{Recall}_1 + \text{Recall}_2 + \text{Recall}_3}{3} = \frac{0.925 + 0.533 + 0.600}{3} = \mathbf{0.686}
+\]</div>
+<p>Sodda ma’nosi: model har bir sinfning o’rtacha 69 foizini to’g’ri topadi.</p>
+<hr class="docutils" />
+<h2>Accuracy va Balanced Accuracy farqi</h2>
+<p>Asosiy modelda accuracy <strong>0.85</strong>, balanced accuracy esa <strong>0.686</strong>. Farqning ma’nosi: <strong>model katta sinfda (Sog’lom) yaxshi ishlaydi, kichik sinflarda (Gripp, Kovid) yomon ishlaydi, accuracy esa kamchilikni yashirib qo’yadi.</strong></p>
+<h3>Nima uchun natijalar har xil chiqadi?</h3>
+<p>Ikkala metrika ham har bir sinfning recall qiymatidan hisoblanadi. Farq faqat o’rtacha olish usulida.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Recall</p></th>
+<th class="head"><p>Sinf ulushi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>0.925</p></td>
+<td><p>80%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>0.533</p></td>
+<td><p>15%</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>0.600</p></td>
+<td><p>5%</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Accuracy</strong> recall qiymatlarini sinf hajmiga qarab tortadi:</p>
+<div class="math notranslate nohighlight">
+\[
+0.80 \cdot 0.925 + 0.15 \cdot 0.533 + 0.05 \cdot 0.600 = 0.74 + 0.08 + 0.03 = \mathbf{0.85}
+\]</div>
+<p>Sog’lom sinfi 80% vaznga ega va natijani deyarli yolg’iz belgilaydi. Kovid atigi 5% vaznga ega, natijada Kovid sinfidagi yomon ko’rsatkich deyarli sezilmaydi.</p>
+<p><strong>Balanced accuracy</strong> har bir sinfga teng vazn beradi:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{0.925 + 0.533 + 0.600}{3} = \mathbf{0.686}
+\]</div>
+<p>Kovid ham, Sog’lom ham 1/3 vaznga ega. Kichik sinflardagi zaiflik natijani pastga tortadi.</p>
+<p>Demak:</p>
 <ul class="simple">
-<li><p>TP = 40</p></li>
-<li><p>FP = 10</p></li>
-<li><p>FN = 20</p></li>
-<li><p>TN = 30</p></li>
+<li><p><strong>Accuracy 0.85</strong> — “100 bemordan 85 tasi to’g’ri topildi.” Natija rost, lekin to’g’ri topilgan bemorlarning ko’pi sog’lomlar.</p></li>
+<li><p><strong>Balanced accuracy 0.686</strong> — “har bir sinfning o’rtacha 69 foizi topildi.”</p></li>
 </ul>
-<p>Hisoblash:</p>
+<h3>Ideal holat</h3>
+<p>Ideal holatda accuracy va balanced accuracy <strong>yaqin</strong> chiqadi. Yaqin natija model barcha sinflarda bir xil darajada yaxshi ishlayotganini bildiradi.</p>
+<p>Masalan, boshqa bir model har bir sinfning 80 foizini to’g’ri topgan bo’lsin:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>To’g’ri topildi</p></th>
+<th class="head"><p>Recall</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>64 / 80</p></td>
+<td><p>0.80</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>12 / 15</p></td>
+<td><p>0.80</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>4 / 5</p></td>
+<td><p>0.80</p></td>
+</tr>
+</tbody>
+</table>
 <ul class="simple">
-<li><p>Accuracy = (40+30) / 100 = <code class="docutils literal notranslate"><span class="pre">0.70</span> <span class="pre">(70%)</span></code></p></li>
-<li><p>Precision = 40 / (40+10) = <code class="docutils literal notranslate"><span class="pre">0.80</span> <span class="pre">(80%)</span></code></p></li>
-<li><p>Recall = 40 / (40+20) = <code class="docutils literal notranslate"><span class="pre">0.67</span> <span class="pre">(67%)</span></code></p></li>
-<li><p>F1-score ≈ <code class="docutils literal notranslate"><span class="pre">0.73</span> <span class="pre">(73%)</span></code></p></li>
+<li><p>Accuracy = (64 + 12 + 4) / 100 = <strong>0.80</strong></p></li>
+<li><p>Balanced accuracy = (0.80 + 0.80 + 0.80) / 3 = <strong>0.80</strong></p></li>
+</ul>
+<p>Natijalar teng chiqdi, chunki model hech bir sinfni “unutmagan”. Ikkinchi modelning accuracy qiymati pastroq (0.80 &lt; 0.85), lekin kasallarni asosiy modelga qaraganda <strong>yaxshiroq</strong> topadi.</p>
+<h3>Katta farq — yomon belgi</h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Accuracy</p></th>
+<th class="head"><p>Balanced Accuracy</p></th>
+<th class="head"><p>Farq</p></th>
+<th class="head"><p>Ma’nosi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Teng ishlaydigan model</p></td>
+<td><p>0.80</p></td>
+<td><p>0.80</p></td>
+<td><p>0</p></td>
+<td><p>Barcha sinflar teng o’rganilgan</p></td>
+</tr>
+<tr class="row-odd"><td><p>Asosiy model</p></td>
+<td><p>0.85</p></td>
+<td><p>0.686</p></td>
+<td><p>0.16</p></td>
+<td><p>Kichik sinflar zaif</p></td>
+</tr>
+<tr class="row-even"><td><p>Har doim “Sog’lom” deydigan model</p></td>
+<td><p>0.80</p></td>
+<td><p>0.333</p></td>
+<td><p>0.47</p></td>
+<td><p>Kichik sinflar umuman o’rganilmagan</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>! Accuracy va balanced accuracy orasida katta farq bo’lsa, recall qiymatlarini sinflar bo’yicha alohida tekshirish kerak. Odatda kichik sinflardan birida muammo bo’ladi.</em></p>
+</section>
+<hr class="docutils" />
+<section id="cohen-s-kappa">
+<h2>Cohen’s Kappa<a class="headerlink" href="#cohen-s-kappa" title="Link to this heading"></a></h2>
+<p>Model tasodifiy taxmindan qanchalik yaxshiroq ekanini o’lchaydi.</p>
+<p>G’oyasi: to’g’ri javoblarning bir qismini ko’r-ko’rona taxmin ham bera oladi. Masalan, bemorlarning 80 foizi sog’lom bo’lsa, tasodifiy “sog’lom” degan javob ko’pincha to’g’ri chiqadi. Kappa <strong>tasodifan olingan to’g’ri javoblarni chiqarib tashlaydi</strong> va faqat modelning haqiqiy hissasini o’lchaydi.</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa = \frac{p_o - p_e}{1 - p_e}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p_o\)</span> — kuzatilgan moslik, ya’ni oddiy accuracy.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p_e\)</span> — tasodifan kutiladigan moslik.</p></li>
+</ul>
+<p>Hisob-kitob:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(p_o\)</span> = accuracy = <strong>0.85</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(p_e\)</span> qiymatini topish uchun har bir sinfning (qator jami × ustun jami) ko’paytmalari qo’shiladi va yig’indi <span class="math notranslate nohighlight">\(N^2\)</span> ga bo’linadi:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+p_e = \frac{80 \cdot 80 + 15 \cdot 13 + 5 \cdot 7}{100^2} = \frac{6400 + 195 + 35}{10000} = \frac{6630}{10000} = 0.663
+\]</div>
+<p>Ma’nosi: model haqiqiy javoblarga qaramasdan, faqat bashoratlar nisbatini saqlagan holda tasodifiy javob berganda ham taxminan 66% javob to’g’ri chiqqan bo’lardi.</p>
+<ol class="arabic simple" start="3">
+<li><p>Kappa qiymati:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\kappa = \frac{0.85 - 0.663}{1 - 0.663} = \frac{0.187}{0.337} = \mathbf{0.555}
+\]</div>
+<p>Sodda ma’nosi: tasodif bilan mukammallik orasidagi yo’lning <strong>55 foizi</strong> bosib o’tilgan. 85% accuracy’ning katta qismini tasodif ham bera olar edi.</p>
+<p>Baholash shkalasi (Landis va Koch):</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kappa</p></th>
+<th class="head"><p>Baho</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0 dan past</p></td>
+<td><p>Tasodifdan ham yomon</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.00 – 0.20</p></td>
+<td><p>Juda zaif</p></td>
+</tr>
+<tr class="row-even"><td><p>0.21 – 0.40</p></td>
+<td><p>Zaif</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>0.41 – 0.60</strong></p></td>
+<td><p><strong>O’rtacha</strong> ← asosiy model</p></td>
+</tr>
+<tr class="row-even"><td><p>0.61 – 0.80</p></td>
+<td><p>Yaxshi</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.81 – 1.00</p></td>
+<td><p>Deyarli mukammal</p></td>
+</tr>
+</tbody>
+</table>
+<p>Qayerda ishlatiladi: modellarni baholashda, shuningdek ikki shifokor yoki ikki annotator javoblari qanchalik mos kelishini o’lchashda.</p>
+</section>
+<hr class="docutils" />
+<section id="mcc-matthews-correlation-coefficient">
+<h2>MCC (Matthews Correlation Coefficient)<a class="headerlink" href="#mcc-matthews-correlation-coefficient" title="Link to this heading"></a></h2>
+<p>Haqiqiy va bashorat qilingan sinflar orasidagi <strong>korrelyatsiya</strong>.</p>
+<p>Savol: model bashorati haqiqat bilan qanchalik bog’liq?</p>
+<p>G’oyasi: MCC confusion matrix’ning <strong>barcha</strong> kataklarini hisobga oladi. Natijada MCC nomutanosiblikka eng chidamli metrikalardan biri hisoblanadi.</p>
+<p>Ko’p sinfli formula:</p>
+<div class="math notranslate nohighlight">
+\[
+MCC = \frac{c \cdot s - \sum_k p_k t_k}{\sqrt{(s^2 - \sum_k p_k^2)(s^2 - \sum_k t_k^2)}}
+\]</div>
+<p>Belgilar:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(c\)</span> — to’g’ri javoblar soni = <strong>85</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span> — jami namunalar soni = <strong>100</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(t_k\)</span> — har bir sinfning haqiqiy soni (qator jamilari) = <strong>80, 15, 5</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(p_k\)</span> — har bir sinf necha marta bashorat qilingani (ustun jamilari) = <strong>80, 13, 7</strong></p></li>
+</ul>
+<p>Hisob-kitob:</p>
+<p>Surat:</p>
+<div class="math notranslate nohighlight">
+\[
+85 \cdot 100 - (80 \cdot 80 + 15 \cdot 13 + 5 \cdot 7) = 8500 - 6630 = 1870
+\]</div>
+<p>Maxrajdagi 1-qavs:</p>
+<div class="math notranslate nohighlight">
+\[
+10000 - (80^2 + 13^2 + 7^2) = 10000 - (6400 + 169 + 49) = 3382
+\]</div>
+<p>Maxrajdagi 2-qavs:</p>
+<div class="math notranslate nohighlight">
+\[
+10000 - (80^2 + 15^2 + 5^2) = 10000 - (6400 + 225 + 25) = 3350
+\]</div>
+<p>Natija:</p>
+<div class="math notranslate nohighlight">
+\[
+MCC = \frac{1870}{\sqrt{3382 \cdot 3350}} = \frac{1870}{3366.0} = \mathbf{0.556}
+\]</div>
+<h3>Natijani tushunish</h3>
+<p>MCC qiymatini o’lchov chizig’ida tasavvur qilish qulay:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> -1 ──────────── 0 ──────────── +0.556 ──── +1
+ Hammasi        Tasodifiy        Asosiy       Mukammal
+ teskari        taxmin           model        model
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>+1</strong> — model hamma bemorni to’g’ri topadi.</p></li>
+<li><p><strong>0</strong> — model hech narsa o’rganmagan, tanga tashlagandek ishlaydi.</p></li>
+<li><p><strong>−1</strong> — model har doim teskari javob beradi. Amalda deyarli uchramaydi.</p></li>
+</ul>
+<p>Asosiy model 0 dan +1 gacha bo’lgan yo’lning yarmidan sal o’tgan: <strong>tasodifdan aniq yaxshiroq, lekin mukammallikdan ancha uzoq.</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>MCC</p></th>
+<th class="head"><p>Baho (taxminiy)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0 atrofida</p></td>
+<td><p>Foydasiz, tasodifdan farqi yo’q</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1 – 0.3</p></td>
+<td><p>Zaif</p></td>
+</tr>
+<tr class="row-even"><td><p>0.3 – 0.5</p></td>
+<td><p>O’rtacha</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>0.5 – 0.7</strong></p></td>
+<td><p><strong>Yaxshi, lekin kamchiliklar bor</strong> ← asosiy model</p></td>
+</tr>
+<tr class="row-even"><td><p>0.7 – 0.9</p></td>
+<td><p>Kuchli</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.9 dan yuqori</p></td>
+<td><p>Juda kuchli</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>! Jadvaldagi chegaralar qat’iy qoida emas, umumiy mo’ljal xolos. Tibbiyotda talab odatda yuqoriroq bo’ladi.</em></p>
+<h3>Nega accuracy 0.85, MCC esa atigi 0.556?</h3>
+<p>Imtihon misoli: testdagi 100 ta savolning 80 tasida to’g’ri javob “A”. Bir o’quvchi darsga tayyorlanmasdan hamma savolga “A” belgilaydi va <strong>80 ball</strong> oladi.</p>
+<ul class="simple">
+<li><p><strong>Accuracy</strong> o’quvchiga 80% beradi va “yaxshi o’quvchi” deb ko’rsatadi.</p></li>
+<li><p><strong>MCC</strong> o’quvchiga <strong>0</strong> beradi, chunki o’quvchi faqat ko’pchilik javobni takrorlagan.</p></li>
+</ul>
+<p>MCC tasodifan yoki “ko’pchilikka ergashib” olingan to’g’ri javoblar uchun ball bermaydi. Faqat model <strong>haqiqatan o’rganib</strong> topgan javoblar hisobga olinadi.</p>
+<p>Asosiy modelda ham holat o’xshash:</p>
+<ul class="simple">
+<li><p>85 ta to’g’ri javobning katta qismi sog’lomlar. Sog’lomlarni “hamma bemor sog’lom” deydigan model ham topa olardi.</p></li>
+<li><p>Gripp va Kovidni topishda model ancha qiynalgan.</p></li>
+<li><p>MCC ikkala holatni hisobga oladi va “haqiqiy bilim darajasi”ni taxminan 0.56 deb baholaydi.</p></li>
+</ul>
+<p>Accuracy 0.85 model ishni yaxshi bajarayotgandek taassurot qoldiradi. MCC 0.556 esa haqiqiy holatni ko’rsatadi: model ma’lum darajada o’rgangan, lekin kichik sinflarda hali ko’p xato qiladi.</p>
+<h3>Kappa va MCC nega yaqin chiqdi (0.555 va 0.556)?</h3>
+<p>Kappa ham, MCC ham bitta g’oyaga asoslangan: model tasodifdan qanchalik yaxshi ekanini o’lchash. Ko’p hollarda natijalar yaqin chiqadi. MCC nazariy jihatdan biroz ishonchliroq hisoblanadi, chunki juda nomutanosib yoki g’ayrioddiy matritsalarda ham barqaror natija beradi.</p>
+</section>
+<hr class="docutils" />
+<section id="jaccard-score-iou-intersection-over-union">
+<h2>Jaccard Score (IoU, Intersection over Union)<a class="headerlink" href="#jaccard-score-iou-intersection-over-union" title="Link to this heading"></a></h2>
+<p>Bashorat va haqiqat kesishmasining birlashmaga nisbati.</p>
+<p>Savol: tanlangan sinfga aloqador barcha obyektlarning qancha qismida model javobi va haqiqat mos keldi?</p>
+<div class="math notranslate nohighlight">
+\[
+J = \frac{TP}{TP + FP + FN} = \frac{\text{kesishma}}{\text{birlashma}}
+\]</div>
+<p>Kovid misolida ikki guruh bor:</p>
+<ul class="simple">
+<li><p><strong>A guruh</strong> — model “Kovid” degan kishilar: <strong>7</strong> kishi.</p></li>
+<li><p><strong>B guruh</strong> — haqiqatan Kovid bo’lgan kishilar: <strong>5</strong> kishi.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      Model "Kovid" dedi            Haqiqatan Kovid
+        ┌────────────┬───────┬────────────┐
+        │            │       │            │
+        │  4 kishi   │   3   │  2 kishi   │
+        │ (yolg'on   │ kishi │ (o'tkazib  │
+        │  xavotir)  │       │ yuborilgan)│
+        │    FP      │  TP   │    FN      │
+        └────────────┴───────┴────────────┘
+              Jami aloqador: 4 + 3 + 2 = 9 kishi
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>O’rtadagi <strong>3 kishi</strong> ikkala guruhda ham bor: Kovid to’g’ri topilgan.</p></li>
+<li><p>Chapdagi <strong>4 kishi</strong> sog’lom yoki gripp bo’lgan, lekin model “Kovid” degan.</p></li>
+<li><p>O’ngdagi <strong>2 kishi</strong> Kovid bo’lgan, lekin model topa olmagan.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+J = \frac{3}{9} = 0.333
+\]</div>
+<p>Ma’nosi: “Kovid” masalasiga aloqador 9 kishidan faqat 3 tasida model to’g’ri ishlagan. Qolgan 6 tasida xato qilgan: yo bekorga Kovid degan, yo Kovidni o’tkazib yuborgan.</p>
+<p>Har bir sinf natijasi:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sinf</p></th>
+<th class="head"><p>Hisob</p></th>
+<th class="head"><p>Jaccard</p></th>
+<th class="head"><p>Sodda ma’nosi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sog’lom</p></td>
+<td><p>74 / (74 + 6 + 6)</p></td>
+<td><p>0.860</p></td>
+<td><p>86 kishidan 74 tasida mos keldi. Yaxshi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gripp</p></td>
+<td><p>8 / (8 + 5 + 7)</p></td>
+<td><p>0.400</p></td>
+<td><p>20 kishidan 8 tasida mos keldi. Zaif</p></td>
+</tr>
+<tr class="row-even"><td><p>Kovid</p></td>
+<td><p>3 / (3 + 4 + 2)</p></td>
+<td><p>0.333</p></td>
+<td><p>9 kishidan 3 tasida mos keldi. Zaif</p></td>
+</tr>
+</tbody>
+</table>
+<p>Jaccard qiymatini foiz kabi o’qish mumkin: 1 bo’lsa, ikki guruh to’liq ustma-ust tushgan; 0 bo’lsa, guruhlar umuman kesishmaydi.</p>
+<p>Umumiy sonlar:</p>
+<ul class="simple">
+<li><p><strong>Macro</strong> = (0.860 + 0.400 + 0.333) / 3 = <strong>0.531</strong> — har bir sinf teng hisoblanganda, model javobi va haqiqat o’rtacha yarmidan sal ko’proq mos keladi. Kichik sinflardagi zaiflik aynan macro qiymatda ko’rinadi.</p></li>
+<li><p><strong>Weighted</strong> = 0.80 · 0.860 + 0.15 · 0.400 + 0.05 · 0.333 = <strong>0.765</strong> — natija Sog’lom sinfi hisobiga ko’tarilgan va accuracy kabi kichik sinflardagi muammoni yashiradi.</p></li>
+<li><p><strong>Micro</strong> = 85 / (85 + 15 + 15) = <strong>0.739</strong>.</p></li>
+</ul>
+<h3>Nega Jaccard F1'dan past chiqadi?</h3>
+<p>Kovid uchun F1 = 0.500, Jaccard esa 0.333. Sababi:</p>
+<ul class="simple">
+<li><p><strong>F1</strong> to’g’ri topilganlarni <strong>ikki marta</strong> hisoblaydi: <span class="math notranslate nohighlight">\(\frac{2 \cdot 3}{2 \cdot 3 + 4 + 2} = \frac{6}{12} = 0.5\)</span></p></li>
+<li><p><strong>Jaccard</strong> to’g’ri topilganlarni <strong>bir marta</strong> hisoblaydi: <span class="math notranslate nohighlight">\(\frac{3}{3 + 4 + 2} = \frac{3}{9} = 0.333\)</span></p></li>
+</ul>
+<p>Demak, Jaccard xatolarga nisbatan qattiqroq. F1 va Jaccard orasida aniq bog’liqlik bor:</p>
+<div class="math notranslate nohighlight">
+\[
+J = \frac{F1}{2 - F1} \qquad \text{masalan: } \frac{0.5}{2 - 0.5} = 0.333
+\]</div>
+<p>F1 va Jaccard doim bir xil yo’nalishda harakat qiladi: F1 o’ssa, Jaccard ham o’sadi. Modellarni solishtirishda ikkala metrika bir xil xulosa beradi, faqat Jaccard sonlari pastroq bo’ladi.</p>
+<p>Qayerda ishlatiladi: ko’proq rasm segmentatsiyasida. Segmentatsiyada “model belgilagan soha haqiqiy soha bilan qanchalik ustma-ust tushdi” degan savol aynan Jaccard ma’nosiga to’g’ri keladi. Multi-label masalalarda ham ishlatiladi.</p>
+<hr class="docutils" />
+<h2>Nomutanosiblik tuzog'i: "dangasa" model</h2>
+<p>“Dangasa” model hech narsa o’rganmagan va <strong>har doim “Sog’lom”</strong> deb javob beradi. Dangasa modelning confusion matrix’i:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Haqiqiy ↓ / Bashorat →</p></th>
+<th class="head"><p>Sog’lom</p></th>
+<th class="head"><p>Gripp</p></th>
+<th class="head"><p>Kovid</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Sog’lom</strong></p></td>
+<td><p>80</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Gripp</strong></p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Kovid</strong></p></td>
+<td><p>5</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrika</p></th>
+<th class="head"><p>Asosiy model</p></th>
+<th class="head"><p>Dangasa model</p></th>
+<th class="head"><p>Dangasa model fosh bo’ldimi?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Accuracy</p></td>
+<td><p>0.85</p></td>
+<td><p><strong>0.80</strong></p></td>
+<td><p>Yo’q, model yaxshi ko’rinadi</p></td>
+</tr>
+<tr class="row-odd"><td><p>Weighted-F1</p></td>
+<td><p>0.851</p></td>
+<td><p>0.711</p></td>
+<td><p>Yo’q, farq kichik</p></td>
+</tr>
+<tr class="row-even"><td><p>Balanced Accuracy</p></td>
+<td><p>0.686</p></td>
+<td><p>0.333</p></td>
+<td><p>Ha</p></td>
+</tr>
+<tr class="row-odd"><td><p>Macro-F1</p></td>
+<td><p>0.665</p></td>
+<td><p>0.296</p></td>
+<td><p>Ha</p></td>
+</tr>
+<tr class="row-even"><td><p>Macro Jaccard</p></td>
+<td><p>0.531</p></td>
+<td><p>0.267</p></td>
+<td><p>Ha</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cohen’s Kappa</p></td>
+<td><p>0.555</p></td>
+<td><p><strong>0</strong></p></td>
+<td><p>Ha, “tasodifdan yaxshi emas”</p></td>
+</tr>
+<tr class="row-even"><td><p>MCC</p></td>
+<td><p>0.556</p></td>
+<td><p><strong>0</strong></p></td>
+<td><p>Ha, “tasodifdan yaxshi emas”</p></td>
+</tr>
+</tbody>
+</table>
+<p><em>! Dangasa model <strong>bitta ham kasalni topmaydi</strong>, lekin accuracy 80% chiqadi. Nomutanosib datasetda accuracy’ga ishonmaslik kerakligining sababi aynan dangasa model misolida ko’rinadi.</em></p>
+<hr class="docutils" />
+<h2>Yakuniy jadval</h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrika</p></th>
+<th class="head"><p>Asosiy model natijasi</p></th>
+<th class="head"><p>Sodda savol</p></th>
+<th class="head"><p>Qachon foydali</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Accuracy</p></td>
+<td><p>0.85</p></td>
+<td><p>Nechta javob to’g’ri?</p></td>
+<td><p>Faqat sinflar muvozanatli bo’lsa</p></td>
+</tr>
+<tr class="row-odd"><td><p>Precision (macro)</p></td>
+<td><p>0.656</p></td>
+<td><p>“Kasal” degan javobga ishonsa bo’ladimi?</p></td>
+<td><p>Yolg’on xavotir qimmat bo’lsa (spam filtri)</p></td>
+</tr>
+<tr class="row-even"><td><p>Recall (macro)</p></td>
+<td><p>0.686</p></td>
+<td><p>Kasallarning nechtasi topildi?</p></td>
+<td><p>O’tkazib yuborish xavfli bo’lsa (tibbiyot, firibgarlik)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Specificity (macro)</p></td>
+<td><p>0.866</p></td>
+<td><p>Sog’lomlar bekorga kasal deyilmadimi?</p></td>
+<td><p>Sog’lomlarni to’g’ri rad etish muhim bo’lsa</p></td>
+</tr>
+<tr class="row-even"><td><p>F1 (macro)</p></td>
+<td><p>0.665</p></td>
+<td><p>Precision va recall birgalikda qanday?</p></td>
+<td><p>Precision va recall’ni muvozanatlash kerak bo’lsa</p></td>
+</tr>
+<tr class="row-odd"><td><p>Balanced Accuracy</p></td>
+<td><p>0.686</p></td>
+<td><p>Har bir sinf o’rtacha qanday topildi?</p></td>
+<td><p>Nomutanosib datasetda accuracy o’rniga</p></td>
+</tr>
+<tr class="row-even"><td><p>Cohen’s Kappa</p></td>
+<td><p>0.555</p></td>
+<td><p>Tasodifdan qanchalik yaxshi?</p></td>
+<td><p>Tasodifdan farqni o’lchash, annotatorlar kelishuvi</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCC</p></td>
+<td><p>0.556</p></td>
+<td><p>Bashorat haqiqat bilan qanchalik bog’liq?</p></td>
+<td><p>Nomutanosib datasetda eng ishonchli yagona son</p></td>
+</tr>
+<tr class="row-even"><td><p>Jaccard (macro)</p></td>
+<td><p>0.531</p></td>
+<td><p>Bashorat va haqiqat qanchalik ustma-ust tushdi?</p></td>
+<td><p>Segmentatsiya, multi-label masalalar</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<h2>Metrika tanlash bo'yicha yo'riqnoma</h2>
+<ol class="arabic simple">
+<li><p><strong>Sinflar teng bo’lsa</strong> — accuracy yetarli.</p></li>
+<li><p><strong>Sinflar nomutanosib bo’lsa</strong> — accuracy o’rniga <strong>MCC</strong>, <strong>balanced accuracy</strong> yoki <strong>macro-F1</strong>.</p></li>
+<li><p><strong>Kasalni o’tkazib yuborish xavfli bo’lsa</strong> — asosiy e’tibor <strong>recall</strong> qiymatiga qaratiladi.</p></li>
+<li><p><strong>Yolg’on xavotir qimmat bo’lsa</strong> — asosiy e’tibor <strong>precision</strong> qiymatiga qaratiladi.</p></li>
+<li><p><strong>Bitta son bilan baholash kerak bo’lsa</strong> — <strong>MCC</strong>. “Hamma javobni bir xil aytish” kabi hiyla MCC’ni alday olmaydi.</p></li>
+<li><p><strong>Har doim</strong> har bir sinf bo’yicha alohida natijalar ham tekshiriladi. Umumiy son ba’zan muammoni yashiradi.</p></li>
+</ol>
+<hr class="docutils" />
+<h2>Python'da tekshirish</h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">classification_report</span><span class="p">,</span> <span class="n">balanced_accuracy_score</span><span class="p">,</span>
+                             <span class="n">cohen_kappa_score</span><span class="p">,</span> <span class="n">matthews_corrcoef</span><span class="p">,</span>
+                             <span class="n">jaccard_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Confusion matrix'dan y_true va y_pred ni qayta tiklash</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">74</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+               <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+               <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">cm</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">cm</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Sog'lom"</span><span class="p">,</span> <span class="s2">"Gripp"</span><span class="p">,</span> <span class="s2">"Kovid"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Balanced Acc:"</span><span class="p">,</span> <span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Kappa:       "</span><span class="p">,</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"MCC:         "</span><span class="p">,</span> <span class="n">matthews_corrcoef</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Jaccard macro:"</span><span class="p">,</span> <span class="n">jaccard_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">"macro"</span><span class="p">))</span>
+
+<span class="c1"># Specificity: sklearn'da tayyor funksiya yo'q, qo'lda hisoblanadi</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+    <span class="n">TP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="n">FN</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">TP</span>
+    <span class="n">FP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">TP</span>
+    <span class="n">TN</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">TP</span> <span class="o">-</span> <span class="n">FN</span> <span class="o">-</span> <span class="n">FP</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> specificity: </span><span class="si">{</span><span class="n">TN</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">TN</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">FP</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<h2>Qisqa xulosa</h2>
+<ul class="simple">
+<li><p><strong>Confusion matrix</strong> — qatorlar haqiqatni, ustunlar bashoratni ko’rsatadi, diagonal esa to’g’ri javoblar.</p></li>
+<li><p><strong>TP / FN / FP / TN</strong> — FN qatordan, FP ustundan topiladi.</p></li>
+<li><p><strong>Accuracy</strong> — nechta javob to’g’ri. Nomutanosib datasetda aldaydi.</p></li>
+<li><p><strong>Precision</strong> — “model aytgan javoblarning qanchasi to’g’ri?”</p></li>
+<li><p><strong>Recall</strong> — “mavjud holatlarning qanchasi topildi?”</p></li>
+<li><p><strong>Specificity</strong> — “tanlangan sinfga tegishli bo’lmagan obyektlar to’g’ri rad etildimi?”</p></li>
+<li><p><strong>F1</strong> — precision va recall’ning garmonik o’rtachasi.</p></li>
+<li><p><strong>Macro / Weighted / Micro</strong> — macro sinflarni teng ko’radi va nomutanosiblikda eng adolatli.</p></li>
+<li><p><strong>Balanced Accuracy</strong> — recall qiymatlarining oddiy o’rtachasi. Accuracy bilan farq katta bo’lsa, kichik sinflarda muammo bor.</p></li>
+<li><p><strong>Cohen’s Kappa</strong> — tasodifiy to’g’ri javoblar chiqarib tashlangandan keyingi natija.</p></li>
+<li><p><strong>MCC</strong> — −1 dan +1 gacha korrelyatsiya, 0 tasodifni bildiradi. Nomutanosiblikda eng ishonchli yagona son.</p></li>
+<li><p><strong>Jaccard</strong> — kesishma / birlashma. F1’ning qattiqroq versiyasi.</p></li>
+<li><p><strong>Dangasa model</strong> accuracy’ni aldaydi, MCC va Kappa’ni alday olmaydi.</p></li>
 </ul>
 </section>
 </section>
